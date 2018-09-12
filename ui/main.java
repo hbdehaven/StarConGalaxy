@@ -1,7 +1,7 @@
 package ui;
 
-//import model.StarConstellation;
-//import model.Star;
+import model.StarConstellation;
+import model.Star;
 
 import java.util.ArrayList;
 
@@ -10,10 +10,12 @@ public class main {
         starsYeah();
         sayAnd();
         conStell();
+        StarConstellation starcon1 = new StarConstellation("a");
     }
 
     private static void starsYeah() {
         System.out.println("STARS!");
+        Star star = new Star("star");
     }
 
     private static void conStell() {

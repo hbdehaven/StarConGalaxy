@@ -1,5 +1,7 @@
 package model;
 
+import model.Star;
+
 public class StarConstellation {
     private boolean location;  //true means northern hemisphere, false means southern
     private String name;  //most well known name of constellation; could be a number, but keep as String
