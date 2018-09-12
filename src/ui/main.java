@@ -1,22 +1,26 @@
 package ui;
 
-public class main {
+//import model.StarConstellation;
+//import model.Star;
 
-    public static void main(String[] args) {
+import java.util.ArrayList;
+
+public class main {
+    public static void main (String[] args) {
         starsYeah();
         sayAnd();
         conStell();
     }
 
-    public static void starsYeah() {
+    private static void starsYeah() {
         System.out.println("STARS!");
     }
 
-    public static void conStell() {
+    private static void conStell() {
         System.out.println("CONSTELLATIONS!");
     }
 
-    public static void sayAnd(){
+    private static void sayAnd(){
         System.out.println(" and ");
     }
 
