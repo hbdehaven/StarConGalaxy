@@ -28,9 +28,5 @@ public class StarConstellation {
     public String getSymbolism() {return symbolism;}
     public Star getStar() {return star;}
 
-//    public boolean locationtrue(StarConstellation scon) {
-//        if (scon.location)
-//            return true;
-//    }
 
 }
