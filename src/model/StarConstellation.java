@@ -3,29 +3,34 @@ package model;
 import model.Star;
 
 public class StarConstellation {
-    public String name;  //most well known name of constellation; could be a number, but keep as String
-    public double distance;  //average distance in lys from earth
-    public boolean location;  //true means northern hemisphere, false means southern
-    public String symbolism; //small fact or what it represents
-    public Star star; // brightest star; Star class with fields name and brightness
+    private String name; //most well known name of constellation; could be a number, but keep as String
+    private double distance;  //average distance in lys from earth
+    private boolean location;  //true means northern hemisphere, false means southern
+    private String symbolism; //small fact or what it represents
+    private Star star; // brightest star; Star class with fields name and brightness
 
-    public StarConstellation(String name) {
-        location = true;
+    public StarConstellation(String name, double distance, boolean location, String symbolism, Star star) {
         this.name = name;
-        this.distance = 0;
-        this.symbolism = "";
-        //getName();
-        //star?
-        //StarConstellation A = new StarConstellation("A");
-        //andromeda.distance = 100;
-        //andromeda.star = star1;
+        this.distance = distance;
+        this.location = location;
+        this.symbolism = symbolism;
+        this.star = star;
     }
 
-    public void getName() {
+    public void printName() {
         System.out.println("The name is " + name);
     }
 
-    //public String returnstarconName() {return name};
+    //getters
+    public String getName() {return name;}
+    public double getDistance() {return distance;}
+    public boolean isLocation() {return location;}
+    public String getSymbolism() {return symbolism;}
+    public Star getStar() {return star;}
 
+//    public boolean locationtrue(StarConstellation scon) {
+//        if (scon.location)
+//            return true;
+//    }
 
 }

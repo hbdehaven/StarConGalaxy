@@ -4,19 +4,13 @@ public class Star {
     private String name;
     private double brightness; //in apparent magnitude
 
-    public Star (String name) {
+    public Star (String name, double brightness) {
         this.name = name;
-        this.brightness = 0;
-        Star alphaAndro = new Star ("Alpha Andromedae");
-        alphaAndro.brightness = 2.06;
-        Star altair = new Star ("Altair");
-        altair.brightness = .76;
-        Star phact = new Star ("Phact");
-        phact.brightness = 2.645;
+        this.brightness = brightness;
     }
 
-    // source: control-and-data-flow-lecture-starters Customer class
-    public String returnName() {return name; }
-    public double returnBrightness() {return brightness; }
+    // getters
+    public String getStarName() {return name; }
+    public double getBrightness() {return brightness; }
 
 }
