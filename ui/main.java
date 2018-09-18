@@ -27,7 +27,7 @@ public class main {
         starcons.add(columba);
         sentence();
         andromeda.printName();
-        sortNorth(starcons);
+        starcons = sortNorth(starcons);
         printNorth(starcons);
     }
 
@@ -49,18 +49,14 @@ public class main {
         System.out.println("and");
     }
 
-    private static void sortNorth (ArrayList<StarConstellation> starcons) {
-        ArrayList<StarConstellation> notNorth = new ArrayList<>();
-        // creating a list of southern locations
-        for (StarConstellation sc: starcons) {
-            if (!sc.isLocation()) {
-                notNorth.add(sc);
+    private static ArrayList sortNorth (ArrayList<StarConstellation> starcons) {
+        ArrayList<StarConstellation> north = new ArrayList<>();
+            for (StarConstellation sc: starcons) {
+                if (sc.isLocation()) {
+                    north.add(sc);
+                }
             }
-        }
-        // changing starcons itself
-        for (StarConstellation sc: notNorth) {
-            starcons.remove(sc);
-        }
+            return north;
     }
 
     private static void printNorth (ArrayList<StarConstellation> starcons) {
@@ -69,6 +65,4 @@ public class main {
         }
     }
     //passing a parameter, loop, return something, and local variable
-
-
 }
