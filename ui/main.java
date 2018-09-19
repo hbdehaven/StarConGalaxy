@@ -77,7 +77,8 @@ public class main {
             if (answer.equals("yes")) {
                 System.out.println("Awesome!");
                 System.out.println("Would you like to sign up for daily emails?");
-                scanner.nextLine();
+                answer = scanner.nextLine();
+//                System.out.println(answer);
                 if (answer.equals("yes")) {
                     System.out.println("Great! More to come!");
                 }
@@ -97,10 +98,6 @@ public class main {
 
     }
 
-//    private static void secondAnswer(){
-//        if (answer.equals("yes")) {
-//            System.out.println("Great! More to come!");
-//        }
-//    }
+    // store rating and change a rating // each constellation has a list of ratings that has a date and time and a user (String name)
 
 }
