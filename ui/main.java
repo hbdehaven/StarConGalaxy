@@ -1,5 +1,6 @@
 package ui;
 
+import model.Rating;
 import model.StarConstellation;
 import model.Star;
 
@@ -15,13 +16,19 @@ public class main {
 
         Star phact = new Star("Phact", 2.645);
 
+        Rating andromeda5 = new Rating(5, "Heather", 924);
+
+        Rating aquila3 = new Rating(3, "Jake", 924);
+
+        Rating columba2 = new Rating(2 , "Carole", 924);
+
         ArrayList<StarConstellation> starcons = new ArrayList<>();
 
-        StarConstellation andromeda = new StarConstellation("Andromeda", 97, true, "The Chained Lady", alphaAndro);
+        StarConstellation andromeda = new StarConstellation("Andromeda", 97, true, "The Chained Lady", alphaAndro, andromeda5);
 
-        StarConstellation aquila = new StarConstellation("Aquila", 16.73, true, "The Eagle", altair);
+        StarConstellation aquila = new StarConstellation("Aquila", 16.73, true, "The Eagle", altair, aquila3);
 
-        StarConstellation columba = new StarConstellation("Columba", 261, false, "The Dove", phact);
+        StarConstellation columba = new StarConstellation("Columba", 261, false, "The Dove", phact, columba2);
 
         starcons.add(andromeda);
         starcons.add(aquila);
@@ -29,10 +36,11 @@ public class main {
         sentence();
         andromeda.printName();
         starcons = sortNorth(starcons);
-        printNorth(starcons);
+        printList(starcons);
         userInteraction();
     }
 
+    // EFFECTS: prints out a sentence
     private static void sentence() {
         starsYeah();
         sayAnd();
@@ -51,6 +59,8 @@ public class main {
         System.out.println("and");
     }
 
+    // MODIFIES: this
+    // EFFECTS: orders all starconstellations seen from the north hemisphere
     private static ArrayList sortNorth(ArrayList<StarConstellation> starcons) {
         ArrayList<StarConstellation> north = new ArrayList<>();
         for (StarConstellation sc : starcons) {
@@ -61,13 +71,18 @@ public class main {
         return north;
     }
 
-    private static void printNorth(ArrayList<StarConstellation> starcons) {
+    // EFFECTS: prints out every starconstellation in the list
+    private static void printList(ArrayList<StarConstellation> starcons) {
         for (StarConstellation sc : starcons) {
             System.out.println(sc.getName());
         }
     }
-    //passing a parameter, loop, return something, and local variable
 
+    // inspired by LittleLoggingCalculator
+
+    // REQUIRES:
+    // MODIFIES:
+    // EFFECTS: asks certain questions based on user input
     private static void userInteraction() {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
