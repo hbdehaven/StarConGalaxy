@@ -10,7 +10,9 @@ public class Star {
     }
 
     // getters
+    // EFFECTS: get name of Star
     public String getStarName() {return name; }
+    // EFFECTS: get brightness of Star
     public double getBrightness() {return brightness; }
 
 }

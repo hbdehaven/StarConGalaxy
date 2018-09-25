@@ -1,5 +1,6 @@
 package ui;
 
+import model.ListOfStarConstellation;
 import model.Rating;
 import model.StarConstellation;
 import model.Star;
@@ -7,9 +8,15 @@ import model.Star;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static model.Rating.userRating;
+
 public class main {
 
     public static void main(String[] args) {
+        new main().runApp();
+    }
+
+    private void runApp(){
         Star alphaAndro = new Star("Alpha Andromedae", 2.06);
 
         Star altair = new Star("Altair", .76);
@@ -33,49 +40,11 @@ public class main {
         starcons.add(andromeda);
         starcons.add(aquila);
         starcons.add(columba);
-        sentence();
         andromeda.printName();
-        starcons = sortNorth(starcons);
-        printList(starcons);
-        userInteraction();
-    }
-
-    // EFFECTS: prints out a sentence
-    private static void sentence() {
-        starsYeah();
-        sayAnd();
-        conStell();
-    }
-
-    private static void starsYeah() {
-        System.out.println("stars");
-    }
-
-    private static void conStell() {
-        System.out.println("constellations");
-    }
-
-    private static void sayAnd() {
-        System.out.println("and");
-    }
-
-    // MODIFIES: this
-    // EFFECTS: orders all starconstellations seen from the north hemisphere
-    private static ArrayList sortNorth(ArrayList<StarConstellation> starcons) {
-        ArrayList<StarConstellation> north = new ArrayList<>();
-        for (StarConstellation sc : starcons) {
-            if (sc.isLocation()) {
-                north.add(sc);
-            }
-        }
-        return north;
-    }
-
-    // EFFECTS: prints out every starconstellation in the list
-    private static void printList(ArrayList<StarConstellation> starcons) {
-        for (StarConstellation sc : starcons) {
-            System.out.println(sc.getName());
-        }
+        starcons = ListOfStarConstellation.sortNorth(starcons);
+        //printList(starcons);
+        //userInterest();
+        userRating();
     }
 
     // inspired by LittleLoggingCalculator
@@ -83,7 +52,7 @@ public class main {
     // REQUIRES:
     // MODIFIES:
     // EFFECTS: asks certain questions based on user input
-    private static void userInteraction() {
+    private static void userInterest() {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
         while (true) {
@@ -93,7 +62,6 @@ public class main {
                 System.out.println("Awesome!");
                 System.out.println("Would you like to sign up for daily emails?");
                 answer = scanner.nextLine();
-//                System.out.println(answer);
                 if (answer.equals("yes")) {
                     System.out.println("Great! More to come!");
                 }
