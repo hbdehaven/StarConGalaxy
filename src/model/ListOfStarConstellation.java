@@ -60,4 +60,10 @@ public class ListOfStarConstellation {
             System.out.println(sc.getName());
         }
     }
+
+    //getters
+    //EFFECTS: retrieve name of ListOfStarConstellation
+    public String getLOSCname() {
+        return name;
+    }
 }
