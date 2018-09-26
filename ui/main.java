@@ -6,14 +6,15 @@ import model.StarConstellation;
 import model.Star;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static model.Rating.userRating;
+import static model.User.userInterest;
 
 public class main {
 
     public static void main(String[] args) {
         new main().runApp();
+
     }
 
     private void runApp(){
@@ -42,45 +43,11 @@ public class main {
         starcons.add(columba);
         andromeda.printName();
         starcons = ListOfStarConstellation.sortNorth(starcons);
-        //printList(starcons);
+        //printList();
         //userInterest();
         userRating();
     }
-
-    // inspired by LittleLoggingCalculator
-
-    // REQUIRES:
-    // MODIFIES:
-    // EFFECTS: asks certain questions based on user input
-    private static void userInterest() {
-        Scanner scanner = new Scanner(System.in);
-        String answer = "";
-        while (true) {
-            System.out.println("Do you like star constellations? yes or no?");
-            answer = scanner.nextLine();
-            if (answer.equals("yes")) {
-                System.out.println("Awesome!");
-                System.out.println("Would you like to sign up for daily emails?");
-                answer = scanner.nextLine();
-                if (answer.equals("yes")) {
-                    System.out.println("Great! More to come!");
-                }
-                scanner.nextLine();
-            }
-
-            if (answer.equals("no")) {
-                System.out.println("Then get out.");
-                scanner.nextLine();
-            }
-
-            else if (answer.equals("quit")) {
-                break;
-            }
-
-        }
-
-    }
-
-    // store rating and change a rating // each constellation has a list of ratings that has a date and time and a user (String name)
-
 }
+
+
+

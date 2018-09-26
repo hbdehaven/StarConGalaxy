@@ -3,6 +3,8 @@ package model;
 import java.util.Scanner;
 import model.StarConstellation;
 
+// store rating and change a rating // each constellation has a list of ratings that has a date and time and a user (String name)
+
 public class Rating {
     private int rating; //rating is out of 1 to 5 stars
     private String user; // name of user who inputted rating
@@ -14,6 +16,7 @@ public class Rating {
         this.date = date;
     }
 
+    // EFFECTS: asks questions and saves data based on user's input
     public static void userRating(){
         Scanner scanner = new Scanner(System.in);
         String answer = "";

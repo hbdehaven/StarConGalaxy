@@ -49,4 +49,36 @@ public class ListOfStarConstellationTest {
         assertFalse(listofstarcons.contains(starcon2));
     }
 
+    @Test
+    public void testsortSouthWithOutSouth(){
+        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
+        if (starcon1.isLocation()){
+            listofstarcons.placeIn(starcon1);
+        }
+        assertFalse(listofstarcons.contains(starcon1));
+    }
+
+    @Test
+    public void testsortSouthWithSouth(){
+        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
+        if (starcon2.isLocation()){
+            listofstarcons.placeIn(starcon2);
+        }
+        assertTrue(listofstarcons.contains(starcon2));
+    }
+
+    @Test
+    public void testsortSouthWithSouthandWithout(){
+        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
+        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
+        listofstarcons.placeIn(starcon1);
+        listofstarcons.placeIn(starcon2);
+        if (starcon1.isLocation() && !starcon2.isLocation()){
+            listofstarcons.placeIn(starcon2);
+        }
+        assertFalse(listofstarcons.contains(starcon1));
+        assertTrue(listofstarcons.contains(starcon2));
+        assertEquals(listofstarcons.size(), 1);
+    }
+
 }
