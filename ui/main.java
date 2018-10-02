@@ -7,6 +7,7 @@ import model.Star;
 
 import java.util.ArrayList;
 
+import static com.sun.deploy.util.SessionState.save;
 import static model.Rating.userRating;
 import static model.User.userInterest;
 
@@ -14,7 +15,6 @@ public class main {
 
     public static void main(String[] args) {
         new main().runApp();
-
     }
 
     private void runApp(){
@@ -24,26 +24,25 @@ public class main {
 
         Star phact = new Star("Phact", 2.645);
 
-        Rating andromeda5 = new Rating(5, "Heather", 924);
+        ListOfStarConstellation allstarcons = new ListOfStarConstellation("All Stars" );
 
-        Rating aquila3 = new Rating(3, "Jake", 924);
+        StarConstellation andromeda = new StarConstellation("Andromeda", 97, StarConstellation.Location.NORTH, "The Chained Lady", alphaAndro);
 
-        Rating columba2 = new Rating(2 , "Carole", 924);
+        StarConstellation aquila = new StarConstellation("Aquila", 16.73, StarConstellation.Location.NORTH, "The Eagle", altair);
 
-        ArrayList<StarConstellation> starcons = new ArrayList<>();
+        StarConstellation columba = new StarConstellation("Columba", 261, StarConstellation.Location.SOUTH, "The Dove", phact);
 
-        StarConstellation andromeda = new StarConstellation("Andromeda", 97, true, "The Chained Lady", alphaAndro, andromeda5);
+        Rating andromeda5 = new Rating("Rating of Andromeda", 5, "Heather", 924);
 
-        StarConstellation aquila = new StarConstellation("Aquila", 16.73, true, "The Eagle", altair, aquila3);
+        Rating aquila3 = new Rating("Rating of Aquila",3, "Jake", 924);
 
-        StarConstellation columba = new StarConstellation("Columba", 261, false, "The Dove", phact, columba2);
+        Rating columba2 = new Rating("Rating of Columba",2 , "Carole", 924);
 
-        starcons.add(andromeda);
-        starcons.add(aquila);
-        starcons.add(columba);
-        andromeda.printName();
-        starcons = ListOfStarConstellation.sortNorth(starcons);
-        //printList();
+        //andromeda.printName();
+        //allstarcons.getNorth(allstarcons);
+        //allstarcons.restore(allstarcons);
+        //allstarcons.printList();
+        //allstarcons.position(0).printName();
         //userInterest();
         userRating();
     }

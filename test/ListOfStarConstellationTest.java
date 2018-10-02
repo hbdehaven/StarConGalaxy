@@ -5,8 +5,6 @@ import model.StarConstellation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,21 +27,21 @@ public class ListOfStarConstellationTest {
 
     @Test
     public void testsortNorthWithNorth(){
-        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
+        StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
         listofstarcons.placeIn(starcon1);
         assertTrue(listofstarcons.contains(starcon1));
     }
 
     @Test
     public void testsortNorthWithoutNorth(){
-        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
+        StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
         assertFalse(listofstarcons.contains(starcon2));
     }
 
     @Test
     public void testsortNorthWithNorthandWithout(){
-        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
-        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
+        StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
+        StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
         listofstarcons.placeIn(starcon1);
         assertTrue(listofstarcons.contains(starcon1));
         assertFalse(listofstarcons.contains(starcon2));
@@ -51,8 +49,8 @@ public class ListOfStarConstellationTest {
 
     @Test
     public void testsortSouthWithOutSouth(){
-        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
-        if (starcon1.isLocation()){
+        StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
+        if (starcon1.getLocation() == StarConstellation.Location.SOUTH){
             listofstarcons.placeIn(starcon1);
         }
         assertFalse(listofstarcons.contains(starcon1));
@@ -60,8 +58,8 @@ public class ListOfStarConstellationTest {
 
     @Test
     public void testsortSouthWithSouth(){
-        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
-        if (starcon2.isLocation()){
+        StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
+        if (starcon2.getLocation() == StarConstellation.Location.SOUTH){
             listofstarcons.placeIn(starcon2);
         }
         assertTrue(listofstarcons.contains(starcon2));
@@ -69,16 +67,12 @@ public class ListOfStarConstellationTest {
 
     @Test
     public void testsortSouthWithSouthandWithout(){
-        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
-        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
-        listofstarcons.placeIn(starcon1);
-        listofstarcons.placeIn(starcon2);
-        if (starcon1.isLocation() && !starcon2.isLocation()){
-            listofstarcons.placeIn(starcon2);
-        }
+        StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
+        StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
+        if (starcon1.getLocation() == StarConstellation.Location.NORTH) {}
+        else if (starcon2.getLocation() == StarConstellation.Location.SOUTH) {listofstarcons.placeIn(starcon2);}
         assertFalse(listofstarcons.contains(starcon1));
         assertTrue(listofstarcons.contains(starcon2));
-        assertEquals(listofstarcons.size(), 1);
     }
 
 }
