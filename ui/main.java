@@ -5,6 +5,7 @@ import model.Rating;
 import model.StarConstellation;
 import model.Star;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.sun.deploy.util.SessionState.save;
@@ -13,11 +14,11 @@ import static model.User.userInterest;
 
 public class main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new main().runApp();
     }
 
-    private void runApp(){
+    private void runApp() throws IOException {
         Star alphaAndro = new Star("Alpha Andromedae", 2.06);
 
         Star altair = new Star("Altair", .76);

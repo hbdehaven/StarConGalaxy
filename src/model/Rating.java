@@ -1,14 +1,11 @@
 package model;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 // store rating and change a rating // each constellation has a list of ratings that has a date and time and a user (String name)
@@ -27,7 +24,10 @@ public class Rating implements Loadable, Saveable {
     }
 
     // EFFECTS: asks questions and saves data based on user's input
-    public static void userRating() {
+    public static void userRating() throws IOException {
+        Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
+        Rating rate = new Rating("", 0, "", 0000);
+        rate.load(scanner1);
         ArrayList<Rating> allratings = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String answer = "";
@@ -61,7 +61,7 @@ public class Rating implements Loadable, Saveable {
                     answer = scanner.nextLine();
                     if (answer.equals("yes")) {
                         System.out.println("Great! Thanks again for your input.");
-                        //////////////////////////////////
+
                         allratings.add(starconnamerating);
                         for(Rating r : allratings) {
                             try {
@@ -69,8 +69,7 @@ public class Rating implements Loadable, Saveable {
                             } catch (IOException e) {
                             }
                         }
-                        // SAVE THIS INPUT
-                        /////////////////////////////////
+
                         System.out.println("Would you like to rate another?");
                         answer = scanner.nextLine();
                         if (answer.equals("yes")) {
