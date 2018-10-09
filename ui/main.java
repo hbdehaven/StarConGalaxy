@@ -6,11 +6,9 @@ import model.StarConstellation;
 import model.Star;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static com.sun.deploy.util.SessionState.save;
-import static model.Rating.userRating;
-import static model.User.userInterest;
+import static model.UIRating.userRating;
+import static model.UserInteration.userInteract;
 
 public class main {
 
@@ -33,19 +31,13 @@ public class main {
 
         StarConstellation columba = new StarConstellation("Columba", 261, StarConstellation.Location.SOUTH, "The Dove", phact);
 
-        Rating andromeda5 = new Rating("Rating of Andromeda", 5, "Heather", 924);
-
-        Rating aquila3 = new Rating("Rating of Aquila",3, "Jake", 924);
-
-        Rating columba2 = new Rating("Rating of Columba",2 , "Carole", 924);
-
         //andromeda.printName();
         //allstarcons.getNorth(allstarcons);
-        //allstarcons.restore(allstarcons);
-        //allstarcons.printList();
+        allstarcons.restore(allstarcons);
+        //allstarcons.getSouth(allstarcons);
+        allstarcons.printList();
         //allstarcons.position(0).printName();
-        //userInterest();
-        userRating();
+        userInteract();
     }
 }
 

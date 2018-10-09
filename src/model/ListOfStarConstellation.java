@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 // inspired by IntegerSetIntersect
-public class ListOfStarConstellation {
+public class ListOfStarConstellation extends ListofStellarObject{
     private String name;
     private ArrayList<StarConstellation> listofstarcons;
 
@@ -36,18 +36,19 @@ public class ListOfStarConstellation {
                 losc.remove(sc);
                 return losc;
             }
+
         }
         return losc;
     }
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from the south hemisphere
-    public ListOfStarConstellation sortSouth (ListOfStarConstellation losc) {
+    public ListOfStarConstellation sortSouth(ListOfStarConstellation losc) {
         for (StarConstellation sc : losc.listofstarcons) {
             if (locationNorth(sc.getLocation())) {
                 losc.remove(sc);
-                return losc;
             }
+            return losc;
         }
         return losc;
     }
@@ -59,9 +60,22 @@ public class ListOfStarConstellation {
         }
     }
 
+    // EFFECTS: prints out every starconstellation in the list
+    public void printListSymbols() {
+        for (StarConstellation sc : listofstarcons) {
+            System.out.println(sc.getName() + ": " + sc.getSymbolism());
+        }
+    }
+
     // EFFECTS: prints out list of starcons that are visible from North
     public void getNorth(ListOfStarConstellation list){
         sortNorth(list);
+        printList();
+    }
+
+    // EFFECTS: prints out list of starcons that are visible from North
+    public void getSouth (ListOfStarConstellation list){
+        sortSouth(list);
         printList();
     }
 
