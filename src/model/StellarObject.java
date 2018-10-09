@@ -2,7 +2,7 @@ package model;
 
 public abstract class StellarObject {
     public enum Location {
-        NORTH, SOUTH
+        NORTH, SOUTH, BOTH
     }
 
     protected String name;

@@ -21,14 +21,14 @@ public class ListOfStarConstellationTest {
 //        StarConstellation starcon1 = new StarConstellation("",0,true,"",null, null);
 //        StarConstellation starcon2 = new StarConstellation("",0,false,"",null, null);
         listofstarcons = new ListOfStarConstellation("Star Cons");
-//        listofstarcons.placeIn(starcon1);
-//        listofstarcons.placeIn(starcon2);
+//        listofstarcons.add(starcon1);
+//        listofstarcons.add(starcon2);
     }
 
     @Test
     public void testsortNorthWithNorth(){
         StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
-        listofstarcons.placeIn(starcon1);
+        listofstarcons.add(starcon1);
         assertTrue(listofstarcons.contains(starcon1));
     }
 
@@ -42,7 +42,7 @@ public class ListOfStarConstellationTest {
     public void testsortNorthWithNorthandWithout(){
         StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
         StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
-        listofstarcons.placeIn(starcon1);
+        listofstarcons.add(starcon1);
         assertTrue(listofstarcons.contains(starcon1));
         assertFalse(listofstarcons.contains(starcon2));
     }
@@ -51,7 +51,7 @@ public class ListOfStarConstellationTest {
     public void testsortSouthWithOutSouth(){
         StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
         if (starcon1.getLocation() == StarConstellation.Location.SOUTH){
-            listofstarcons.placeIn(starcon1);
+            listofstarcons.add(starcon1);
         }
         assertFalse(listofstarcons.contains(starcon1));
     }
@@ -60,7 +60,7 @@ public class ListOfStarConstellationTest {
     public void testsortSouthWithSouth(){
         StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
         if (starcon2.getLocation() == StarConstellation.Location.SOUTH){
-            listofstarcons.placeIn(starcon2);
+            listofstarcons.add(starcon2);
         }
         assertTrue(listofstarcons.contains(starcon2));
     }
@@ -70,7 +70,7 @@ public class ListOfStarConstellationTest {
         StarConstellation starcon1 = new StarConstellation("",0, StarConstellation.Location.NORTH,"",null);
         StarConstellation starcon2 = new StarConstellation("",0, StarConstellation.Location.SOUTH,"",null);
         if (starcon1.getLocation() == StarConstellation.Location.NORTH) {}
-        else if (starcon2.getLocation() == StarConstellation.Location.SOUTH) {listofstarcons.placeIn(starcon2);}
+        else if (starcon2.getLocation() == StarConstellation.Location.SOUTH) {listofstarcons.add(starcon2);}
         assertFalse(listofstarcons.contains(starcon1));
         assertTrue(listofstarcons.contains(starcon2));
     }

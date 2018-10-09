@@ -13,6 +13,7 @@ public class UserInteration {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
         ListOfStarConstellation starcons = new ListOfStarConstellation("All");
+        ListofGalaxy galaxies = new ListofGalaxy("All");
         starcons.restore(starcons);
         while (true) {
             System.out.println("What are you more interested in? Galaxies or Star Constellations?");
@@ -51,11 +52,43 @@ public class UserInteration {
                     answer = scanner.nextLine();
                 }
             } else if (answer.equals("galaxies")) {
-                System.out.println("Great more to come!");
+                answerGalaxies();
             }
             userRating();
         }
 
+    }
+
+    public static void answerGalaxies() {
+        ListofGalaxy galaxies = new ListofGalaxy("All");
+        System.out.println("Here are our Galaxies:");
+        galaxies.printList();
+        System.out.println("What would you like to explore? Location or type?");
+        String answer = "";
+        Scanner scanner = new Scanner(System.in);
+        answer = scanner.nextLine();
+        if (answer.equals("location")){
+            locationGalaxy();
+        }
+    }
+
+    public static void locationGalaxy(){
+        System.out.println("Great!");
+        System.out.println("More to come!");
+//        System.out.println("Are you interested in galaxies that you can see from " +
+//                "the Northern or Southern Hemisphere?");
+//        String answer = "";
+//        Scanner scanner = new Scanner(System.in);
+//        answer = scanner.nextLine();
+//        if (answer.equals("northern")){
+//            northernGalaxy();
+//        }
+    }
+
+    public static void northernGalaxy(){
+        ListofGalaxy galaxies = new ListofGalaxy("All");
+        System.out.println("Here you are");
+        //galaxies.getNorth(galaxies);
     }
 
 }

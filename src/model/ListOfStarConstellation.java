@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 // inspired by IntegerSetIntersect
-public class ListOfStarConstellation extends ListofStellarObject{
+public class ListOfStarConstellation{
     private String name;
     private ArrayList<StarConstellation> listofstarcons;
 
@@ -30,7 +30,7 @@ public class ListOfStarConstellation extends ListofStellarObject{
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from north hemisphere
-    public ListOfStarConstellation sortNorth(ListOfStarConstellation losc){
+    private ListOfStarConstellation sortNorth(ListOfStarConstellation losc){
         for (StarConstellation sc: losc.listofstarcons){
             if (locationSouth(sc.getLocation())){
                 losc.remove(sc);
@@ -43,7 +43,7 @@ public class ListOfStarConstellation extends ListofStellarObject{
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from the south hemisphere
-    public ListOfStarConstellation sortSouth(ListOfStarConstellation losc) {
+    private ListOfStarConstellation sortSouth(ListOfStarConstellation losc) {
         for (StarConstellation sc : losc.listofstarcons) {
             if (locationNorth(sc.getLocation())) {
                 losc.remove(sc);
@@ -53,18 +53,26 @@ public class ListOfStarConstellation extends ListofStellarObject{
         return losc;
     }
 
-    // EFFECTS: prints out every starconstellation in the list
-    public void printList() {
-        for (StarConstellation sc : listofstarcons) {
-            System.out.println(sc.getName());
-        }
-    }
+//    // EFFECTS: prints out every starconstellation in the list
+//    public void printList() {
+//        for (StarConstellation sc : listofstarcons) {
+//            System.out.println(sc.getName());
+//        }
+//    }
 
     // EFFECTS: prints out every starconstellation in the list
     public void printListSymbols() {
         for (StarConstellation sc : listofstarcons) {
             System.out.println(sc.getName() + ": " + sc.getSymbolism());
         }
+    }
+
+    public boolean locationNorth(StellarObject.Location location){
+        return (location == StellarObject.Location.NORTH);
+    }
+
+    public  boolean locationSouth(StellarObject.Location location){
+        return (location == StellarObject.Location.SOUTH);
     }
 
     // EFFECTS: prints out list of starcons that are visible from North
@@ -100,40 +108,12 @@ public class ListOfStarConstellation extends ListofStellarObject{
         losc.listofstarcons = restored;
     }
 
-    //getters
-    //EFFECTS: retrieve name of ListOfStarConstellation
-    public String getLOSCname() {
-        return name;
-    }
-    public ArrayList<StarConstellation> getListofstarcons() {
-        return listofstarcons;
-    }
-
-    public boolean locationNorth(StarConstellation.Location location){
-        return (location == StarConstellation.Location.NORTH);
-    }
-
-    public boolean locationSouth(StarConstellation.Location location){
-        return (location == StarConstellation.Location.SOUTH);
-    }
-
-
-//// ask for help with greatest distance one
-//    public void greatestDis(ListOfStarConstellation starcons){
-//
-//    }
-
     // MODIFIES: this
-    // EFFECTS: adds sc to a ListOfStarConstellations
-    public void placeIn (StarConstellation sc){
-        listofstarcons.add(sc);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: removes sc to a ListofStarConstellations
+    // EFFECTS: removes sc to a ListofStellarObject
     public void remove (StarConstellation sc){
         listofstarcons.remove(sc);
     }
+
 
     // EFFECTS: checks if listofstarcons contains sc
     public boolean contains(StarConstellation sc){
@@ -149,4 +129,25 @@ public class ListOfStarConstellation extends ListofStellarObject{
     public StarConstellation position(int x){
         return listofstarcons.get(x);
     }
+
+
+    // MODIFIES: this
+    // EFFECTS: adds sc to a ListOfStarConstellations
+    public void add(StarConstellation sc){
+        listofstarcons.add(sc);
+    }
+
+    // EFFECTS: prints out every stellar object in the list
+    public void printList() {
+        for (StarConstellation sc: listofstarcons) {
+            System.out.println(sc.getName());
+        }
+    }
+
+
+//// ask for help with greatest distance one
+//    public void greatestDis(ListOfStarConstellation starcons){
+//
+//    }
+
 }
