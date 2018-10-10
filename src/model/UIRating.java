@@ -1,5 +1,7 @@
 package model;
 
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -31,6 +33,7 @@ public class UIRating {
                 System.out.println("You'd like to rate " + nameOfStarCon(pos) + "?");
                 answer = scanner.nextLine();
                 if (answer.equals("yes")) {
+                    //wouldLikeToRateStar(pos);
                     System.out.println("How many stars out of 5 would you like to rate " + nameOfStarCon(pos) + "?");
                     answer = scanner.nextLine();
                     Rating starconnamerating = new Rating(nameOfStarCon(pos), 0, "", 0);
@@ -66,6 +69,25 @@ public class UIRating {
                 break;
             }
         }
+    }
+
+    private static void wouldLikeToRateStar(String pos){
+        String answer = "";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How many stars out of 5 would you like to rate " + nameOfStarCon(pos) + "?");
+        answer = scanner.nextLine();
+        Rating starconnamerating = new Rating(nameOfStarCon(pos), 0, "", 0);
+        int num = Integer.parseInt(answer);
+        starconnamerating.rating = num;
+        System.out.println("What's your name?");
+        String user = scanner.nextLine();
+        starconnamerating.user = user;
+        System.out.println("What's the date in the form of MMDD?");
+        answer = scanner.nextLine();
+        int date = Integer.parseInt(answer);
+        starconnamerating.date = date;
+        System.out.println("Is this correct? Rating of " + num + " by " + user + " on " + date + "?");
+        answer = scanner.nextLine();
     }
 
     private static void tryAgain(String answer) throws IOException {

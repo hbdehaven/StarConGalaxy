@@ -137,7 +137,7 @@ public class ListOfStarConstellation{
         listofstarcons.add(sc);
     }
 
-    // EFFECTS: prints out every stellar object in the list
+    // EFFECTS: prints out every star con in the list
     public void printList() {
         for (StarConstellation sc: listofstarcons) {
             System.out.println(sc.getName());

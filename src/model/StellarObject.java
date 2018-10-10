@@ -4,7 +4,6 @@ public abstract class StellarObject {
     public enum Location {
         NORTH, SOUTH, BOTH
     }
-
     protected String name;
     protected Location location;
 
