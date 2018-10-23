@@ -1,10 +1,11 @@
 package model;
 
+import model.exceptions.InvalidRatingValue;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -12,9 +13,9 @@ import java.util.Scanner;
 
 public class Rating implements Loadable, Saveable {
     private String name; // what star constellation the rating is for; in the form of "Rating for " + starcon name
-    public int rating; //rating is out of 1 to 5 stars
-    public String user; // name of user who inputted rating
-    public double date; // month and day of updated rating (inputted as MMDD)
+    private int rating; //rating is out of 1 to 5 stars
+    private String user; // name of user who inputted rating
+    private double date; // month and day of updated rating (inputted as MMDD)
 
     public Rating(String name, int rating, String user, int date) {
         this.name = name;
@@ -42,6 +43,16 @@ public class Rating implements Loadable, Saveable {
         Files.write(Paths.get(fileName), Arrays.asList(name + "," + rating + "," + user + "," + date),
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
+
+    public boolean isValid() throws InvalidRatingValue {
+        if (rating > 0 && rating < 6){
+            return true;
+        }
+        else {
+            throw new InvalidRatingValue("Invalid. Must be less than 5.");
+        }
+    }
+
 
 
     // getters

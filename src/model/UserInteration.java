@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.InvalidStringInput;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class UserInteration {
         String pos = "";
         ListOfStarConstellation starcons = new ListOfStarConstellation("All");
         ListofGalaxy galaxies = new ListofGalaxy("All");
-        starcons.restore(starcons);
+        starcons.restore();
         while (true) {
             System.out.println("What are you more interested in? Galaxies or Star Constellations?");
             answer = scanner.nextLine();
@@ -24,6 +26,7 @@ public class UserInteration {
                 starcons.printList();
                 System.out.println("Would you like to explore a specific Star Constellations?");
                 answer = scanner.nextLine();
+                //interestedSpecificSC(answer);
                 if (answer.equals("yes")) {
                     System.out.println("Which star constellation would you like to see? Please pick a number from 1 to "
                             + sizeList() + ".");
@@ -49,18 +52,15 @@ public class UserInteration {
                         System.out.println("Are you interested in constellations that you can see from " +
                                 "the Northern or Southern Hemisphere?");
                         answer = scanner.nextLine();
-                        if (answer.equals("northern")) {
-                            System.out.println("Here you are");
-                            starcons.getNorth(starcons);
-                        } else if (answer.equals("southern")) {
-                            System.out.println("Here you are");
-                            starcons.restore(starcons);
-                            starcons.getSouth(starcons);
+                        try {
+                            starcons.sort(answer);
+                        } catch (InvalidStringInput invalidStringInput) {
+                            System.out.println("Invalid input.");
                         }
                         System.out.println("Great! Would you like to explore anything else?");
                         answer = scanner.nextLine();
                         if (answer.equals("no")) {
-                            break;
+                            userRating();
                         }
                         if (answer.equals("yes")) {
                             userInteract();
@@ -102,8 +102,7 @@ public class UserInteration {
         }
     }
 
-
-    public static void answerGalaxies() {
+    private static void answerGalaxies() {
         ListofGalaxy galaxies = new ListofGalaxy("All");
         String answer = "";
         String pos = "";
@@ -120,6 +119,7 @@ public class UserInteration {
             System.out.println("Here is " + nameOfGalaxy(pos));
             Galaxy interact = galaxies.position(Integer.parseInt(pos) - 1);
             interact.locationStatement(interact);
+            interact.typeStatement(interact);
         } else if (answer.equals("no")) {
             System.out.println("What would you like to explore? Location or type?");
             answer = scanner.nextLine();
@@ -134,9 +134,9 @@ public class UserInteration {
         }
 
     }
-    
 
-    public static void locationGalaxy(){
+
+    private static void locationGalaxy(){
         System.out.println("Great!");
         System.out.println("More to come!");
 //        System.out.println("Are you interested in galaxies that you can see from " +

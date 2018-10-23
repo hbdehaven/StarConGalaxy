@@ -1,19 +1,22 @@
 package model;
 
 public class Galaxy extends StellarObject {
-    private int type; // 0 for elliptical, 1 for spiral, 2 for irregular
+    public enum Type {
+        ELLIPTICAL, SPIRAL, IRREGULAR
+    }
+    private Type type;
 
-    public Galaxy (String name, int type, Location location){
+    public Galaxy (String name, Type type, Location location){
         super(name, location);
         this.type = type;
     }
 
     //EFFECTS: returns Galaxy type in String form
     public String typeGalaxy(Galaxy g){
-        if (g.type == 0){
+        if (g.type == Type.ELLIPTICAL){
             return "Elliptical";
         }
-        else if (g.type == 1){
+        else if (g.type == Type.SPIRAL){
             return "Spiral";
         }
         else return "Irregular";
@@ -21,10 +24,16 @@ public class Galaxy extends StellarObject {
 
     //getters
     //EFFECTS: get type of Galaxy
-    public int getType(){return type;}
+    public Type getType(){return type;}
 
     @Override
     public void locationStatement(StellarObject so) {
         System.out.println("The location of this galaxy is "+ getLocation());
     }
+
+    public void typeStatement(Galaxy g){
+        System.out.println("The type of this galaxy is " + typeGalaxy(g));
+    }
+
+
 }

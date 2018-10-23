@@ -17,6 +17,14 @@ public abstract class StellarObject {
         System.out.println("The name is " + name);
     }
 
+    public static boolean locationNorth(StellarObject.Location location){
+        return (location == StellarObject.Location.NORTH);
+    }
+
+    public static boolean locationSouth(StellarObject.Location location){
+        return (location == StellarObject.Location.SOUTH);
+    }
+
     public abstract void locationStatement(StellarObject so);
 
 

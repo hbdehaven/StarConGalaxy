@@ -1,6 +1,12 @@
 package model;
 
+import model.exceptions.InvalidStringInput;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import static model.StellarObject.locationNorth;
+import static model.StellarObject.locationSouth;
 
 // inspired by IntegerSetIntersect
 public class ListOfStarConstellation{
@@ -28,37 +34,37 @@ public class ListOfStarConstellation{
         listofstarcons.add(columba);
     }
 
-    // MODIFIES: this
-    // EFFECTS: orders listofstarcons from north hemisphere
-    private ListOfStarConstellation sortNorth(ListOfStarConstellation losc){
-        for (StarConstellation sc: losc.listofstarcons){
+    // inspired by https://www.baeldung.com/java-concurrentmodificationexception
+    //     MODIFIES: this
+    //     EFFECTS: orders listofstarcons from north hemisphere
+    private void sortNorth(){
+        List<StellarObject> toRemove = new ArrayList<>();
+        for (StarConstellation sc: listofstarcons){
             if (locationSouth(sc.getLocation())){
-                losc.remove(sc);
-                return losc;
+                toRemove.add(sc);
             }
-
         }
-        return losc;
+        listofstarcons.removeAll(toRemove);
     }
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from the south hemisphere
-    private ListOfStarConstellation sortSouth(ListOfStarConstellation losc) {
-        for (StarConstellation sc : losc.listofstarcons) {
+    private void sortSouth() {
+        List<StellarObject> toRemove = new ArrayList<>();
+        for (StarConstellation sc : listofstarcons) {
             if (locationNorth(sc.getLocation())) {
-                losc.remove(sc);
+                toRemove.add(sc);
             }
-            return losc;
         }
-        return losc;
+        listofstarcons.removeAll(toRemove);
     }
 
-//    // EFFECTS: prints out every starconstellation in the list
-//    public void printList() {
-//        for (StarConstellation sc : listofstarcons) {
-//            System.out.println(sc.getName());
-//        }
-//    }
+    // EFFECTS: prints out every star con in the list
+    public void printList() {
+        for (StarConstellation sc: listofstarcons) {
+            System.out.println(sc.getName());
+        }
+    }
 
     // EFFECTS: prints out every starconstellation in the list
     public void printListSymbols() {
@@ -67,29 +73,21 @@ public class ListOfStarConstellation{
         }
     }
 
-    public boolean locationNorth(StellarObject.Location location){
-        return (location == StellarObject.Location.NORTH);
-    }
-
-    public  boolean locationSouth(StellarObject.Location location){
-        return (location == StellarObject.Location.SOUTH);
-    }
-
     // EFFECTS: prints out list of starcons that are visible from North
-    public void getNorth(ListOfStarConstellation list){
-        sortNorth(list);
+    public void getNorth(){
+        sortNorth();
         printList();
     }
 
     // EFFECTS: prints out list of starcons that are visible from North
-    public void getSouth (ListOfStarConstellation list){
-        sortSouth(list);
+    public void getSouth (){
+        sortSouth();
         printList();
     }
 
     // MODIFIES: this
     // EFFECTS: restores listofstarcons to the entire list of starcons
-    public void restore (ListOfStarConstellation losc){
+    public void restore (){
         Star alphaAndro = new Star("Alpha Andromedae", 2.06);
 
         Star altair = new Star("Altair", .76);
@@ -105,7 +103,7 @@ public class ListOfStarConstellation{
         restored.add(andromeda);
         restored.add(aquila);
         restored.add(columba);
-        losc.listofstarcons = restored;
+        listofstarcons = restored;
     }
 
     // MODIFIES: this
@@ -137,17 +135,25 @@ public class ListOfStarConstellation{
         listofstarcons.add(sc);
     }
 
-    // EFFECTS: prints out every star con in the list
-    public void printList() {
-        for (StarConstellation sc: listofstarcons) {
-            System.out.println(sc.getName());
-        }
-    }
-
 
 //// ask for help with greatest distance one
 //    public void greatestDis(ListOfStarConstellation starcons){
 //
 //    }
+
+    public void sort(String ans) throws InvalidStringInput {
+        if (ans.equals("northern")){
+            System.out.println("Here you are");
+            getNorth();
+        }
+        if (ans.equals("southern")){
+            System.out.println("Here you are");
+            getSouth();
+        }
+        else if (!(ans.equals("northern") || ans.equals("southern"))){
+            throw new InvalidStringInput("Invalid input." +
+                    " Please input either Northern or Southern");
+        }
+    }
 
 }

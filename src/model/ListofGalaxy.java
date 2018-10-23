@@ -2,6 +2,10 @@ package model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
+import static model.StellarObject.locationNorth;
+import static model.StellarObject.locationSouth;
 
 public class ListofGalaxy{
     private String name;
@@ -10,9 +14,9 @@ public class ListofGalaxy{
     public ListofGalaxy(String name){
         this.name = name;
 
-        Galaxy milkyWay = new Galaxy("Milky Way", 1, StellarObject.Location.BOTH);
-        Galaxy largeMC = new Galaxy("Large Magellanic Cloud", 1, StellarObject.Location.SOUTH);
-        Galaxy smallMC = new Galaxy("Small Magellanic Cloud", 2, StellarObject.Location.SOUTH);
+        Galaxy milkyWay = new Galaxy("Milky Way", Galaxy.Type.SPIRAL, StellarObject.Location.BOTH);
+        Galaxy largeMC = new Galaxy("Large Magellanic Cloud", Galaxy.Type.SPIRAL, StellarObject.Location.SOUTH);
+        Galaxy smallMC = new Galaxy("Small Magellanic Cloud", Galaxy.Type.IRREGULAR, StellarObject.Location.SOUTH);
 
         listofgalaxies = new ArrayList<>();
         listofgalaxies.add(milkyWay);
@@ -26,6 +30,32 @@ public class ListofGalaxy{
             System.out.println(g.getName());
         }
     }
+
+    // inspired by https://www.baeldung.com/java-concurrentmodificationexception
+    //     MODIFIES: this
+    //     EFFECTS: orders listofstarcons from north hemisphere
+    private void sortNorth(){
+        List<StellarObject> toRemove = new ArrayList<>();
+        for (Galaxy g: listofgalaxies){
+            if (locationSouth(g.getLocation())){
+                toRemove.add(g);
+            }
+        }
+        listofgalaxies.removeAll(toRemove);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: orders listofstarcons from the south hemisphere
+    private void sortSouth(){
+        List<StellarObject> toRemove = new ArrayList<>();
+        for (Galaxy g: listofgalaxies){
+            if (locationNorth(g.getLocation())){
+                toRemove.add(g);
+            }
+        }
+        listofgalaxies.removeAll(toRemove);
+    }
+
 
     //EFFECTS: returns that StarConstellation at pos x
     public Galaxy position(int x){

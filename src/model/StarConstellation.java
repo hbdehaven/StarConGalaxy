@@ -1,11 +1,5 @@
 package model;
 
-import model.Star;
-import model.Rating;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class StarConstellation extends StellarObject{
     private double distance;  //average distance in lys from earth
     private String symbolism; //small fact or what it represents

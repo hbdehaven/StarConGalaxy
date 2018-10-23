@@ -1,6 +1,6 @@
 package model;
 
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
+import model.exceptions.InvalidRatingValue;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UIRating {
-    // had to make fields of rating public to do this
+    public static ArrayList<Rating> ratings = new ArrayList<>();
 
     // EFFECTS: asks questions and saves data based on user's input
     public static void userRating() throws IOException {
         Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
-        Rating rate = new Rating("", 0, "", 0000);
-        rate.load(scanner1);
+        load(scanner1);
         ArrayList<Rating> allratings = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String answer = "";
@@ -36,18 +35,21 @@ public class UIRating {
                     //wouldLikeToRateStar(pos);
                     System.out.println("How many stars out of 5 would you like to rate " + nameOfStarCon(pos) + "?");
                     answer = scanner.nextLine();
-                    Rating starconnamerating = new Rating(nameOfStarCon(pos), 0, "", 0);
                     int num = Integer.parseInt(answer);
-                    starconnamerating.rating = num;
+
                     System.out.println("What's your name?");
                     String user = scanner.nextLine();
-                    starconnamerating.user = user;
                     System.out.println("What's the date in the form of MMDD?");
                     answer = scanner.nextLine();
                     int date = Integer.parseInt(answer);
-                    starconnamerating.date = date;
                     System.out.println("Is this correct? Rating of " + num + " by " + user + " on " + date + "?");
                     answer = scanner.nextLine();
+                    Rating starconnamerating = new Rating(nameOfStarCon(pos), num, user, date);
+                    try {
+                        starconnamerating.isValid();
+                    } catch (InvalidRatingValue invalidRatingValue) {
+                        System.out.println("Invalid. Rating value must be between 1 and 5.");
+                    }
                     //isItCorrect(answer);
                     if (answer.equals("yes")) {
                         System.out.println("Great! Thanks again for your input.");
@@ -69,25 +71,6 @@ public class UIRating {
                 break;
             }
         }
-    }
-
-    private static void wouldLikeToRateStar(String pos){
-        String answer = "";
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("How many stars out of 5 would you like to rate " + nameOfStarCon(pos) + "?");
-        answer = scanner.nextLine();
-        Rating starconnamerating = new Rating(nameOfStarCon(pos), 0, "", 0);
-        int num = Integer.parseInt(answer);
-        starconnamerating.rating = num;
-        System.out.println("What's your name?");
-        String user = scanner.nextLine();
-        starconnamerating.user = user;
-        System.out.println("What's the date in the form of MMDD?");
-        answer = scanner.nextLine();
-        int date = Integer.parseInt(answer);
-        starconnamerating.date = date;
-        System.out.println("Is this correct? Rating of " + num + " by " + user + " on " + date + "?");
-        answer = scanner.nextLine();
     }
 
     private static void tryAgain(String answer) throws IOException {
@@ -128,6 +111,15 @@ public class UIRating {
         }
     }
 
+    public static void load(Scanner scanner) throws IOException {
+        while (scanner.hasNextLine()) {
+            Rating rate = new Rating("R", 0, "U", 0000);
+            rate.load(scanner);
+            ratings.add(rate);
+        }
+    }
+
+    //add average rating
 }
 
 

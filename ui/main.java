@@ -32,10 +32,10 @@ public class main {
         StarConstellation columba = new StarConstellation("Columba", 261, StarConstellation.Location.SOUTH, "The Dove", phact);
 
         //andromeda.printName();
-        //allstarcons.getNorth(allstarcons);
-        allstarcons.restore(allstarcons);
-        //allstarcons.getSouth(allstarcons);
-        allstarcons.printList();
+        //allstarcons.getNorth();
+        //allstarcons.restore();
+        //allstarcons.getSouth();
+        //allstarcons.printList();
         //allstarcons.position(0).printName();
         userInteract();
     }
