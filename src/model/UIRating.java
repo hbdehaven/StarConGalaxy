@@ -45,10 +45,19 @@ public class UIRating {
                     System.out.println("Is this correct? Rating of " + num + " by " + user + " on " + date + "?");
                     answer = scanner.nextLine();
                     Rating starconnamerating = new Rating(nameOfStarCon(pos), num, user, date);
-                    try {
-                        starconnamerating.isValid();
-                    } catch (InvalidRatingValue invalidRatingValue) {
-                        System.out.println("Invalid. Rating value must be between 1 and 5.");
+                    while (true) {
+                        try {
+                            starconnamerating.isValid();
+                            allratings.add(starconnamerating);
+                            callingSave(allratings);
+                            break;
+                        } catch (InvalidRatingValue invalidRatingValue) {
+                            System.out.println("Invalid. Rating value must be between 1 and 5.");
+                            System.out.println("Please input another Rating value between 1 and 5.");
+                            answer = scanner.nextLine();
+                            int num2 = Integer.parseInt(answer);
+                            starconnamerating.setValue(num2);
+                        }
                     }
                     //isItCorrect(answer);
                     if (answer.equals("yes")) {

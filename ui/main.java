@@ -1,14 +1,8 @@
 package ui;
 
-import model.ListOfStarConstellation;
-import model.Rating;
-import model.StarConstellation;
-import model.Star;
+import model.*;
 
 import java.io.IOException;
-
-import static model.UIRating.userRating;
-import static model.UserInteration.userInteract;
 
 public class main {
 
@@ -37,7 +31,23 @@ public class main {
         //allstarcons.getSouth();
         //allstarcons.printList();
         //allstarcons.position(0).printName();
-        userInteract();
+        //userInteract();
+
+        User heather = new User("Heather");
+        heather.addStellarObjectWantToSee(andromeda);
+        heather.addStellarObjectWantToSee(aquila);
+        heather.addStellarObjectWantToSee(columba);
+
+        heather.addStellarObjectHaveSeen(andromeda);
+
+        heather.printHaveSeenList();
+
+        heather.printWantToSeeList();
+
+        andromeda.printHaveSeenList();
+        andromeda.printWantToSeeList();
+
+        aquila.printWantToSeeList();
     }
 }
 

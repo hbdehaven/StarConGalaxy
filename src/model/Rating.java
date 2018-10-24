@@ -76,4 +76,9 @@ public class Rating implements Loadable, Saveable {
         return date;
     }
 
+    //setters
+    public void setValue(int val){
+        this.rating = val;
+    }
+
 }
