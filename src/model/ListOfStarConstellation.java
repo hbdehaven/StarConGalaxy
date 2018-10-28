@@ -4,6 +4,7 @@ import model.exceptions.InvalidStringInput;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static model.StellarObject.locationNorth;
 import static model.StellarObject.locationSouth;
@@ -70,6 +71,13 @@ public class ListOfStarConstellation{
     public void printListSymbols() {
         for (StarConstellation sc : listofstarcons) {
             System.out.println(sc.getName() + ": " + sc.getSymbolism());
+        }
+    }
+
+    // EFFECTS: prints out every starconstellation in the list
+    public void printListStars() {
+        for (StarConstellation sc : listofstarcons) {
+            System.out.println(sc.getName() + ": " + sc.getStar().getStarName());
         }
     }
 

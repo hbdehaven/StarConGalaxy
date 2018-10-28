@@ -45,6 +45,7 @@ public class UIRating {
                     System.out.println("Is this correct? Rating of " + num + " by " + user + " on " + date + "?");
                     answer = scanner.nextLine();
                     Rating starconnamerating = new Rating(nameOfStarCon(pos), num, user, date);
+
                     while (true) {
                         try {
                             starconnamerating.isValid();

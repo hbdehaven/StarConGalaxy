@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.InvalidStringInput;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,13 @@ public class ListofGalaxy{
         }
     }
 
+    //EFFECTS: prints out every galaxy in the list
+    public void printListType(){
+        for (Galaxy g: listofgalaxies){
+            System.out.println(g.getName() + " : " + g.getType());
+        }
+    }
+
     // inspired by https://www.baeldung.com/java-concurrentmodificationexception
     //     MODIFIES: this
     //     EFFECTS: orders listofstarcons from north hemisphere
@@ -56,6 +65,31 @@ public class ListofGalaxy{
         listofgalaxies.removeAll(toRemove);
     }
 
+    // EFFECTS: prints out list of starcons that are visible from North
+    public void getNorth(){
+        sortNorth();
+        printList();
+    }
+
+    // EFFECTS: prints out list of starcons that are visible from North
+    public void getSouth (){
+        sortSouth();
+        printList();
+    }
+    public void sort(String ans) throws InvalidStringInput {
+        if (ans.equals("northern")){
+            System.out.println("Here you are");
+            getNorth();
+        }
+        if (ans.equals("southern")){
+            System.out.println("Here you are");
+            getSouth();
+        }
+        else if (!(ans.equals("northern") || ans.equals("southern"))){
+            throw new InvalidStringInput("Invalid input." +
+                    " Please input either Northern or Southern");
+        }
+    }
 
     //EFFECTS: returns that StarConstellation at pos x
     public Galaxy position(int x){

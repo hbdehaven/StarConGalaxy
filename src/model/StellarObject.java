@@ -19,9 +19,15 @@ public abstract class StellarObject {
         wantToSee = new ArrayList<>();
     }
 
-    // EFFECTS: prints name of stellar object
-    public void printName() {
-        System.out.println("The name is " + name);
+    public String readableLocation(){
+        if (location == StellarObject.Location.NORTH){
+            return "the Northern Hemisphere";
+        }
+        else if (location == StellarObject.Location.SOUTH){
+            return "the Southern Hemisphere";
+        }
+        else
+        return "both the Northern and Southern Hemispheres";
     }
 
     public static boolean locationNorth(StellarObject.Location location){
@@ -68,6 +74,8 @@ public abstract class StellarObject {
     }
 
     public abstract void locationStatement(StellarObject so);
+
+    public abstract void allInformation();
 
 
     //EFFECTS: get name of StellarObject

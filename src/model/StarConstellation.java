@@ -24,4 +24,13 @@ public class StarConstellation extends StellarObject{
     public void locationStatement(StellarObject so) {
         System.out.println("The location of this star constellation is " + getLocation());
     }
+
+    @Override
+    public void allInformation(){
+        System.out.println("Name: " + getName());
+        System.out.println("Distance from Earth: " + getDistance() + " in light-years");
+        System.out.println("Seen from " + readableLocation());
+        System.out.println("Known symbolism: " + getSymbolism());
+        System.out.println("Brightest Star: " + getStar().getStarName());
+    }
 }

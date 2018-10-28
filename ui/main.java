@@ -17,7 +17,7 @@ public class main {
 
         Star phact = new Star("Phact", 2.645);
 
-        ListOfStarConstellation allstarcons = new ListOfStarConstellation("All Stars" );
+        ListOfStarConstellation allstarcons = new ListOfStarConstellation("All Stars");
 
         StarConstellation andromeda = new StarConstellation("Andromeda", 97, StarConstellation.Location.NORTH, "The Chained Lady", alphaAndro);
 
@@ -33,22 +33,25 @@ public class main {
         //allstarcons.position(0).printName();
         //userInteract();
 
-        User heather = new User("Heather");
-        heather.addStellarObjectWantToSee(andromeda);
-        heather.addStellarObjectWantToSee(aquila);
-        heather.addStellarObjectWantToSee(columba);
+//        User heather = new User("Heather");
+//        heather.addStellarObjectWantToSee(andromeda);
+//        heather.addStellarObjectWantToSee(aquila);
+//        heather.addStellarObjectWantToSee(columba);
+//
+//        heather.addStellarObjectHaveSeen(andromeda);
+//
+//        heather.printHaveSeenList();
+//
+//        heather.printWantToSeeList();
+//
+//        andromeda.printHaveSeenList();
+//        andromeda.printWantToSeeList();
+//
+//        aquila.printWantToSeeList();
 
-        heather.addStellarObjectHaveSeen(andromeda);
-
-        heather.printHaveSeenList();
-
-        heather.printWantToSeeList();
-
-        andromeda.printHaveSeenList();
-        andromeda.printWantToSeeList();
-
-        aquila.printWantToSeeList();
+        UserUI.userLogIn();
     }
+
 }
 
 
