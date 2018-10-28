@@ -10,6 +10,8 @@ public class UserUI {
     private static ArrayList<User> users = new ArrayList<>();
     private static Scanner userInput;
 
+
+
     public static void callingSave(User user) {
         try {
             user.save("users.txt");

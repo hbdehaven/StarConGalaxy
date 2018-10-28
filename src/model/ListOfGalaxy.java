@@ -16,14 +16,7 @@ public class ListOfGalaxy {
     public ListOfGalaxy(String name){
         this.name = name;
 
-        Galaxy milkyWay = new Galaxy("Milky Way", Galaxy.Type.SPIRAL, StellarObject.Location.BOTH);
-        Galaxy largeMC = new Galaxy("Large Magellanic Cloud", Galaxy.Type.SPIRAL, StellarObject.Location.SOUTH);
-        Galaxy smallMC = new Galaxy("Small Magellanic Cloud", Galaxy.Type.IRREGULAR, StellarObject.Location.SOUTH);
-
-        listofgalaxies = new ArrayList<>();
-        listofgalaxies.add(milkyWay);
-        listofgalaxies.add(largeMC);
-        listofgalaxies.add(smallMC);
+        this.restoreLOG();
     }
 
     //EFFECTS: prints out every galaxy in the list
@@ -89,6 +82,25 @@ public class ListOfGalaxy {
             throw new InvalidStringInput("Invalid input." +
                     " Please input either Northern or Southern");
         }
+    }
+
+    public void restoreLOG(){
+        Galaxy milkyWay = new Galaxy("Milky Way", Galaxy.Type.SPIRAL, StellarObject.Location.BOTH);
+        Galaxy largeMC = new Galaxy("Large Magellanic Cloud", Galaxy.Type.SPIRAL, StellarObject.Location.SOUTH);
+        Galaxy smallMC = new Galaxy("Small Magellanic Cloud", Galaxy.Type.IRREGULAR, StellarObject.Location.SOUTH);
+        Galaxy andromeda = new Galaxy("Andromeda Galaxy", Galaxy.Type.SPIRAL, StellarObject.Location.NORTH);
+        Galaxy ngc4696 = new Galaxy("NGC 4696", Galaxy.Type.ELLIPTICAL, StellarObject.Location.SOUTH);
+        Galaxy triangulum = new Galaxy("Triangulum Galaxy", Galaxy.Type.SPIRAL, StellarObject.Location.NORTH);
+
+        ArrayList<Galaxy> restored = new ArrayList<>();
+        restored.add(milkyWay);
+        restored.add(largeMC);
+        restored.add(smallMC);
+        restored.add(andromeda);
+        restored.add(ngc4696);
+        restored.add(triangulum);
+
+        listofgalaxies = restored;
     }
 
     //EFFECTS: returns that StarConstellation at pos x

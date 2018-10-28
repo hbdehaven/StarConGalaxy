@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class StellarObject {
-    public enum Location {
+    public enum Location {  // north, south parts of the sky, 90-0 degrees declination: north; 0-(-90) degree declination: south
         NORTH, SOUTH, BOTH
     }
     protected String name;
@@ -21,13 +21,13 @@ public abstract class StellarObject {
 
     public String readableLocation(){
         if (location == StellarObject.Location.NORTH){
-            return "the Northern Hemisphere";
+            return "the Northern Sky";
         }
         else if (location == StellarObject.Location.SOUTH){
-            return "the Southern Hemisphere";
+            return "the Southern Sky";
         }
         else
-        return "both the Northern and Southern Hemispheres";
+        return "both the Northern and Southern Skys";
     }
 
     public static boolean locationNorth(StellarObject.Location location){

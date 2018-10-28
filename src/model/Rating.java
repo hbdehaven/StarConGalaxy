@@ -53,8 +53,6 @@ public class Rating implements Loadable, Saveable {
         }
     }
 
-
-
     // getters
     //EFFECTS: get name of Rating
     public String getNameOfR() {

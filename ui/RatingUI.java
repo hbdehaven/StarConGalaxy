@@ -17,7 +17,7 @@ import static ui.StellarObjectUI.nameOfGalaxy;
 import static ui.StellarObjectUI.nameOfStarCon;
 
 public class RatingUI {
-    private static ArrayList<Rating> ratings = new ArrayList<>();
+    public static ArrayList<Rating> ratings = new ArrayList<>();
     private static Scanner userInput;
     private static boolean whileLoop;
 

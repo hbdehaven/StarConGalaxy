@@ -17,49 +17,7 @@ public class ListOfStarConstellation{
     public ListOfStarConstellation(String name){
         this.name = name;
 
-        Star alphaAndro = new Star("Alpha Andromedae", 2.06, 97);
-
-        Star altair = new Star("Altair", .76, 16.73);
-
-        Star phact = new Star("Phact", 2.645, 261);
-
-        Star gammaDraconis = new Star("Gamme Draconis", 2.23, 154);
-
-        Star regulus = new Star("Regulus", 8.13, 79.3);
-
-        Star rigel = new Star("Regulus", .13, 860);
-
-        Star persei = new Star("Persei", 1.81, 510);
-
-        StarConstellation andromeda = new StarConstellation("Andromeda", StellarObject.Location.NORTH,
-                "The Chained Lady", alphaAndro);
-
-        StarConstellation aquila = new StarConstellation("Aquila", StellarObject.Location.BOTH,
-                "The Eagle", altair);
-
-        StarConstellation columba = new StarConstellation("Columba", StellarObject.Location.SOUTH,
-                "The Dove", phact);
-
-        StarConstellation draco = new StarConstellation("Draco",  StellarObject.Location.NORTH,
-                "The Dragon" ,gammaDraconis);
-
-        StarConstellation leo = new StarConstellation("Leo", StellarObject.Location.BOTH,
-                "The Lion", regulus);
-
-        StarConstellation orion = new StarConstellation("Orion", StellarObject.Location.BOTH,
-                "The Hunter", rigel);
-
-        StarConstellation perseus = new StarConstellation("Perseus", StellarObject.Location.NORTH,
-                "Perseus", persei);
-
-        listofstarcons = new ArrayList<>();
-        listofstarcons.add(andromeda);
-        listofstarcons.add(aquila);
-        listofstarcons.add(columba);
-        listofstarcons.add(draco);
-        listofstarcons.add(leo);
-        listofstarcons.add(orion);
-        listofstarcons.add(perseus);
+        this.restore();
     }
 
     // inspired by https://www.baeldung.com/java-concurrentmodificationexception

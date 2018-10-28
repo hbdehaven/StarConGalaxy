@@ -188,7 +188,7 @@ public class StellarObjectUI {
         losc.restore();
 
         if (answer.equals("location")){
-            System.out.println("Which hemisphere? Northern or Southern?");
+            System.out.println("Which part of the sky? Northern or Southern?");
 
             try {
                 answer = userInput.next();
@@ -313,7 +313,7 @@ public class StellarObjectUI {
         userInput = new Scanner(System.in);
 
         if (answer.equals("location")) {
-            System.out.println("Which hemisphere? Northern or Southern?");
+            System.out.println("Which part of the sky? Northern or Southern?");
 
             try {
                 answer = userInput.next();
