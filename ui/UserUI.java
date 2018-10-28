@@ -2,24 +2,29 @@ package ui;
 
 import model.*;
 import model.exceptions.InvalidStringInput;
+import model.ListOfStarConstellation;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UserUI {
     private static Scanner userInput;
     private static boolean whileCreateUser;
+    private static boolean userLogInBoolean;
 
-    public static void userLogIn() {
+    public static void userLogIn() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
-        while (true){
+        userLogInBoolean = true;
+
+        while (userLogInBoolean){
             System.out.println("Hi! Need to create user or logging in again?");
             answer = scanner.nextLine();
             firstQuestionUser(answer);
         }
     }
 
-    private static void firstQuestionUser(String answer){
+    private static void firstQuestionUser(String answer) throws IOException {
         if(answer.equals("create user")){
             createUser();
         }
@@ -30,7 +35,7 @@ public class UserUI {
         }
     }
 
-    public static void createUser(){
+    public static void createUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String name = "";
         whileCreateUser = true;
@@ -45,7 +50,7 @@ public class UserUI {
         }
     }
 
-    public static void exploreApp(User user){
+    public static void exploreApp(User user) throws IOException {
         boolean continueWhile = true;
         String answer = "";
         userInput = new Scanner(System.in);
@@ -62,9 +67,8 @@ public class UserUI {
             else if (answer.equals("g")){
                 selectGalaxies(user);
             }
-
             else if (answer.equals("r")){
-                System.out.println("r");
+                RatingUI.selectRating(user);
             }
             else if (answer.equals("u")){
                 System.out.println("u");
@@ -72,6 +76,7 @@ public class UserUI {
             else if (answer.equals("q")){
                 continueWhile = false;
                 whileCreateUser = false;
+                userLogInBoolean = false;
             }
             else System.out.println("Invalid Selection");
         }
@@ -88,7 +93,7 @@ public class UserUI {
         System.out.println("\tq -> quit");
     }
 
-    private static void selectStarConstellations(User user) {
+    private static void selectStarConstellations(User user) throws IOException {
         ListOfStarConstellation losc = new ListOfStarConstellation("Used");
         String answer = "";
         userInput = new Scanner(System.in);
@@ -113,7 +118,7 @@ public class UserUI {
         }
     }
 
-    private static void whichStarConstellation(User user, ListOfStarConstellation losc){
+    private static void whichStarConstellation(User user, ListOfStarConstellation losc) throws IOException {
         String position = "";
         String answer = "";
         userInput = new Scanner(System.in);
@@ -135,15 +140,16 @@ public class UserUI {
         }
         else if (answer.equals("no")){
             selectStarConstellations(user);
+            System.out.println(" ");
         }
     }
 
-    private static String nameOfStarCon(String i, ListOfStarConstellation losc) {
+    public static String nameOfStarCon(String i, ListOfStarConstellation losc) {
         int position = Integer.parseInt(i);
         return losc.position(position - 1).getName();
     }
 
-    private static StarConstellation retrieveStarCon(String i, ListOfStarConstellation losc) {
+    public static StarConstellation retrieveStarCon(String i, ListOfStarConstellation losc) {
         int position = Integer.parseInt(i);
         return losc.position(position - 1);
     }
@@ -196,8 +202,8 @@ public class UserUI {
         }
     }
 
-    private static void selectGalaxies(User user) {
-        ListofGalaxy log = new ListofGalaxy("Used");
+    private static void selectGalaxies(User user) throws IOException {
+        ListOfGalaxy log = new ListOfGalaxy("Used");
         String answer = "";
         userInput = new Scanner(System.in);
 
@@ -213,7 +219,7 @@ public class UserUI {
                 whichGalaxy(user, log);
             }
             else if (answer.equals("by attribute") || answer.equals( "attribute")){
-                whichGalaticAttribute(user, log);
+                whichGalacticAttribute(user, log);
             }
             else if (answer.equals("quit")){
                 exploreApp(user);
@@ -221,7 +227,7 @@ public class UserUI {
         }
     }
 
-    private static void whichGalaxy(User user, ListofGalaxy log){
+    private static void whichGalaxy(User user, ListOfGalaxy log) throws IOException {
         String position = "";
         String answer = "";
         userInput = new Scanner(System.in);
@@ -243,26 +249,28 @@ public class UserUI {
         }
         else if (answer.equals("no")){
             selectGalaxies(user);
+            System.out.println(" ");
+
         }
     }
 
-    private static String nameOfGalaxy(String i, ListofGalaxy log) {
+    public static String nameOfGalaxy(String i, ListOfGalaxy log) {
         int position = Integer.parseInt(i);
         return log.position(position - 1).getName();
     }
 
-    private static Galaxy retrieveGalaxy(String i, ListofGalaxy log) {
+    public static Galaxy retrieveGalaxy(String i, ListOfGalaxy log) {
         int position = Integer.parseInt(i);
         return log.position(position - 1);
     }
 
-    private static void whichGalaticAttribute(User user, ListofGalaxy log) {
+    private static void whichGalacticAttribute(User user, ListOfGalaxy log) {
         String answer = "";
         userInput = new Scanner(System.in);
 
         while (true){
             System.out.println("Great!");
-            System.out.println("Would you like to explore by location or type");
+            System.out.println("Would you like to explore by location or type?");
 
             answer = userInput.next();
             answer = answer.toLowerCase();
@@ -271,7 +279,7 @@ public class UserUI {
         }
     }
 
-    private static void galacticExploreBy(String answer, ListofGalaxy log) {
+    private static void galacticExploreBy(String answer, ListOfGalaxy log) {
         userInput = new Scanner(System.in);
 
         if (answer.equals("location")) {
@@ -288,7 +296,7 @@ public class UserUI {
 
         } else if (answer.equals("type")) {
             System.out.println("Here are the type of all our Galaxies.");
-            log.printList();
+            log.printListType();
             System.out.println(" ");
         }
 

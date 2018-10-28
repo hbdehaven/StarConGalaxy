@@ -9,11 +9,11 @@ import java.util.List;
 import static model.StellarObject.locationNorth;
 import static model.StellarObject.locationSouth;
 
-public class ListofGalaxy{
+public class ListOfGalaxy {
     private String name;
     private ArrayList<Galaxy> listofgalaxies;
 
-    public ListofGalaxy(String name){
+    public ListOfGalaxy(String name){
         this.name = name;
 
         Galaxy milkyWay = new Galaxy("Milky Way", Galaxy.Type.SPIRAL, StellarObject.Location.BOTH);
@@ -36,7 +36,7 @@ public class ListofGalaxy{
     //EFFECTS: prints out every galaxy in the list
     public void printListType(){
         for (Galaxy g: listofgalaxies){
-            System.out.println(g.getName() + " : " + g.getType());
+            System.out.println(g.getName() + ": " + g.getType());
         }
     }
 
