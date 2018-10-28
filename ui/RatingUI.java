@@ -10,12 +10,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static ui.UserUI.nameOfGalaxy;
-import static ui.UserUI.nameOfStarCon;
+import static ui.StellarObjectUI.nameOfGalaxy;
+import static ui.StellarObjectUI.nameOfStarCon;
 
 public class RatingUI {
     private static ArrayList<Rating> ratings = new ArrayList<>();
@@ -180,7 +179,7 @@ public class RatingUI {
         }
     }
 
-
+    // average rating?
 
 
 

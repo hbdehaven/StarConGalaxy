@@ -73,8 +73,6 @@ public abstract class StellarObject {
         System.out.println("/////////");
     }
 
-    public abstract void locationStatement(StellarObject so);
-
     public abstract void allInformation();
 
 

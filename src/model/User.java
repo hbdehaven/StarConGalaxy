@@ -1,9 +1,15 @@
 package model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
-public class User {
+public class User implements Loadable, Saveable{
     private String name;
     private List<StellarObject> haveSeen;
     private List<StellarObject> wantToSee;
@@ -58,5 +64,20 @@ public class User {
     //setters
     public void setName(String name){
         this.name = name;
+    }
+
+    @Override
+    public void load(Scanner scanner) throws IOException {
+        String value = scanner.nextLine();
+        String[] values = value.split(",");
+        this.name = values[0];
+        //this.haveSeen = ;
+        //this.wantToSee = ;
+    }
+
+    @Override
+    public void save(String fileName) throws IOException {
+        Files.write(Paths.get(fileName), Arrays.asList(name + "," + haveSeen + "," + wantToSee ),
+                StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 }

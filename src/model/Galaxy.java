@@ -27,11 +27,6 @@ public class Galaxy extends StellarObject {
     public Type getType(){return type;}
 
     @Override
-    public void locationStatement(StellarObject so) {
-        System.out.println("The location of this galaxy is "+ getLocation());
-    }
-
-    @Override
     public void allInformation(){
         System.out.println("Name: " + getName());
         System.out.println("Galaxy Type: " + getType());
