@@ -1,6 +1,9 @@
 package ui;
 
+import model.User;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class main {
 
@@ -9,23 +12,7 @@ public class main {
     }
 
     private void runApp() throws IOException {
-//        User heather = new User("Heather");
-//        heather.addStellarObjectWantToSee(andromeda);
-//        heather.addStellarObjectWantToSee(aquila);
-//        heather.addStellarObjectWantToSee(columba);
-//
-//        heather.addStellarObjectHaveSeen(andromeda);
-//
-//        heather.printHaveSeenList();
-//
-//        heather.printWantToSeeList();
-//
-//        andromeda.printHaveSeenList();
-//        andromeda.printWantToSeeList();
-//
-//        aquila.printWantToSeeList();
-
-        StellarObjectUI.userLogIn();
+         StellarObjectUI.userLogIn();
     }
 }
 

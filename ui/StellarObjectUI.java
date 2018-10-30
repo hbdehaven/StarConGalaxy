@@ -10,8 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static ui.UserUI.callingSave;
-
 public class StellarObjectUI {
     private static Scanner userInput;
     private static boolean whileCreateUser;
@@ -30,12 +28,13 @@ public class StellarObjectUI {
     }
 
     private static void firstQuestionUser(String answer) throws IOException {
-        Scanner scannerFile = new Scanner(new BufferedReader(new FileReader(new File("users.txt"))));
-        //load(scannerFile);
         if(answer.equals("create user")){
             createUser();
         }
         else if (answer.equals("logging in again")){
+            UserUI.load("users.txt");
+            UserUI.containsUser(answer);
+            // TODO
             // ask what user name they have and find and pull it up
             // then call explore app with that user passed in as parameter
             System.out.println("Great!");
@@ -52,7 +51,8 @@ public class StellarObjectUI {
             System.out.println("What would you like your username to be?");
             name = scanner.nextLine();
             User user = new User(name);
-            callingSave(user);
+            UserUI.addUser(user);
+            UserUI.save("users.txt");
             System.out.println("Now that you are logged in, you can explore the app.");
             exploreApp(user);
         }

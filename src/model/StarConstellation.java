@@ -1,7 +1,6 @@
 package model;
 
 public class StarConstellation extends StellarObject{
-    private double distance;  //average distance in lys from earth
     private String symbolism; //small fact or what it represents
     private Star star; // brightest star; Star class with fields name and brightness
 
