@@ -4,61 +4,13 @@ import model.*;
 import model.exceptions.InvalidStringInput;
 import model.ListOfStarConstellation;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class StellarObjectUI {
     private static Scanner userInput;
-    private static boolean whileCreateUser;
-    private static boolean userLogInBoolean;
 
-    public static void userLogIn() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        String answer = "";
-        userLogInBoolean = true;
-
-        while (userLogInBoolean){
-            System.out.println("Hi! Need to create user or logging in again?");
-            answer = scanner.nextLine();
-            firstQuestionUser(answer);
-        }
-    }
-
-    private static void firstQuestionUser(String answer) throws IOException {
-        if(answer.equals("create user")){
-            createUser();
-        }
-        else if (answer.equals("logging in again")){
-            UserUI.load("users.txt");
-            UserUI.containsUser(answer);
-            // TODO
-            // ask what user name they have and find and pull it up
-            // then call explore app with that user passed in as parameter
-            System.out.println("Great!");
-        }
-    }
-
-    private static void createUser() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        String name = "";
-        whileCreateUser = true;
-
-        while (whileCreateUser) {
-            System.out.println("Welcome!");
-            System.out.println("What would you like your username to be?");
-            name = scanner.nextLine();
-            User user = new User(name);
-            UserUI.addUser(user);
-            UserUI.save("users.txt");
-            System.out.println("Now that you are logged in, you can explore the app.");
-            exploreApp(user);
-        }
-    }
-
-    private static void exploreApp(User user)  {
+    public static void exploreApp(User user)  {
         boolean continueWhile = true;
         String answer = "";
         userInput = new Scanner(System.in);
@@ -87,8 +39,8 @@ public class StellarObjectUI {
             }
             else if (answer.equals("q")){
                 continueWhile = false;
-                whileCreateUser = false;
-                userLogInBoolean = false;
+                UserUI.whileCreateUser = false;
+                UserUI.userLogInBoolean = false;
             }
             else System.out.println("Invalid Selection");
         }

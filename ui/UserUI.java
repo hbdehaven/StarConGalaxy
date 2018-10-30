@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.exceptions.NoUserFound;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,23 +16,92 @@ import java.util.Scanner;
 public class UserUI {
     private static ArrayList<User> users = new ArrayList<>();
     private static Scanner userInput;
+    public static boolean userLogInBoolean;
+    public static boolean whileCreateUser;
 
     public static void addUser(User user){
         users.add(user);
     }
 
-    public static void containsUser(String username){
-        User user = new User(username);
-        if (users.contains(user)){
-            System.out.println("Username already exists. Please create another");
+//    //ask what user name they have and find and pull it up
+//    // then call explore app with that user passed in as parameter
+//    public static void containsUser(String username){
+//        User user = new User(username);
+//        if (users.contains(user)){
+//            System.out.println("Username already exists. Please create another");
+//        }
+//        if (!users.contains(user)){
+//            users.add(user);
+//            System.out.println("Great! Your user has successfully been created.");
+//        }
+//    }
+
+    public static void userLogIn() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        String answer = "";
+        userLogInBoolean = true;
+
+        while (userLogInBoolean){
+            System.out.println("Hi! Need to create user or logging in again?");
+            answer = scanner.nextLine();
+            firstQuestionUser(answer);
         }
     }
 
+    private static void firstQuestionUser(String answer) throws IOException {
+        if(answer.equals("create user")){
+            createUser();
+        }
+        else if (answer.equals("logging in again") | answer.equals("logging in")){
+            loggingIn();
+            // TODO
+            // ask what user name they have and find and pull it up
+            // then call explore app with that user passed in as parameter
+            System.out.println("Great!");
+        }
+    }
 
-    public static void load(String filename) throws IOException {
+    private static void loggingIn() throws IOException {
+        userInput = new Scanner(System.in);
+        String userName = "";
+
+        UserUI.load("users.txt");
+
+        System.out.println("What is your username?");
+        userName = userInput.nextLine();
+
+        StellarObjectUI.exploreApp(UserUI.findingUser(userName));
+    }
+
+    private static User findingUser(String username) throws IOException {
+        User user = new User(username);
+        if (users.contains(user)){
+            return user;
+        }
+        else {return null;}
+    }
+
+    private static void createUser() throws IOException {
+        userInput = new Scanner(System.in);
+        String name = "";
+        whileCreateUser = true;
+
+        while (whileCreateUser) {
+            System.out.println("Welcome!");
+            System.out.println("What would you like your username to be?");
+            name = userInput.nextLine();
+            User user = new User(name);
+            UserUI.addUser(user);
+            UserUI.save("users.txt");
+            System.out.println("Now that you are logged in, you can explore the app.");
+            StellarObjectUI.exploreApp(user);
+        }
+    }
+
+    private static void load(String filename) throws IOException {
         List<String> usersFromFile = Files.readAllLines(Paths.get(filename));
         for (String userLog : usersFromFile){
-            ArrayList<String> partsOfLine = splitOnRegex(userLog, ","); // [hbdehaven,[],[]]
+            ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
             List<StellarObject> haveSeen = parseLists(partsOfLine.get(1));
             List<StellarObject> wantToSee = parseLists(partsOfLine.get(2));

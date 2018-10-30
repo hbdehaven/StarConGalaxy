@@ -12,7 +12,7 @@ public class main {
     }
 
     private void runApp() throws IOException {
-         StellarObjectUI.userLogIn();
+         UserUI.userLogIn();
     }
 }
 
