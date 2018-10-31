@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserUI {
-    private static ArrayList<User> users = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
     private static Scanner userInput;
     public static boolean userLogInBoolean;
     public static boolean whileCreateUser;
@@ -23,23 +23,11 @@ public class UserUI {
         users.add(user);
     }
 
-//    //ask what user name they have and find and pull it up
-//    // then call explore app with that user passed in as parameter
-//    public static void containsUser(String username){
-//        User user = new User(username);
-//        if (users.contains(user)){
-//            System.out.println("Username already exists. Please create another");
-//        }
-//        if (!users.contains(user)){
-//            users.add(user);
-//            System.out.println("Great! Your user has successfully been created.");
-//        }
-//    }
-
     public static void userLogIn() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
         userLogInBoolean = true;
+        load("users.txt");
 
         while (userLogInBoolean){
             System.out.println("Hi! Need to create user or logging in again?");
@@ -54,31 +42,33 @@ public class UserUI {
         }
         else if (answer.equals("logging in again") | answer.equals("logging in")){
             loggingIn();
-            // TODO
-            // ask what user name they have and find and pull it up
-            // then call explore app with that user passed in as parameter
             System.out.println("Great!");
         }
     }
 
+    // ask what user name they have and find and pull it up
+    // then call explore app with that user passed in as parameter
     private static void loggingIn() throws IOException {
         userInput = new Scanner(System.in);
         String userName = "";
 
-        UserUI.load("users.txt");
+        //load("users.txt");
 
         System.out.println("What is your username?");
         userName = userInput.nextLine();
 
-        StellarObjectUI.exploreApp(UserUI.findingUser(userName));
+        StellarObjectUI.exploreApp(findingUser(userName));
     }
 
     private static User findingUser(String username) throws IOException {
         User user = new User(username);
         if (users.contains(user)){
-            return user;
+            return users.get(users.indexOf(user));
         }
-        else {return null;}
+        else {
+            System.out.println("Username does not exist. Please try again or create a user.");
+            userLogIn();
+            return null;}
     }
 
     private static void createUser() throws IOException {
@@ -91,10 +81,18 @@ public class UserUI {
             System.out.println("What would you like your username to be?");
             name = userInput.nextLine();
             User user = new User(name);
-            UserUI.addUser(user);
-            UserUI.save("users.txt");
+            alreadyExists(user);
+            addUser(user);
+            save("users.txt");
             System.out.println("Now that you are logged in, you can explore the app.");
             StellarObjectUI.exploreApp(user);
+        }
+    }
+
+    private static void alreadyExists(User user) throws IOException {
+        if (users.contains(user)){
+            System.out.println("That username already exists. Try another.");
+            createUser();
         }
     }
 
@@ -156,16 +154,17 @@ public class UserUI {
         else return Galaxy.Type.SPIRAL;
     }
 
-    public static ArrayList<String> splitOnRegex(String line, String regex){
+    private static ArrayList<String> splitOnRegex(String line, String regex){
         String[] splits = line.split(regex);
         return new ArrayList<>(Arrays.asList(splits));
     }
 
-    public static void save(String fileName) throws IOException {
+    private static void save(String fileName) throws IOException {
         PrintWriter writer = new PrintWriter(fileName,"UTF-8");
         for (User u: users){
             writer.println(u.getName() + "," + u.getHaveSeen() + "," + u.getWantToSee());
         }
+        writer.close();
     }
 
 

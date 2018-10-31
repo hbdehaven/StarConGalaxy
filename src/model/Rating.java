@@ -9,8 +9,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Scanner;
 
-// store rating and change a rating // each constellation has a list of ratings that has a date and time and a user (String name)
-
 public class Rating implements Loadable, Saveable {
     private String name; // what star constellation the rating is for; in the form of "Rating for " + starcon name
     private int rating; //rating is out of 1 to 5 stars

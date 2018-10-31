@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Database {
+public class RatingDatabase {
     //map user to list of rating; ove
     private Map<User, List<Rating>> userListMap;
 
-    public Database(){
+    public RatingDatabase(){
         this.userListMap = new HashMap<>();
     }
 
     public void addUserListRating(User user, Rating rating){
         if (userListMap.containsKey(user)){
-            List<Rating> lor = userListMap.get(user);
+            List<Rating> lor = retrieveRatings(user);
             lor.add(rating);
         }
         else {
@@ -28,4 +28,5 @@ public class Database {
     public List<Rating> retrieveRatings(User user){
            return userListMap.get(user);
     }
+    
 }

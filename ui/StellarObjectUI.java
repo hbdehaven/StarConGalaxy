@@ -232,7 +232,6 @@ public class StellarObjectUI {
         else if (answer.equals("no")){
             selectGalaxies(user);
             System.out.println(" ");
-
         }
     }
 
