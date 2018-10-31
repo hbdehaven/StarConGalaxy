@@ -7,26 +7,32 @@ import java.util.Map;
 
 public class RatingDatabase {
     //map user to list of rating; ove
-    private Map<User, List<Rating>> userListMap;
+    private static Map<User, List<Rating>> userListMap;
 
     public RatingDatabase(){
-        this.userListMap = new HashMap<>();
+        userListMap = new HashMap<User, List<Rating>>();
+        
+        User dummyuser = new User("dummyUser");
+        List<Rating> dummyLOR = null;
+        userListMap.put(dummyuser, dummyLOR);
     }
 
-    public void addUserListRating(User user, Rating rating){
-        if (userListMap.containsKey(user)){
-            List<Rating> lor = retrieveRatings(user);
-            lor.add(rating);
-        }
-        else {
-            List<Rating> lor = new ArrayList<>();
+    public static void addUserListRating(User user, Rating rating){
+        List<Rating> lor;
+        if (!userListMap.containsKey(user)){
+            lor = new ArrayList<>();
             lor.add(rating);
             userListMap.put(user, lor);
         }
+        else {
+            lor = retrieveRatings(user);
+            lor.add(rating);
+        }
+
     }
 
-    public List<Rating> retrieveRatings(User user){
+    public static List<Rating> retrieveRatings(User user){
            return userListMap.get(user);
     }
-    
+
 }

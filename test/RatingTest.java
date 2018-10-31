@@ -16,20 +16,20 @@ public class RatingTest {
 
     @BeforeEach
     public void setup(){
-        rate = new Rating("Rating", 0 , "", 0000);
+        rate = new Rating("Rating", 0 , 0000);
     }
 
     @Test
     public void save() throws IOException {
         File testsave = new File("testsave1.txt");
-        Rating r1 = new Rating("r1", 1, "H", 1002);
+        Rating r1 = new Rating("r1", 1,1002);
         r1.save("testsave1.txt");
 
         Scanner sc = new Scanner(testsave);
         while (sc.hasNextLine()){
             String line = sc.nextLine();
             System.out.println(line);
-            assertEquals(line, "r1,1,H,1002.0");
+            assertEquals(line, "r1,1,1002.0");
         }
 
     }

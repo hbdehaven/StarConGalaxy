@@ -15,8 +15,8 @@ public class ExceptionTest  {
     @BeforeEach
     public void setup(){
         listOfStarConstellation = new ListOfStarConstellation("Test");
-        testValidRating = new Rating("Valid", 3, "Test", 0);
-        testInValidRating  = new Rating("Valid", 7, "Test", 0);
+        testValidRating = new Rating("Valid", 3, 0);
+        testInValidRating  = new Rating("Valid", 7, 0);
     }
 
     @Test

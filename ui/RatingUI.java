@@ -1,9 +1,6 @@
 package ui;
 
-import model.ListOfGalaxy;
-import model.ListOfStarConstellation;
-import model.Rating;
-import model.User;
+import model.*;
 import model.exceptions.InvalidRatingValue;
 
 import java.io.BufferedReader;
@@ -108,14 +105,14 @@ public class RatingUI {
         answer = userInput.next();
         int num = Integer.parseInt(answer);
 
-        Rating rating = new Rating(ratingName, num, user.getName(), date);
+        Rating rating = new Rating(ratingName, num, date);
 
-        checkValidity(rating);
+        checkValidity(user, rating);
 
         uploadAnotherQuestion(user);
     }
 
-    private static void checkValidity(Rating rating){
+    private static void checkValidity(User user, Rating rating){
         String answer = "";
         userInput = new Scanner(System.in);
         ArrayList<Rating> allratings = new ArrayList<>();
@@ -125,6 +122,7 @@ public class RatingUI {
                 rating.isValid();
                 allratings.add(rating);
                 callingSave(allratings);
+                RatingDatabase.addUserListRating(user, rating);
                 break;
             } catch (InvalidRatingValue invalidRatingValue) {
                 System.out.println("Invalid. Rating value must be between 1 and 5.");
@@ -173,7 +171,7 @@ public class RatingUI {
 
     private static void load(Scanner scanner) throws IOException {
         while (scanner.hasNextLine()) {
-            Rating rate = new Rating("R", 0, "U", 0000);
+            Rating rate = new Rating("R", 0, 0000);
             rate.load(scanner);
             ratings.add(rate);
         }

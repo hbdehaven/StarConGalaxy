@@ -7,18 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Rating implements Loadable, Saveable {
     private String name; // what star constellation the rating is for; in the form of "Rating for " + starcon name
     private int rating; //rating is out of 1 to 5 stars
-    private String user; // name of user who inputted rating
     private double date; // month and day of updated rating (inputted as MMDD)
 
-    public Rating(String name, int rating, String user, int date) {
+    public Rating(String name, int rating, int date) {
         this.name = name;
         this.rating = rating;
-        this.user = user;
         this.date = date;
     }
 
@@ -31,14 +30,13 @@ public class Rating implements Loadable, Saveable {
         String[] values = value.split(",");
         this.name = values[0];
         this.rating = Integer.parseInt(values[1]);
-        this.user = values[2];
-        this.date = Double.parseDouble(values[3]);
+        this.date = Double.parseDouble(values[2]);
     }
 
     // inspired by FileReaderWriter
     @Override
     public void save(String fileName) throws IOException {
-        Files.write(Paths.get(fileName), Arrays.asList(name + "," + rating + "," + user + "," + date),
+        Files.write(Paths.get(fileName), Arrays.asList(name + "," + rating + "," + date),
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
@@ -51,6 +49,21 @@ public class Rating implements Loadable, Saveable {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rating)) return false;
+        Rating rating1 = (Rating) o;
+        return rating == rating1.rating &&
+                Double.compare(rating1.date, date) == 0 &&
+                Objects.equals(name, rating1.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, rating, date);
+    }
+
     // getters
     //EFFECTS: get name of Rating
     public String getNameOfR() {
@@ -60,11 +73,6 @@ public class Rating implements Loadable, Saveable {
     // EFFECTS: get rating of Rating
     public int getRating() {
         return rating;
-    }
-
-    // EFFECTS: get user of Rating
-    public String getUser() {
-        return user;
     }
 
     // EFFECTS get date of Rating
