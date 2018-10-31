@@ -95,8 +95,8 @@ public class UserUI {
         for (String userLog : usersFromFile){
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
-            List<StellarObject> haveSeen = parseLists(partsOfLine.get(1));
-            List<StellarObject> wantToSee = parseLists(partsOfLine.get(2));
+            List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
+            List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
             User user = new User(userName);
             user.setHaveSeen(haveSeen);
             user.setWantToSee(wantToSee);
@@ -104,7 +104,7 @@ public class UserUI {
         }
     }
 
-    private static List<StellarObject> parseLists(String stellarObjects) {
+    private static List<StellarObject> parseListsOfStellarObjects(String stellarObjects) {
         List<StellarObject> l = new ArrayList<>();
         ArrayList<String> parts = splitOnRegex(stellarObjects, "~");
         for(String s : parts) {
@@ -112,7 +112,11 @@ public class UserUI {
             if (stellarObjProperties.size() == (3)){
                 Galaxy.Type enumTypeProperty = stringToEnum(stellarObjProperties.get(1));
                 StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(2));
+                List<StellarObject> haveSeenGalaxyofUsers = null;
+                List<StellarObject> wantToSeeGalaxyofUsers = null;
+
                 l.add(new Galaxy(stellarObjProperties.get(0),enumTypeProperty, enumLocationProperty));
+                //set this galaxy's haveseen and wanttosee lists of users
                 // TODO: parse for haveSeen and wantToSee
             }
             else if (stellarObjProperties.size() == 4) {
@@ -124,6 +128,7 @@ public class UserUI {
 
                 l.add(new StarConstellation(stellarObjProperties.get(0),enumLocationProperty,
                         stellarObjProperties.get(2), (new Star(starName, brightness, distance))));
+                // TODO: parse for haveSeen and wantToSee
             }
         }
         return l;
@@ -158,6 +163,7 @@ public class UserUI {
         PrintWriter writer = new PrintWriter(fileName,"UTF-8");
         for (User u: users){
             writer.println(u.getName() + "," + u.getHaveSeen() + "," + u.getWantToSee());
+            // TODO: how do i save them the corresponding symbols in load???
         }
         writer.close();
     }

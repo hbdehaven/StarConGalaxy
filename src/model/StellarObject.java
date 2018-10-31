@@ -81,4 +81,11 @@ public abstract class StellarObject {
     //EFFECTS: get location of StellarObject
     public Location getLocation() {return location;}
 
+    public void setHaveSeen(List<User> haveSeen) {
+        this.haveSeen = haveSeen;
+    }
+
+    public void setWantToSee(List<User> wantToSee) {
+        this.wantToSee = wantToSee;
+    }
 }
