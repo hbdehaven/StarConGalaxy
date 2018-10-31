@@ -1,13 +1,11 @@
 package ui;
 
 import model.*;
-import model.exceptions.NoUserFound;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,13 +44,9 @@ public class UserUI {
         }
     }
 
-    // ask what user name they have and find and pull it up
-    // then call explore app with that user passed in as parameter
     private static void loggingIn() throws IOException {
         userInput = new Scanner(System.in);
         String userName = "";
-
-        //load("users.txt");
 
         System.out.println("What is your username?");
         userName = userInput.nextLine();
@@ -112,13 +106,14 @@ public class UserUI {
 
     private static List<StellarObject> parseLists(String stellarObjects) {
         List<StellarObject> l = new ArrayList<>();
-        ArrayList<String> parts = splitOnRegex(stellarObjects, "|");
+        ArrayList<String> parts = splitOnRegex(stellarObjects, "~");
         for(String s : parts) {
             ArrayList<String> stellarObjProperties = splitOnRegex(s, "-");
             if (stellarObjProperties.size() == (3)){
                 Galaxy.Type enumTypeProperty = stringToEnum(stellarObjProperties.get(1));
                 StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(2));
                 l.add(new Galaxy(stellarObjProperties.get(0),enumTypeProperty, enumLocationProperty));
+                // TODO: parse for haveSeen and wantToSee
             }
             else if (stellarObjProperties.size() == 4) {
                 StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(1));
@@ -167,7 +162,8 @@ public class UserUI {
         writer.close();
     }
 
-
+    // TODO: user interaction for adding so into wantToSee and haveSeen;
+    // also adding a feature to see all users who have seen that so and want to see it; will be in StellarObjectUI
 
 
 

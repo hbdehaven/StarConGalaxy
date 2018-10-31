@@ -177,7 +177,8 @@ public class RatingUI {
         }
     }
 
-    // average rating?
+    // TODO: average rating based on string parameter of name of stellar object method based on ratings or allratings?
+    // now add this to user interaction
 
 
 

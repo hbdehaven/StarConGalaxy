@@ -11,12 +11,13 @@ public class RatingDatabase {
 
     public RatingDatabase(){
         userListMap = new HashMap<User, List<Rating>>();
-        
+
         User dummyuser = new User("dummyUser");
         List<Rating> dummyLOR = null;
         userListMap.put(dummyuser, dummyLOR);
     }
 
+    // TODO: NULL POINTER EXCEPTION AND IDK WHY LOL
     public static void addUserListRating(User user, Rating rating){
         List<Rating> lor;
         if (!userListMap.containsKey(user)){
