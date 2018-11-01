@@ -9,14 +9,14 @@ public abstract class StellarObject {
     }
     protected String name;
     protected Location location;
-    protected List<User> haveSeen;
-    protected List<User> wantToSee;
+    protected List<User> haveSeenofUsers;
+    protected List<User> wantToSeeofUsers;
 
     public StellarObject(String name, Location location) {
         this.name = name;
         this.location = location;
-        haveSeen = new ArrayList<>();
-        wantToSee = new ArrayList<>();
+        haveSeenofUsers = new ArrayList<>();
+        wantToSeeofUsers = new ArrayList<>();
     }
 
     public String readableLocation(){
@@ -40,17 +40,17 @@ public abstract class StellarObject {
 
     // adding user to want to see
     public void addUserWantToSee(User u){
-        if (!wantToSee.contains(u)){
-            wantToSee.add(u);
+        if (!wantToSeeofUsers.contains(u)){
+            wantToSeeofUsers.add(u);
             u.addStellarObjectWantToSee(this);
         }
     }
 
     // taking User from want to see, removing, and putting in seen
     public void addUserSeen(User u){
-        if (wantToSee.contains(u) && !haveSeen.contains(u)){
-            wantToSee.remove(u);
-            haveSeen.add(u);
+        if (wantToSeeofUsers.contains(u) && !haveSeenofUsers.contains(u)){
+            wantToSeeofUsers.remove(u);
+            haveSeenofUsers.add(u);
             u.addStellarObjectHaveSeen(this);
         }
     }
@@ -58,7 +58,7 @@ public abstract class StellarObject {
     // EFFECTS: print have seen list
     public void printHaveSeenList() {
         System.out.println("Have Seen: ");
-        for (User u: haveSeen){
+        for (User u: haveSeenofUsers){
             System.out.println(u.getName());
         }
         System.out.println("/////////");
@@ -67,7 +67,7 @@ public abstract class StellarObject {
     // EFFECTS: print want to see list
     public void printWantToSeeList() {
         System.out.println("Would Like to See: ");
-        for (User u: wantToSee){
+        for (User u: wantToSeeofUsers){
             System.out.println(u.getName());
         }
         System.out.println("/////////");
@@ -80,12 +80,18 @@ public abstract class StellarObject {
     public String getName() {return name;}
     //EFFECTS: get location of StellarObject
     public Location getLocation() {return location;}
-
-    public void setHaveSeen(List<User> haveSeen) {
-        this.haveSeen = haveSeen;
+    public List<User> getHaveSeenofUsers() {
+        return haveSeenofUsers;
+    }
+    public List<User> getWantToSeeofUsers() {
+        return wantToSeeofUsers;
     }
 
-    public void setWantToSee(List<User> wantToSee) {
-        this.wantToSee = wantToSee;
+    public void setHaveSeenofUsers(List<User> haveSeenofUsers) {
+        this.haveSeenofUsers = haveSeenofUsers;
+    }
+
+    public void setWantToSeeofUsers(List<User> wantToSeeofUsers) {
+        this.wantToSeeofUsers = wantToSeeofUsers;
     }
 }

@@ -14,9 +14,10 @@ import static ui.StellarObjectUI.nameOfGalaxy;
 import static ui.StellarObjectUI.nameOfStarCon;
 
 public class RatingUI {
-    public static ArrayList<Rating> ratings = new ArrayList<>();
+    private static ArrayList<Rating> ratings = new ArrayList<>();
     private static Scanner userInput;
     private static boolean whileLoop;
+    private static RatingDatabase ratingDatabase = new RatingDatabase();
 
     public static void selectRating(User user) throws IOException {
         Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
@@ -39,7 +40,8 @@ public class RatingUI {
             if(answer.equals("galaxies")){
                 whichGalaxy(user, log);
             }
-            else if (answer.equals("starconstellations")){
+            // not working for "star constellations"
+            else if (answer.equals("starconstellations")|answer.equals("star constellations")){
                 whichStarConstellation(user, losc);
             }
         }
@@ -122,7 +124,7 @@ public class RatingUI {
                 rating.isValid();
                 allratings.add(rating);
                 callingSave(allratings);
-                RatingDatabase.addUserListRating(user, rating);
+                ratingDatabase.addUserListRating(user, rating);
                 break;
             } catch (InvalidRatingValue invalidRatingValue) {
                 System.out.println("Invalid. Rating value must be between 1 and 5.");
@@ -175,6 +177,18 @@ public class RatingUI {
             rate.load(scanner);
             ratings.add(rate);
         }
+    }
+
+    private static int averageRatingStellarObject(String SOname){
+        int sumOfRatings = 0;
+        int amountOfRatings = 0;
+        for(Rating r: ratings){
+            if (r.getNameOfR().equals(SOname)){
+                sumOfRatings += r.getRating();
+                amountOfRatings++;
+            }
+        }
+        return sumOfRatings / amountOfRatings;
     }
 
     // TODO: average rating based on string parameter of name of stellar object method based on ratings or allratings?

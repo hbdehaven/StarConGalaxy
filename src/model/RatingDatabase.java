@@ -6,18 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public class RatingDatabase {
-    //map user to list of rating; ove
     private static Map<User, List<Rating>> userListMap;
 
     public RatingDatabase(){
         userListMap = new HashMap<User, List<Rating>>();
-
-        User dummyuser = new User("dummyUser");
-        List<Rating> dummyLOR = null;
-        userListMap.put(dummyuser, dummyLOR);
     }
 
-    // TODO: NULL POINTER EXCEPTION AND IDK WHY LOL
     public static void addUserListRating(User user, Rating rating){
         List<Rating> lor;
         if (!userListMap.containsKey(user)){
