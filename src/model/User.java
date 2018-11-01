@@ -22,7 +22,7 @@ public class User{
     // remove SO from wanttoSee, add to have seen;
     // subsequently called addUserSeen
     public void addStellarObjectHaveSeen(StellarObject so){
-        if (wantToSee.contains(so) &&!haveSeen.contains(so)){
+        if (wantToSee.contains(so) && !haveSeen.contains(so)){
             wantToSee.remove(so);
             haveSeen.add(so);
         }

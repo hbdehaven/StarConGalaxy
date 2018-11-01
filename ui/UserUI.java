@@ -192,8 +192,71 @@ public class UserUI {
 
         System.out.println("Would you like to add to the list of Stellar Objects you have seen " +
                 "or the list of Stellar Objects you want to see?");
+        System.out.println("Remember, you can only add to have seen if it has been added to want to see!");
         answer = userInput.next();
 
+        addingToUsersFieldLists(user, answer);
+    }
+
+    private static void addingToUsersFieldLists(User user, String answer){
+        String input = "";
+        userInput = new Scanner(System.in);
+
+        input = userInput.next();
+        System.out.println("Would you like to add a Galaxy or Star Constellation?");
+
+        if (input.equals("galaxy")) {
+            ListOfGalaxy log = new ListOfGalaxy("Used");
+            log.printList();
+
+            System.out.println("Which Galaxy? Indicate by inputted the location in the list.");
+
+            input = userInput.next();
+            Galaxy g = StellarObjectUI.retrieveGalaxy(input, log);
+
+            if (answer.equals("have seen")) {
+                user.addStellarObjectHaveSeen(g);
+                System.out.println("All set!");
+                more(user);
+            }
+            if (answer.equals("want to see")) {
+                user.addStellarObjectWantToSee(g);
+                System.out.println("All set!");
+                more(user);
+            }
+        }
+        else if (input.equals("star constellation")) {
+                ListOfStarConstellation losc = new ListOfStarConstellation("Used");
+                losc.printList();
+
+                System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
+
+                input = userInput.next();
+                StarConstellation sc = StellarObjectUI.retrieveStarCon(input, losc);
+
+                if (answer.equals("have seen")){
+                    user.addStellarObjectHaveSeen(sc);
+                    System.out.println("All set!");
+                    more(user);
+                }
+                if (answer.equals("want to see")) {
+                    user.addStellarObjectWantToSee(sc);
+                    System.out.println("All set!");
+                    more(user);
+                }
+        }
+    }
+
+    private static void more(User user){
+        String answer = "";
+        userInput = new Scanner(System.in);
+
+        System.out.println("Would you like to add more?");
+        answer = userInput.next();
+        if (answer.equals("yes")){
+            addingToLists(user);
+        }
+        else StellarObjectUI.exploreApp(user);
     }
 
 }
