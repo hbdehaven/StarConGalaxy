@@ -16,7 +16,6 @@ public class User{
     public void addStellarObjectWantToSee(StellarObject so){
         if (!wantToSee.contains(so)){
             wantToSee.add(so);
-            so.addUserWantToSee(this);
         }
     }
 
@@ -26,7 +25,6 @@ public class User{
         if (wantToSee.contains(so) &&!haveSeen.contains(so)){
             wantToSee.remove(so);
             haveSeen.add(so);
-            so.addUserSeen(this);
         }
     }
 

@@ -191,8 +191,7 @@ public class RatingUI {
         return sumOfRatings / amountOfRatings;
     }
 
-    // TODO: average rating based on string parameter of name of stellar object method based on ratings or allratings?
-    // now add this to user interaction
+    // TODO: now add this to user interaction
 
 
 

@@ -95,30 +95,17 @@ public class UserUI {
         for (String userLog : usersFromFile){
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
-            List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
-            List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
             User user = new User(userName);
-            user.setHaveSeen(haveSeen);
-            user.setWantToSee(wantToSee);
+            if (!(partsOfLine.get(1) == null)) {
+                List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
+                user.setHaveSeen(haveSeen);
+            }
+            else if(!(partsOfLine.get(2) == null)){
+                List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
+                user.setWantToSee(wantToSee);
+            }
             users.add(user);
         }
-    }
-
-    // EFFECTS: creates the users in lists of haveSeenofUsers and wantToSeeofUsers of Stellar Objects
-    private static List<User> instantiateUsers(String line){
-        ArrayList<String> parts = splitOnRegex(line, "-");
-        List<User> listOfUser = new ArrayList<>();
-        for (String userLog : parts){
-            ArrayList<String> partsOfLine = splitOnRegex(userLog, "-");
-            String userName = partsOfLine.get(0);
-            List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
-            List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
-            User user = new User(userName);
-            user.setHaveSeen(haveSeen);
-            user.setWantToSee(wantToSee);
-            listOfUser.add(user);
-        }
-        return listOfUser;
     }
 
     private static List<StellarObject> parseListsOfStellarObjects(String stellarObjects) {
@@ -130,17 +117,8 @@ public class UserUI {
                 Galaxy.Type enumTypeProperty = stringToEnum(stellarObjProperties.get(1));
                 StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(2));
 
-                // realized i didn't parse for haveSeenofUsers and wantToSeeofUsers
-
-//                List<User> haveSeenGalaxyofUsers = instantiateUsers(stellarObjProperties.get(3));
-//                List<User> wantToSeeGalaxyofUsers = instantiateUsers(stellarObjProperties.get(4));
-
                 Galaxy galaxy = new Galaxy(stellarObjProperties.get(0),enumTypeProperty, enumLocationProperty);
                 l.add(galaxy);
-//                galaxy.setHaveSeenofUsers(haveSeenGalaxyofUsers);
-//                galaxy.setWantToSeeofUsers(wantToSeeGalaxyofUsers);
-//                set this galaxy's haveseen and wanttosee lists of users
-                // TODO: parse for haveSeenofUsers and wantToSeeofUsers
             }
             else if (stellarObjProperties.size() == 4) {
                 StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(1));
@@ -151,7 +129,6 @@ public class UserUI {
 
                 l.add(new StarConstellation(stellarObjProperties.get(0),enumLocationProperty,
                         stellarObjProperties.get(2), (new Star(starName, brightness, distance))));
-                // TODO: parse for haveSeenofUsers and wantToSeeofUsers
             }
         }
         return l;
@@ -185,32 +162,38 @@ public class UserUI {
     public static void save(String fileName) throws IOException {
         PrintWriter writer = new PrintWriter(fileName,"UTF-8");
         for (User u: users){
-//            writer.println(u.getName() + "," + retrieveTrackingLists(writer,u.getHaveSeenofUsers())
-//                    + "," + retrieveTrackingLists(writer, u.getWantToSeeofUsers()));
-            // TODO: how do i save them the corresponding symbols in load???
-            // not saving how i want it to lol
+            StringBuilder sb = new StringBuilder();
+            sb.append(u.getName() + ",");
+            retrieveTrackingLists(sb, u.getHaveSeen());
+            sb.append(",");
+            retrieveTrackingLists(sb, u.getWantToSee());
+            writer.println(sb.toString());
         }
         writer.close();
     }
 
-    private static void retrieveTrackingLists(PrintWriter writer, List<StellarObject> stellarObjects){
+    private static void retrieveTrackingLists(StringBuilder sb, List<StellarObject> stellarObjects){
         for (StellarObject so: stellarObjects){
             if (so instanceof Galaxy){
-                writer.println(so.getName() + "-" + ((Galaxy) so).getType() + "-" + so.getLocation() +
-                        so.getHaveSeenofUsers() + "-" + so.getWantToSeeofUsers() +  "~");
+                String galaxy = (so.getName() + "-" + ((Galaxy) so).getType() + "-" + so.getLocation() +  "~");
+                sb.append(galaxy);
             }
-            if (so instanceof StarConstellation){
-                writer.println(so.getName() + "-" + so.getLocation() + "-" + ((StarConstellation) so).getSymbolism()
-                + "-" + so.getLocation() + so.getHaveSeenofUsers() + "-" + so.getWantToSeeofUsers() + "~");
+            else if (so instanceof StarConstellation) {
+                String starcon = (so.getName() + "-" + so.getLocation() + "-" + ((StarConstellation) so).getSymbolism()
+                        + "-" + so.getLocation() + "~");
+                sb.append(starcon);
             }
         }
-        writer.close();
     }
 
-    // TODO: user interaction for adding so into wantToSeeofUsers and haveSeenofUsers;
-    // also adding a feature to see all users who have seen that so and want to see it; will be in StellarObjectUI
+    public static void addingToLists(User user){
+        String answer = "";
+        userInput = new Scanner(System.in);
 
+        System.out.println("Would you like to add to the list of Stellar Objects you have seen " +
+                "or the list of Stellar Objects you want to see?");
+        answer = userInput.next();
 
-
+    }
 
 }
