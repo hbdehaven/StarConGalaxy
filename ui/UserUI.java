@@ -186,24 +186,24 @@ public class UserUI {
         }
     }
 
-    public static void addingToLists(User user){
+    public static void addingToLists(User user) throws IOException {
         String answer = "";
         userInput = new Scanner(System.in);
 
         System.out.println("Would you like to add to the list of Stellar Objects you have seen " +
                 "or the list of Stellar Objects you want to see?");
         System.out.println("Remember, you can only add to have seen if it has been added to want to see!");
-        answer = userInput.next();
+        answer = userInput.nextLine();
 
         addingToUsersFieldLists(user, answer);
     }
 
-    private static void addingToUsersFieldLists(User user, String answer){
+    private static void addingToUsersFieldLists(User user, String answer) throws IOException {
         String input = "";
         userInput = new Scanner(System.in);
 
-        input = userInput.next();
         System.out.println("Would you like to add a Galaxy or Star Constellation?");
+        input = userInput.nextLine();
 
         if (input.equals("galaxy")) {
             ListOfGalaxy log = new ListOfGalaxy("Used");
@@ -247,7 +247,7 @@ public class UserUI {
         }
     }
 
-    private static void more(User user){
+    private static void more(User user) throws IOException {
         String answer = "";
         userInput = new Scanner(System.in);
 
@@ -256,7 +256,9 @@ public class UserUI {
         if (answer.equals("yes")){
             addingToLists(user);
         }
-        else StellarObjectUI.exploreApp(user);
+        else {
+            save("users.txt");
+            StellarObjectUI.exploreApp(user);}
     }
 
 }

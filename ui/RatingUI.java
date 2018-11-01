@@ -191,10 +191,5 @@ public class RatingUI {
         return sumOfRatings / amountOfRatings;
     }
 
-    // TODO: now add this to user interaction
-
-
-
-
 
 }

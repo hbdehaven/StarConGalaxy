@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class StellarObject {
     public enum Location {  // north, south parts of the sky, 90-0 degrees declination: north; 0-(-90) degree declination: south
@@ -34,13 +35,24 @@ public abstract class StellarObject {
         return (location == StellarObject.Location.SOUTH);
     }
 
-
     public abstract void allInformation();
-
 
     //EFFECTS: get name of StellarObject
     public String getName() {return name;}
     //EFFECTS: get location of StellarObject
     public Location getLocation() {return location;}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StellarObject)) return false;
+        StellarObject that = (StellarObject) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name);
+    }
 }

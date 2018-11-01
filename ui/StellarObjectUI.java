@@ -35,7 +35,11 @@ public class StellarObjectUI {
                 }
             }
             else if (answer.equals("u")){
-                System.out.println("u");
+                try {
+                    UserUI.addingToLists(user);
+                } catch (IOException e) {
+                    System.out.println("IOException Caught.");
+                }
             }
             else if (answer.equals("q")){
                 continueWhile = false;
