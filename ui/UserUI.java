@@ -96,13 +96,19 @@ public class UserUI {
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
             User user = new User(userName);
-            if (!(user.getHaveSeen().size() == 0)) {
+            try {
                 List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
                 user.setHaveSeen(haveSeen);
             }
-            else if(!(user.getWantToSee().size() == 0)){
+            catch (IndexOutOfBoundsException e){
+
+            }
+            try {
                 List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
                 user.setWantToSee(wantToSee);
+            }
+            catch (IndexOutOfBoundsException e){
+
             }
             users.add(user);
         }
@@ -216,6 +222,7 @@ public class UserUI {
 
             if (answer.equals("have seen")) {
                 user.addStellarObjectHaveSeen(g);
+
                 System.out.println("All set!");
                 more(user);
             }

@@ -1,2 +1,3 @@
-hbdehaven,Small Magellanic Cloud-IRREGULAR-SOUTH~,Orion-BOTH-The Hunter-BOTH~
-brooke,,
+hbdehaven,Large Magellanic Cloud-SPIRAL-SOUTH~,Andromeda Galaxy-SPIRAL-NORTH~
+brooke,Small Magellanic Cloud-IRREGULAR-SOUTH~,
+chloe,,

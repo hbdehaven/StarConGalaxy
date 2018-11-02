@@ -9,7 +9,7 @@ public class RatingDatabase {
     private static Map<User, List<Rating>> userListMap;
 
     public RatingDatabase(){
-        userListMap = new HashMap<User, List<Rating>>();
+        userListMap = new HashMap<>();
     }
 
     public static void addUserListRating(User user, Rating rating){
