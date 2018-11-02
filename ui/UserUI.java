@@ -96,11 +96,11 @@ public class UserUI {
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
             User user = new User(userName);
-            if (!(partsOfLine.get(1) == null)) {
+            if (!(user.getHaveSeen().size() == 0)) {
                 List<StellarObject> haveSeen = parseListsOfStellarObjects(partsOfLine.get(1));
                 user.setHaveSeen(haveSeen);
             }
-            else if(!(partsOfLine.get(2) == null)){
+            else if(!(user.getWantToSee().size() == 0)){
                 List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
                 user.setWantToSee(wantToSee);
             }
