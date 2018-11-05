@@ -99,6 +99,8 @@ public class UserUI {
         else addUser(user);
     }
 
+    //MODIFIES: this
+    //EFFECTS: asks if user wants to add to haveSeen or wantToSee
     public static void addingToLists(User user) throws IOException {
         String answer = "";
         userInput = new Scanner(System.in);
@@ -111,6 +113,8 @@ public class UserUI {
         addingToUsersFieldLists(user, answer);
     }
 
+    //MODIFIES: this
+    //EFFECTS: asks if user would like to add galaxy or starcon
     private static void addingToUsersFieldLists(User user, String answer) throws IOException {
         String input = "";
         userInput = new Scanner(System.in);
@@ -119,48 +123,62 @@ public class UserUI {
         input = userInput.nextLine();
 
         if (input.equals("galaxy")) {
-            ListOfGalaxy log = new ListOfGalaxy("Used");
-            log.printList();
-
-            System.out.println("Which Galaxy? Indicate by inputted the location in the list.");
-
-            input = userInput.next();
-            Galaxy g = StellarObjectUI.retrieveGalaxy(input, log);
-
-            if (answer.equals("have seen")) {
-                user.addStellarObjectHaveSeen(g);
-
-                System.out.println("All set!");
-                more(user);
-            }
-            if (answer.equals("want to see")) {
-                user.addStellarObjectWantToSee(g);
-                System.out.println("All set!");
-                more(user);
-            }
+            addingGalaxyToList(user, answer);
         }
         else if (input.equals("star constellation")) {
-                ListOfStarConstellation losc = new ListOfStarConstellation("Used");
-                losc.printList();
-
-                System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
-
-                input = userInput.next();
-                StarConstellation sc = StellarObjectUI.retrieveStarCon(input, losc);
-
-                if (answer.equals("have seen")){
-                    user.addStellarObjectHaveSeen(sc);
-                    System.out.println("All set!");
-                    more(user);
-                }
-                if (answer.equals("want to see")) {
-                    user.addStellarObjectWantToSee(sc);
-                    System.out.println("All set!");
-                    more(user);
-                }
+            addingStarConToList(user, answer);
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds selected galaxy to selected list (answer)
+    private static void addingGalaxyToList(User user, String answer) throws IOException {
+        String input = "";
+        userInput = new Scanner(System.in);
+        ListOfGalaxy log = new ListOfGalaxy("Used");
+
+        log.printList();
+        System.out.println("Which Galaxy? Indicate by inputted the location in the list.");
+
+        input = userInput.next();
+        Galaxy g = StellarObjectUI.retrieveGalaxy(input, log);
+
+        addingToTrackerList(answer, user, g);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds selected starCon to selected list (answer)
+    private static void addingStarConToList(User user, String answer) throws IOException {
+        String input = "";
+        userInput = new Scanner(System.in);
+        ListOfStarConstellation losc = new ListOfStarConstellation("Used");
+        losc.printList();
+
+        System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
+
+        input = userInput.next();
+        StarConstellation sc = StellarObjectUI.retrieveStarCon(input, losc);
+
+        addingToTrackerList(answer, user, sc);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds selected stellarObject to selected list (answer)
+    private static void addingToTrackerList(String answer, User user, StellarObject sc) throws IOException {
+        if (answer.equals("have seen")){
+            user.addStellarObjectHaveSeen(sc);
+            System.out.println("All set!");
+            more(user);
+        }
+        else if (answer.equals("want to see")) {
+            user.addStellarObjectWantToSee(sc);
+            System.out.println("All set!");
+            more(user);
+        }
+    }
+
+    //MODIFIES: this, users.txt
+    //EFFECTS: restarts if user wants to add more; saves ones they have added if not
     private static void more(User user) throws IOException {
         String answer = "";
         userInput = new Scanner(System.in);
@@ -175,6 +193,7 @@ public class UserUI {
             StellarObjectUI.exploreApp(user);}
     }
 
+    //getter
     public static List<User> getUsers() {
         return users;
     }
