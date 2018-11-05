@@ -117,13 +117,13 @@ public class RatingUI {
     private static void checkValidity(User user, Rating rating){
         String answer = "";
         userInput = new Scanner(System.in);
-        ArrayList<Rating> allratings = new ArrayList<>();
+        ArrayList<Rating> allRatings = new ArrayList<>();
 
         while (true) {
             try {
                 rating.isValid();
-                allratings.add(rating);
-                callingSave(allratings);
+                allRatings.add(rating);
+                callingSave(allRatings);
                 ratingDatabase.addUserListRating(user, rating);
                 break;
             } catch (InvalidRatingValue invalidRatingValue) {
