@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public abstract class StellarObject {
@@ -16,7 +14,7 @@ public abstract class StellarObject {
         this.location = location;
     }
 
-    public String readableLocation(){
+    protected String readableLocation(){
         if (location == StellarObject.Location.NORTH){
             return "the Northern Sky";
         }
@@ -27,11 +25,11 @@ public abstract class StellarObject {
         return "both the Northern and Southern Skys";
     }
 
-    public static boolean locationNorth(StellarObject.Location location){
+    protected static boolean locationNorth(StellarObject.Location location){
         return (location == StellarObject.Location.NORTH);
     }
 
-    public static boolean locationSouth(StellarObject.Location location){
+    protected static boolean locationSouth(StellarObject.Location location){
         return (location == StellarObject.Location.SOUTH);
     }
 

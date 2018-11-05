@@ -12,15 +12,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserUI {
-    public static List<User> users = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
     private static Scanner userInput;
     public static boolean userLogInBoolean;
     public static boolean whileCreateUser;
 
-    public static void addUser(User user){
+    // MODIFIES: this
+    // EFFECTS: adds user to field users
+    private static void addUser(User user){
         users.add(user);
     }
 
+    //MODIFIES: this
+    //EFFECTS: loads users; starts initial user interaction
     public static void userLogIn() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String answer = "";
@@ -34,6 +38,8 @@ public class UserUI {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: helper method leading to creating or logging in
     private static void firstQuestionUser(String answer) throws IOException {
         if(answer.equals("create user")){
             createUser();
@@ -44,6 +50,7 @@ public class UserUI {
         }
     }
 
+    //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
         userInput = new Scanner(System.in);
         String userName = "";
@@ -54,6 +61,7 @@ public class UserUI {
         StellarObjectUI.exploreApp(findingUser(userName));
     }
 
+    //EFFECTS: returns found user; if user doesnt exist sends person back to beginning
     private static User findingUser(String username) throws IOException {
         User user = new User(username);
         if (users.contains(user)){
@@ -65,6 +73,9 @@ public class UserUI {
             return null;}
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates new user and adds to field users through alreadyExists
+    //         once successful, send to exploreApp
     private static void createUser() throws IOException {
         userInput = new Scanner(System.in);
         String name = "";
@@ -76,21 +87,23 @@ public class UserUI {
             name = userInput.nextLine();
             User user = new User(name);
             alreadyExists(user);
-            addUser(user);
             save("users.txt");
             System.out.println("Now that you are logged in, you can explore the app.");
             StellarObjectUI.exploreApp(user);
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks if users already contains user, if not, add user
     private static void alreadyExists(User user) throws IOException {
         if (users.contains(user)){
             System.out.println("That username already exists. Try another.");
             createUser();
         }
+        else addUser(user);
     }
 
-    public static void load(String filename) throws IOException {
+    private static void load(String filename) throws IOException {
         List<String> usersFromFile = Files.readAllLines(Paths.get(filename));
         for (String userLog : usersFromFile){
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
@@ -101,43 +114,51 @@ public class UserUI {
                 user.setHaveSeen(haveSeen);
             }
             catch (IndexOutOfBoundsException e){
-
+                // do nothing
             }
             try {
                 List<StellarObject> wantToSee = parseListsOfStellarObjects(partsOfLine.get(2));
                 user.setWantToSee(wantToSee);
             }
             catch (IndexOutOfBoundsException e){
-
+                // do nothing
             }
             users.add(user);
         }
     }
 
     private static List<StellarObject> parseListsOfStellarObjects(String stellarObjects) {
-        List<StellarObject> l = new ArrayList<>();
+        List<StellarObject> list = new ArrayList<>();
         ArrayList<String> parts = splitOnRegex(stellarObjects, "~");
         for(String s : parts) {
             ArrayList<String> stellarObjProperties = splitOnRegex(s, "-");
             if (stellarObjProperties.size() == (3)){
-                Galaxy.Type enumTypeProperty = stringToEnum(stellarObjProperties.get(1));
-                StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(2));
-
-                Galaxy galaxy = new Galaxy(stellarObjProperties.get(0),enumTypeProperty, enumLocationProperty);
-                l.add(galaxy);
+                galaxyInstantiation(stellarObjProperties,list);
             }
             else if (stellarObjProperties.size() == 4) {
-                StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(1));
-
-                String starName = stellarObjProperties.get(3);
-                Double brightness = Double.parseDouble(stellarObjProperties.get(4));
-                Double distance = Double.parseDouble(stellarObjProperties.get(5));
-
-                l.add(new StarConstellation(stellarObjProperties.get(0),enumLocationProperty,
-                        stellarObjProperties.get(2), (new Star(starName, brightness, distance))));
+                starConInstantiation(stellarObjProperties,list);
             }
         }
-        return l;
+        return list;
+    }
+
+    private static void galaxyInstantiation(ArrayList<String> stellarObjProperties, List<StellarObject> list){
+        Galaxy.Type enumTypeProperty = stringToEnum(stellarObjProperties.get(1));
+        StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(2));
+
+        Galaxy galaxy = new Galaxy(stellarObjProperties.get(0),enumTypeProperty, enumLocationProperty);
+        list.add(galaxy);
+    }
+
+    private static void starConInstantiation(ArrayList<String> stellarObjProperties, List<StellarObject> list){
+        StellarObject.Location enumLocationProperty = stringToEnumLocation(stellarObjProperties.get(1));
+
+        String starName = stellarObjProperties.get(3);
+        Double brightness = Double.parseDouble(stellarObjProperties.get(4));
+        Double distance = Double.parseDouble(stellarObjProperties.get(5));
+
+        list.add(new StarConstellation(stellarObjProperties.get(0),enumLocationProperty,
+                stellarObjProperties.get(2), (new Star(starName, brightness, distance))));
     }
 
     private static StellarObject.Location stringToEnumLocation(String property){
@@ -165,29 +186,29 @@ public class UserUI {
         return new ArrayList<>(Arrays.asList(splits));
     }
 
-    public static void save(String fileName) throws IOException {
+    private static void save(String fileName) throws IOException {
         PrintWriter writer = new PrintWriter(fileName,"UTF-8");
         for (User u: users){
             StringBuilder sb = new StringBuilder();
             sb.append(u.getName() + ",");
-            retrieveTrackingLists(sb, u.getHaveSeen());
+            saveTrackerLists(sb, u.getHaveSeen());
             sb.append(",");
-            retrieveTrackingLists(sb, u.getWantToSee());
+            saveTrackerLists(sb, u.getWantToSee());
             writer.println(sb.toString());
         }
         writer.close();
     }
 
-    private static void retrieveTrackingLists(StringBuilder sb, List<StellarObject> stellarObjects){
+    private static void saveTrackerLists(StringBuilder sb, List<StellarObject> stellarObjects){
         for (StellarObject so: stellarObjects){
             if (so instanceof Galaxy){
                 String galaxy = (so.getName() + "-" + ((Galaxy) so).getType() + "-" + so.getLocation() +  "~");
                 sb.append(galaxy);
             }
             else if (so instanceof StarConstellation) {
-                String starcon = (so.getName() + "-" + so.getLocation() + "-" + ((StarConstellation) so).getSymbolism()
+                String starCon = (so.getName() + "-" + so.getLocation() + "-" + ((StarConstellation) so).getSymbolism()
                         + "-" + so.getLocation() + "~");
-                sb.append(starcon);
+                sb.append(starCon);
             }
         }
     }
