@@ -144,19 +144,7 @@ public class StellarObjectUI {
         losc.restore();
 
         if (answer.equals("location")){
-            System.out.println("Which part of the sky? Northern or Southern?");
-
-            try {
-                answer = userInput.next();
-                answer = answer.toLowerCase();
-                losc.sort(answer);
-            } catch (InvalidStringInput invalidStringInput) {
-                System.out.println("Invalid input, try again.");
-            }
-            anotherAttribute(user, losc);
-            System.out.println(" ");
-
-
+            locationAttribute(user, losc);
         }
         else if (answer.equals("symbolism")){
             System.out.println("Here are the symbols of all our Star Constellations.");
@@ -168,6 +156,21 @@ public class StellarObjectUI {
             losc.printListStars();
             System.out.println(" ");
         }
+    }
+
+    private static void locationAttribute(User user, ListOfStarConstellation losc){
+        String answer = "";
+        userInput = new Scanner(System.in);
+        System.out.println("Which part of the sky? Northern or Southern?");
+        try {
+            answer = userInput.next();
+            answer = answer.toLowerCase();
+            losc.sort(answer);
+        } catch (InvalidStringInput invalidStringInput) {
+            System.out.println("Invalid input, try again.");
+        }
+        anotherAttribute(user, losc);
+        System.out.println(" ");
     }
 
     private static void anotherAttribute(User user, ListOfStarConstellation losc) {
@@ -205,7 +208,7 @@ public class StellarObjectUI {
                 whichGalaxy(user, log);
             }
             else if (answer.equals("by attribute") || answer.equals( "attribute")){
-                whichGalacticAttribute(user, log);
+                whichGalacticAttribute(log);
             }
             else if (answer.equals("return")){
                 exploreApp(user);
@@ -249,7 +252,7 @@ public class StellarObjectUI {
         return log.position(position - 1);
     }
 
-    private static void whichGalacticAttribute(User user, ListOfGalaxy log) {
+    private static void whichGalacticAttribute(ListOfGalaxy log) {
         String answer = "";
         userInput = new Scanner(System.in);
 
