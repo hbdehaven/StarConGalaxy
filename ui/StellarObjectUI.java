@@ -43,7 +43,9 @@ public class StellarObjectUI {
             }
             else if (answer.equals("nasa")){
                 try {
-                    NASAPictureOfTheDay.NASAPictureOfTheDay();
+                    NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
+                    nasaPictureOfTheDay.addObserver(user);
+                    nasaPictureOfTheDay.PictureOfTheDay();
                 } catch (IOException e) {
                     System.out.println("IOException Caught.");                }
             }

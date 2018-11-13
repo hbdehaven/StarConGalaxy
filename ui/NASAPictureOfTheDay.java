@@ -1,5 +1,7 @@
 package ui;
 
+import model.Subject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,10 +9,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NASAPictureOfTheDay {
+public class NASAPictureOfTheDay extends Subject{
     // inspired by P10 API given example
 
-    public static void NASAPictureOfTheDay() throws IOException {
+    public NASAPictureOfTheDay(){
+        super();
+    }
+
+    public static void PictureOfTheDay() throws IOException {
 
         BufferedReader br = null;
 
@@ -33,7 +39,7 @@ public class NASAPictureOfTheDay {
             ArrayList nextList = splitOnRegex(urlLabeledString, "\"");
             String thePhotoURL = (String) nextList.get(3);
             System.out.println(thePhotoURL);
-
+            notifyObservers();
         } finally {
 
             if (br != null) {

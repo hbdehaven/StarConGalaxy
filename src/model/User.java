@@ -2,7 +2,7 @@ package model;
 
 import java.util.*;
 
-public class User{
+public class User extends Observer{
     private String name;
     private List<StellarObject> haveSeen;
     private List<StellarObject> wantToSee;
@@ -79,5 +79,10 @@ public class User{
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public void update() {
+        System.out.println(getName() + " you!, have viewed NASA Picture of the Day!");
     }
 }
