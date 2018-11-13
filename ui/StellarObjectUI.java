@@ -41,6 +41,12 @@ public class StellarObjectUI {
                     System.out.println("IOException Caught.");
                 }
             }
+            else if (answer.equals("nasa")){
+                try {
+                    NASAPictureOfTheDay.NASAPictureOfTheDay();
+                } catch (IOException e) {
+                    System.out.println("IOException Caught.");                }
+            }
             else if (answer.equals("q")){
                 continueWhile = false;
                 UserUI.whileCreateUser = false;
@@ -58,6 +64,7 @@ public class StellarObjectUI {
         System.out.println("\tg -> galaxies!");
         System.out.println("\tr -> upload a rating of your favourite stellar objects!");
         System.out.println("\tu -> add to your user's seen lists and want to see lists!");
+        System.out.println("\tnasa -> see NASA's astronomy picture of the day!");
         System.out.println("\tq -> quit");
     }
 

@@ -157,10 +157,6 @@ public class ListOfStarConstellation{
     }
 
 
-//// ask for help with greatest distance one
-//    public void greatestDis(ListOfStarConstellation starcons){
-//
-//    }
 
     public void sort(String ans) throws InvalidStringInput {
         if (ans.equals("northern")){
