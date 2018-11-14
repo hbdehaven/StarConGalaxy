@@ -33,9 +33,11 @@ public class NASAPictureOfTheDay extends Subject{
 
                 sb.append(line);
                 sb.append(System.lineSeparator());
+
             }
+
             ArrayList list = splitOnRegex(sb.toString(), "\"");
-            String thePhotoURL = (String) list.get(31);
+            String thePhotoURL = (String) list.get(list.size()-2);
             System.out.println(thePhotoURL);
             notifyObservers();
         } finally {
