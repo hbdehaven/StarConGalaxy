@@ -19,7 +19,7 @@ public class NASAPictureOfTheDay extends Subject{
     public static void PictureOfTheDay() throws IOException {
 
         BufferedReader br = null;
-        
+
         try {
             String theURL = "https://api.nasa.gov/planetary/apod?api_key=wUxYiEoOzHKrc9X1CNekGRPlLGRK1IxXBHXIBFPT"; //this can point to any URL
             URL url = new URL(theURL);
@@ -35,9 +35,7 @@ public class NASAPictureOfTheDay extends Subject{
                 sb.append(System.lineSeparator());
             }
             ArrayList list = splitOnRegex(sb.toString(), "\"");
-//            String urlLabeledString = (String) list.get(13);
-//            ArrayList nextList = splitOnRegex(urlLabeledString, "\"");
-            String thePhotoURL = (String) list.get(23);
+            String thePhotoURL = (String) list.get(31);
             System.out.println(thePhotoURL);
             notifyObservers();
         } finally {
