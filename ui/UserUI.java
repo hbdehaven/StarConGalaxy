@@ -2,6 +2,7 @@ package ui;
 
 import model.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class UserUI {
         System.out.println("What is your username?");
         userName = userInput.nextLine();
 
-        StellarObjectUI.exploreApp(findingUser(userName));
+        StellarObjectUI.displayGUIOptions(findingUser(userName));
     }
 
     //EFFECTS: returns found user; if user doesnt exist sends person back to beginning
@@ -85,7 +86,7 @@ public class UserUI {
             alreadyExists(user);
             SaveLoadUsers.save("users.txt");
             System.out.println("Now that you are logged in, you can explore the app.");
-            StellarObjectUI.exploreApp(user);
+            StellarObjectUI.displayGUIOptions(user);
         }
     }
 
@@ -190,7 +191,7 @@ public class UserUI {
         }
         else {
             SaveLoadUsers.save("users.txt");
-            StellarObjectUI.exploreApp(user);}
+            StellarObjectUI.displayGUIOptions(user);}
     }
 
     //getter

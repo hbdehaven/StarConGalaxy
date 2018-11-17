@@ -4,6 +4,7 @@ import model.*;
 import model.exceptions.InvalidStringInput;
 import model.ListOfStarConstellation;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -68,6 +69,51 @@ public class StellarObjectUI {
         System.out.println("\tu -> add to your user's seen lists and want to see lists!");
         System.out.println("\tnasa -> see NASA's astronomy picture of the day!");
         System.out.println("\tq -> quit");
+    }
+
+    public static void displayGUIOptions(User user){
+        Object[] options = {"Star Constellations!", "Galaxies!",
+                "Ratings!", "User!", "NASA: Picture of the Day!"};
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Pre-jop");
+        int n = JOptionPane.showOptionDialog(null,
+                "Which would you like to explore?",
+                "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        System.out.println("post-jop");
+
+        if (n == 0)
+            selectStarConstellations(user);
+        else if (n == 1)
+            selectGalaxies(user);
+        else if (n == 2)
+            try {
+                RatingUI.selectRating(user);
+            } catch (IOException e) {
+                System.out.println("IOException Caught.");
+            }
+        else if (n == 3)
+            try {
+                UserUI.addingToLists(user);
+            } catch (IOException e) {
+                System.out.println("IOException Caught.");
+            }
+        else if (n == 4) System.out.println();
+//            try {
+//                NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
+//                nasaPictureOfTheDay.addObserver(user);
+//                nasaPictureOfTheDay.PictureOfTheDay();
+//            } catch (IOException e) {
+//                System.out.println("IOException Caught.");
+//        }
     }
 
     private static void selectStarConstellations(User user) {
