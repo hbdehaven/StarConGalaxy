@@ -11,75 +11,70 @@ import java.util.Scanner;
 public class StellarObjectUI {
     private static Scanner userInput;
 
-    public static void exploreApp(User user)  {
-        boolean continueWhile = true;
-        String answer = "";
-        userInput = new Scanner(System.in);
-
-        while (continueWhile){
-            displayOptions();
-            answer = userInput.next();
-            answer = answer.toLowerCase();
-
-            if (answer.equals("s")){
-                selectStarConstellations(user);
-            }
-
-            else if (answer.equals("g")){
-                selectGalaxies(user);
-            }
-            else if (answer.equals("r")){
-                try {
-                    RatingUI.selectRating(user);
-                } catch (IOException e) {
-                    System.out.println("IOException Caught.");
-                }
-            }
-            else if (answer.equals("u")){
-                try {
-                    UserUI.addingToLists(user);
-                } catch (IOException e) {
-                    System.out.println("IOException Caught.");
-                }
-            }
-            else if (answer.equals("nasa")){
-                try {
-                    NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
-                    nasaPictureOfTheDay.addObserver(user);
-                    nasaPictureOfTheDay.PictureOfTheDay();
-                } catch (IOException e) {
-                    System.out.println("IOException Caught.");                }
-            }
-            else if (answer.equals("q")){
-                continueWhile = false;
-                UserUI.whileCreateUser = false;
-                UserUI.userLogInBoolean = false;
-            }
-            else System.out.println("Invalid Selection");
-        }
-        System.out.println("Thank you!");
-    }
-
-    // inspired by AccountNotRobust
-    private static void displayOptions() {
-        System.out.println("\nWhat would you like to explore? Select from:");
-        System.out.println("\ts -> star constellations!");
-        System.out.println("\tg -> galaxies!");
-        System.out.println("\tr -> upload a rating of your favourite stellar objects!");
-        System.out.println("\tu -> add to your user's seen lists and want to see lists!");
-        System.out.println("\tnasa -> see NASA's astronomy picture of the day!");
-        System.out.println("\tq -> quit");
-    }
+//    public static void exploreApp(User user)  {
+//        boolean continueWhile = true;
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        while (continueWhile){
+//            displayOptions();
+//            answer = userInput.next();
+//            answer = answer.toLowerCase();
+//
+//            if (answer.equals("s")){
+//                selectStarConstellations(user);
+//            }
+//
+//            else if (answer.equals("g")){
+//                selectGalaxies(user);
+//            }
+//            else if (answer.equals("r")){
+//                try {
+//                    RatingUI.selectRating(user);
+//                } catch (IOException e) {
+//                    System.out.println("IOException Caught.");
+//                }
+//            }
+//            else if (answer.equals("u")){
+//                try {
+//                    UserUI.addingToLists(user);
+//                } catch (IOException e) {
+//                    System.out.println("IOException Caught.");
+//                }
+//            }
+//            else if (answer.equals("nasa")){
+//                try {
+//                    NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
+//                    nasaPictureOfTheDay.addObserver(user);
+//                    nasaPictureOfTheDay.PictureOfTheDay();
+//                } catch (IOException e) {
+//                    System.out.println("IOException Caught.");                }
+//            }
+//            else if (answer.equals("q")){
+//                continueWhile = false;
+//                UserUI.whileCreateUser = false;
+//                UserUI.userLogInBoolean = false;
+//            }
+//            else System.out.println("Invalid Selection");
+//        }
+//        System.out.println("Thank you!");
+//    }
+//
+//    // inspired by AccountNotRobust
+//    private static void displayOptions() {
+//        System.out.println("\nWhat would you like to explore? Select from:");
+//        System.out.println("\ts -> star constellations!");
+//        System.out.println("\tg -> galaxies!");
+//        System.out.println("\tr -> upload a rating of your favourite stellar objects!");
+//        System.out.println("\tu -> add to your user's seen lists and want to see lists!");
+//        System.out.println("\tnasa -> see NASA's astronomy picture of the day!");
+//        System.out.println("\tq -> quit");
+//    }
 
     public static void displayGUIOptions(User user){
         Object[] options = {"Star Constellations!", "Galaxies!",
                 "Ratings!", "User!", "NASA: Picture of the Day!"};
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Pre-jop");
+
         int n = JOptionPane.showOptionDialog(null,
                 "Which would you like to explore?",
                 "Astronomy Exploration",
@@ -88,7 +83,6 @@ public class StellarObjectUI {
                 null,
                 options,
                 options[0]);
-        System.out.println("post-jop");
 
         if (n == 0)
             selectStarConstellations(user);
@@ -107,13 +101,13 @@ public class StellarObjectUI {
                 System.out.println("IOException Caught.");
             }
         else if (n == 4) System.out.println();
-//            try {
-//                NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
-//                nasaPictureOfTheDay.addObserver(user);
-//                nasaPictureOfTheDay.PictureOfTheDay();
-//            } catch (IOException e) {
-//                System.out.println("IOException Caught.");
-//        }
+            try {
+                NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
+                nasaPictureOfTheDay.addObserver(user);
+                nasaPictureOfTheDay.PictureOfTheDay();
+            } catch (IOException e) {
+                System.out.println("IOException Caught.");
+        }
     }
 
     private static void selectStarConstellations(User user) {
@@ -137,7 +131,7 @@ public class StellarObjectUI {
                 whichAttribute(user, losc);
             }
             else if (answer.equals("return")){
-                exploreApp(user);
+                displayGUIOptions(user);
             }
         }
     }
@@ -266,7 +260,7 @@ public class StellarObjectUI {
                 whichGalacticAttribute(log);
             }
             else if (answer.equals("return")){
-                exploreApp(user);
+                displayGUIOptions(user);
             }
         }
     }
