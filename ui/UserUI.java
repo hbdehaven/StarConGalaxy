@@ -81,12 +81,14 @@ public class UserUI {
 
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
-        userInput = new Scanner(System.in);
-        String userName = "";
-
-        System.out.println("What is your username?");
-        userName = userInput.nextLine();
-
+//        userInput = new Scanner(System.in);
+//        String userName = "";
+//
+//        System.out.println("What is your username?");
+//        userName = userInput.nextLine();
+        JOptionPane loggingIn = new JOptionPane();
+        String userName = loggingIn.showInputDialog(null, "Enter your username");
+        
         StellarObjectUI.displayGUIOptions(findingUser(userName));
     }
 
@@ -105,7 +107,7 @@ public class UserUI {
     //MODIFIES: this
     //EFFECTS: creates new user and adds to field users through alreadyExists
     //         once successful, send to exploreApp
-    public static void createUser() throws IOException {
+    private static void createUser() throws IOException {
         userInput = new Scanner(System.in);
         String name = "";
         whileCreateUser = true;
