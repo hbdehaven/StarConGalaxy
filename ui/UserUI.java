@@ -22,33 +22,6 @@ public class UserUI {
         users.add(user);
     }
 
-//    //MODIFIES: this
-//    //EFFECTS: loads users; starts initial user interaction
-//    public static void userLogIn() throws IOException {
-//        Scanner scanner = new Scanner(System.in);
-//        String answer = "";
-//        userLogInBoolean = true;
-//        SaveLoadUsers.load("users.txt");
-//
-//        while (userLogInBoolean){
-//            System.out.println("Hi! Need to create user or logging in again?");
-//            answer = scanner.nextLine();
-//            firstQuestionUser(answer);
-//        }
-//    }
-//
-//    //MODIFIES: this
-//    //EFFECTS: helper method leading to creating or logging in
-//    private static void firstQuestionUser(String answer) throws IOException {
-//        if(answer.equals("create user")){
-//            createUser();
-//        }
-//        else if (answer.equals("logging in again") | answer.equals("logging in")){
-//            loggingIn();
-//            System.out.println("Great!");
-//        }
-//    }
-
     public static void loggingInGUI() throws IOException {
         SaveLoadUsers.load("users.txt");
 
@@ -76,19 +49,14 @@ public class UserUI {
         if (n == 0)
             loggingIn();
         else if (n == 1)
-            createUser();
+            creatingUser();
 }
 
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
-//        userInput = new Scanner(System.in);
-//        String userName = "";
-//
-//        System.out.println("What is your username?");
-//        userName = userInput.nextLine();
         JOptionPane loggingIn = new JOptionPane();
         String userName = loggingIn.showInputDialog(null, "Enter your username");
-        
+
         StellarObjectUI.displayGUIOptions(findingUser(userName));
     }
 
@@ -122,6 +90,24 @@ public class UserUI {
             System.out.println("Now that you are logged in, you can explore the app.");
             StellarObjectUI.displayGUIOptions(user);
         }
+    }
+
+    private static void creatingUser() throws IOException {
+        JOptionPane creatingUser = new JOptionPane();
+        String name = creatingUser.showInputDialog(null,"What would you like your username to be?");
+        User user = new User(name);
+        alreadyExists(user);
+        SaveLoadUsers.save("users.txt");
+        Object[] options ={"Explore!"};
+        int n = creatingUser.showOptionDialog(null, "Now that you are logged in, you can explore the app."
+        , "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (n == 0)
+            StellarObjectUI.displayGUIOptions(user);
     }
 
     //MODIFIES: this

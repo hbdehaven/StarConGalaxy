@@ -1,3 +1,5 @@
-hbdehaven,Large Magellanic Cloud-SPIRAL-SOUTH~,Andromeda Galaxy-SPIRAL-NORTH~Perseus-NORTH-Perseus-NORTH~
+hbdehaven,Large Magellanic Cloud-SPIRAL-SOUTH~,
 brooke,Small Magellanic Cloud-SPIRAL-SOUTH~,
 chloe,,
+jake,,
+andrew,,
