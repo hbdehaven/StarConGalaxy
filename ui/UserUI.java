@@ -3,6 +3,7 @@ package ui;
 import model.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class UserUI {
     private static Scanner userInput;
     public static boolean userLogInBoolean;
     public static boolean whileCreateUser;
+    public static Frame fieldFrame;
 
     // MODIFIES: this
     // EFFECTS: adds user to field users
@@ -20,32 +22,62 @@ public class UserUI {
         users.add(user);
     }
 
-    //MODIFIES: this
-    //EFFECTS: loads users; starts initial user interaction
-    public static void userLogIn() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        String answer = "";
-        userLogInBoolean = true;
+//    //MODIFIES: this
+//    //EFFECTS: loads users; starts initial user interaction
+//    public static void userLogIn() throws IOException {
+//        Scanner scanner = new Scanner(System.in);
+//        String answer = "";
+//        userLogInBoolean = true;
+//        SaveLoadUsers.load("users.txt");
+//
+//        while (userLogInBoolean){
+//            System.out.println("Hi! Need to create user or logging in again?");
+//            answer = scanner.nextLine();
+//            firstQuestionUser(answer);
+//        }
+//    }
+//
+//    //MODIFIES: this
+//    //EFFECTS: helper method leading to creating or logging in
+//    private static void firstQuestionUser(String answer) throws IOException {
+//        if(answer.equals("create user")){
+//            createUser();
+//        }
+//        else if (answer.equals("logging in again") | answer.equals("logging in")){
+//            loggingIn();
+//            System.out.println("Great!");
+//        }
+//    }
+
+    public static void loggingInGUI() throws IOException {
         SaveLoadUsers.load("users.txt");
 
-        while (userLogInBoolean){
-            System.out.println("Hi! Need to create user or logging in again?");
-            answer = scanner.nextLine();
-            firstQuestionUser(answer);
-        }
-    }
+    JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+        frame.setSize( 600, 300 );
+        frame.setVisible( true );
+        fieldFrame = frame;
 
-    //MODIFIES: this
-    //EFFECTS: helper method leading to creating or logging in
-    private static void firstQuestionUser(String answer) throws IOException {
-        if(answer.equals("create user")){
-            createUser();
-        }
-        else if (answer.equals("logging in again") | answer.equals("logging in")){
+    // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+
+    Object[] options = {"Logging In", "Creating Account"};
+    JOptionPane login = new JOptionPane();
+    int n = login.showOptionDialog(frame,
+            "Welcome to Telescope!",
+            "Astronomy Exploration",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+
+        if (n == 0)
             loggingIn();
-            System.out.println("Great!");
-        }
-    }
+        else if (n == 1)
+            createUser();
+}
 
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
@@ -66,14 +98,14 @@ public class UserUI {
         }
         else {
             System.out.println("Username does not exist. Please try again or create a user.");
-            userLogIn();
+            //userLogIn();
             return null;}
     }
 
     //MODIFIES: this
     //EFFECTS: creates new user and adds to field users through alreadyExists
     //         once successful, send to exploreApp
-    private static void createUser() throws IOException {
+    public static void createUser() throws IOException {
         userInput = new Scanner(System.in);
         String name = "";
         whileCreateUser = true;

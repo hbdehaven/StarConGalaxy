@@ -5,8 +5,11 @@ import model.exceptions.InvalidStringInput;
 import model.ListOfStarConstellation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Scanner;
+
+import static ui.UserUI.fieldFrame;
 
 public class StellarObjectUI {
     private static Scanner userInput;
@@ -75,7 +78,7 @@ public class StellarObjectUI {
         Object[] options = {"Star Constellations!", "Galaxies!",
                 "Ratings!", "User!", "NASA: Picture of the Day!"};
 
-        int n = JOptionPane.showOptionDialog(null,
+        int n = JOptionPane.showOptionDialog(fieldFrame,
                 "Which would you like to explore?",
                 "Astronomy Exploration",
                 JOptionPane.YES_NO_CANCEL_OPTION,
