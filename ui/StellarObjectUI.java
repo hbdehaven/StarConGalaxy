@@ -78,8 +78,11 @@ public class StellarObjectUI {
         Object[] options = {"Star Constellations!", "Galaxies!",
                 "Ratings!", "User!", "NASA: Picture of the Day!"};
 
+        JLabel exploreAppLabel = new JLabel("Which would you like to explore?");
+        exploreAppLabel.setFont(new Font("Arial", Font.BOLD, 18));
+
         int n = JOptionPane.showOptionDialog(fieldFrame,
-                "Which would you like to explore?",
+                exploreAppLabel,
                 "Astronomy Exploration",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,

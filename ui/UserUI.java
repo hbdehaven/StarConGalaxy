@@ -2,8 +2,12 @@ package ui;
 
 import model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +16,11 @@ import java.util.Scanner;
 public class UserUI {
     private static List<User> users = new ArrayList<>();
     private static Scanner userInput;
-    public static boolean userLogInBoolean;
-    public static boolean whileCreateUser;
+//    public static boolean userLogInBoolean;
+//    public static boolean whileCreateUser;
     public static Frame fieldFrame;
+    private static int buttonFontSize = 16;
+    private static int labelFontSize = 18;
 
     // MODIFIES: this
     // EFFECTS: adds user to field users
@@ -23,12 +29,18 @@ public class UserUI {
     }
 
     public static void loggingInGUI() throws IOException {
-        SaveLoadUsers.load("users.txt");
+    SaveLoadUsers.load("users.txt");
+
+    File file = new File("C:\\Users\\Heather DeHaven\\Pictures\\Saved Pictures\\astronomyhubble.jpg");
+    BufferedImage image = ImageIO.read(file);
+
+    JLabel pictureLabel = new JLabel((new ImageIcon(image)));
 
     JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        frame.setSize( 600, 300 );
+        frame.setSize( 900, 750 );
         frame.setVisible( true );
+        frame.setContentPane(pictureLabel);
         fieldFrame = frame;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
@@ -36,9 +48,15 @@ public class UserUI {
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 
     Object[] options = {"Logging In", "Creating Account"};
-    JOptionPane login = new JOptionPane();
+
+    JLabel telescopeLabel = new JLabel("Welcome to Telescope");
+    telescopeLabel.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+    UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,buttonFontSize)));
+
+        JOptionPane login = new JOptionPane();
     int n = login.showOptionDialog(frame,
-            "Welcome to Telescope!",
+            telescopeLabel,
             "Astronomy Exploration",
             JOptionPane.YES_NO_CANCEL_OPTION,
             JOptionPane.QUESTION_MESSAGE,
@@ -55,7 +73,9 @@ public class UserUI {
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
         JOptionPane loggingIn = new JOptionPane();
-        String userName = loggingIn.showInputDialog(null, "Enter your username");
+        JLabel label = new JLabel("Enter your username");
+        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+        String userName = loggingIn.showInputDialog(null, label);
 
         StellarObjectUI.displayGUIOptions(findingUser(userName));
     }
@@ -75,31 +95,40 @@ public class UserUI {
     //MODIFIES: this
     //EFFECTS: creates new user and adds to field users through alreadyExists
     //         once successful, send to exploreApp
-    private static void createUser() throws IOException {
-        userInput = new Scanner(System.in);
-        String name = "";
-        whileCreateUser = true;
-
-        while (whileCreateUser) {
-            System.out.println("Welcome!");
-            System.out.println("What would you like your username to be?");
-            name = userInput.nextLine();
-            User user = new User(name);
-            alreadyExists(user);
-            SaveLoadUsers.save("users.txt");
-            System.out.println("Now that you are logged in, you can explore the app.");
-            StellarObjectUI.displayGUIOptions(user);
-        }
-    }
+//    private static void createUser() throws IOException {
+//        userInput = new Scanner(System.in);
+//        String name = "";
+//        whileCreateUser = true;
+//
+//        while (whileCreateUser) {
+//            System.out.println("Welcome!");
+//            System.out.println("What would you like your username to be?");
+//            name = userInput.nextLine();
+//            User user = new User(name);
+//            alreadyExists(user);
+//            SaveLoadUsers.save("users.txt");
+//            System.out.println("Now that you are logged in, you can explore the app.");
+//            StellarObjectUI.displayGUIOptions(user);
+//        }
+//    }
 
     private static void creatingUser() throws IOException {
         JOptionPane creatingUser = new JOptionPane();
-        String name = creatingUser.showInputDialog(null,"What would you like your username to be?");
+
+        JLabel label = new JLabel("What would you like your username to be?");
+        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+        String name = creatingUser.showInputDialog(null,label);
+
         User user = new User(name);
         alreadyExists(user);
         SaveLoadUsers.save("users.txt");
+
         Object[] options ={"Explore!"};
-        int n = creatingUser.showOptionDialog(null, "Now that you are logged in, you can explore the app."
+        JLabel exploreLabel = new JLabel("Now that you are logged in, you can explore the app.");
+        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+        int n = creatingUser.showOptionDialog(null, exploreLabel
         , "Astronomy Exploration",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -115,7 +144,7 @@ public class UserUI {
     private static void alreadyExists(User user) throws IOException {
         if (users.contains(user)){
             System.out.println("That username already exists. Try another.");
-            createUser();
+            creatingUser();
         }
         else addUser(user);
     }
