@@ -5,6 +5,7 @@ import model.exceptions.InvalidStringInput;
 import model.ListOfStarConstellation;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Scanner;
@@ -91,7 +92,7 @@ public class StellarObjectUI {
                 options[0]);
 
         if (n == 0)
-            selectStarConstellations(user);
+            selectStarConstellationsGUI();
         else if (n == 1)
             selectGalaxies(user);
         else if (n == 2)
@@ -106,7 +107,7 @@ public class StellarObjectUI {
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
             }
-        else if (n == 4) System.out.println();
+        else if (n == 4)
             try {
                 NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
                 nasaPictureOfTheDay.addObserver(user);
@@ -114,6 +115,75 @@ public class StellarObjectUI {
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
         }
+    }
+
+    private static void selectStarConstellationsGUI(){
+        ListOfStarConstellation losc = new ListOfStarConstellation("Used");
+
+        JFrame frame = new JFrame();
+
+        JPanel buttonPanel = listToButtonsLOSC(losc);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buttonPanel, BorderLayout.WEST);
+
+        JPanel buttonAttributesPanel = new JPanel(new GridBagLayout());
+        buttonAttributesPanel.setBorder(new EmptyBorder(7,7,7,7));
+
+        JPanel buttonAttributes = new JPanel(new GridLayout(0,1,5,5));
+
+        JButton north = new JButton("Northern Sky");
+        JButton south = new JButton("Southern Sky");
+        JButton symbol = new JButton("Symbolism");
+        JButton stars = new JButton("Brightest Stars");
+
+        buttonAttributes.add(north);
+        buttonAttributes.add(south);
+        buttonAttributes.add(symbol);
+        buttonAttributes.add(stars);
+        buttonAttributesPanel.add(buttonAttributes);
+
+        panel.add(buttonAttributesPanel, BorderLayout.EAST);
+
+        frame.add(panel);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationByPlatform(true);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+
+    private static JPanel listToButtonsLOSC(ListOfStarConstellation losc){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+
+        for (StarConstellation sc: losc){
+            JButton button = new JButton(sc.getName());
+            buttonPane.add(button);
+        }
+
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+    private static JPanel listToButtonsLOG(ListOfGalaxy log){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+
+        for (Galaxy g: log){
+            JButton button = new JButton(g.getName());
+            buttonPane.add(button);
+        }
+
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
     }
 
     private static void selectStarConstellations(User user) {

@@ -4,12 +4,13 @@ import model.exceptions.InvalidStringInput;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static model.StellarObject.locationNorth;
 import static model.StellarObject.locationSouth;
 
-public class ListOfGalaxy {
+public class ListOfGalaxy implements Iterable<Galaxy>{
     private String name;
     private ArrayList<Galaxy> listofgalaxies;
 
@@ -111,5 +112,10 @@ public class ListOfGalaxy {
     // EFFECTS: returns size of ListOfStarCONstellation
     public int size(){
         return listofgalaxies.size();
+    }
+
+    @Override
+    public Iterator<Galaxy> iterator() {
+        return listofgalaxies.iterator();
     }
 }

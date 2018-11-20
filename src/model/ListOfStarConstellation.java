@@ -3,6 +3,7 @@ package model;
 import model.exceptions.InvalidStringInput;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ import static model.StellarObject.locationNorth;
 import static model.StellarObject.locationSouth;
 
 // inspired by IntegerSetIntersect
-public class ListOfStarConstellation{
+public class ListOfStarConstellation implements Iterable<StarConstellation>{
     private String name;
     private ArrayList<StarConstellation> listofstarcons;
 
@@ -173,4 +174,8 @@ public class ListOfStarConstellation{
         }
     }
 
+    @Override
+    public Iterator<StarConstellation> iterator() {
+        return listofstarcons.iterator();
+    }
 }

@@ -38,7 +38,7 @@ public class UserUI {
 
     JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        frame.setSize( 900, 750 );
+        frame.setSize( 1050, 900 );
         frame.setVisible( true );
         frame.setContentPane(pictureLabel);
         fieldFrame = frame;
@@ -91,26 +91,6 @@ public class UserUI {
             //userLogIn();
             return null;}
     }
-
-    //MODIFIES: this
-    //EFFECTS: creates new user and adds to field users through alreadyExists
-    //         once successful, send to exploreApp
-//    private static void createUser() throws IOException {
-//        userInput = new Scanner(System.in);
-//        String name = "";
-//        whileCreateUser = true;
-//
-//        while (whileCreateUser) {
-//            System.out.println("Welcome!");
-//            System.out.println("What would you like your username to be?");
-//            name = userInput.nextLine();
-//            User user = new User(name);
-//            alreadyExists(user);
-//            SaveLoadUsers.save("users.txt");
-//            System.out.println("Now that you are logged in, you can explore the app.");
-//            StellarObjectUI.displayGUIOptions(user);
-//        }
-//    }
 
     private static void creatingUser() throws IOException {
         JOptionPane creatingUser = new JOptionPane();
