@@ -14,6 +14,7 @@ import static ui.UserUI.fieldFrame;
 
 public class StellarObjectUI {
     private static Scanner userInput;
+    private static int fontSize=18;
 
 //    public static void exploreApp(User user)  {
 //        boolean continueWhile = true;
@@ -80,7 +81,7 @@ public class StellarObjectUI {
                 "Ratings!", "User!", "NASA: Picture of the Day!"};
 
         JLabel exploreAppLabel = new JLabel("Which would you like to explore?");
-        exploreAppLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        exploreAppLabel.setFont(new Font("Arial", Font.BOLD, fontSize));
 
         int n = JOptionPane.showOptionDialog(fieldFrame,
                 exploreAppLabel,
@@ -94,10 +95,10 @@ public class StellarObjectUI {
         if (n == 0)
             selectStarConstellationsGUI();
         else if (n == 1)
-            selectGalaxies(user);
+            selectGalaxiesGUI();
         else if (n == 2)
             try {
-                RatingUI.selectRating(user);
+                RatingUI.selectRatingGUI(user);
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
             }
@@ -120,9 +121,21 @@ public class StellarObjectUI {
     private static void selectStarConstellationsGUI(){
         ListOfStarConstellation losc = new ListOfStarConstellation("Used");
 
-        JFrame frame = new JFrame();
-
         JPanel buttonPanel = listToButtonsLOSC(losc);
+
+        selectGUI("Star Constellations", buttonPanel);
+    }
+
+    private static void selectGalaxiesGUI(){
+        ListOfGalaxy log = new ListOfGalaxy("USED");
+
+        JPanel buttonPanel = listToButtonsLOG(log);
+
+        selectGUI("Galaxies", buttonPanel);
+    }
+
+    private static void selectGUI(String name, JPanel buttonPanel){
+        JFrame frame = new JFrame(name);
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(buttonPanel, BorderLayout.WEST);
@@ -130,27 +143,41 @@ public class StellarObjectUI {
         JPanel buttonAttributesPanel = new JPanel(new GridBagLayout());
         buttonAttributesPanel.setBorder(new EmptyBorder(7,7,7,7));
 
-        JPanel buttonAttributes = new JPanel(new GridLayout(0,1,5,5));
+        JPanel buttonAttributes = getButtonAttributes();
 
-        JButton north = new JButton("Northern Sky");
-        JButton south = new JButton("Southern Sky");
-        JButton symbol = new JButton("Symbolism");
-        JButton stars = new JButton("Brightest Stars");
-
-        buttonAttributes.add(north);
-        buttonAttributes.add(south);
-        buttonAttributes.add(symbol);
-        buttonAttributes.add(stars);
         buttonAttributesPanel.add(buttonAttributes);
 
         panel.add(buttonAttributesPanel, BorderLayout.EAST);
 
         frame.add(panel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
         frame.pack();
+        frame.setLocationRelativeTo(UserUI.fieldFrame);
         frame.setVisible(true);
+    }
+
+    private static JPanel getButtonAttributes() {
+        JPanel buttonAttributes = new JPanel(new GridLayout(0,1,5,5));
+
+        JLabel label = new JLabel("Attributes:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        buttonAttributes.add(label);
+
+        JButton north = new JButton("Northern Sky");
+        north.setFont(new Font("Arial", Font.BOLD, fontSize));
+        JButton south = new JButton("Southern Sky");
+        south.setFont(new Font("Arial", Font.BOLD, fontSize));
+        JButton symbol = new JButton("Symbolism");
+        symbol.setFont(new Font("Arial", Font.BOLD, fontSize));
+        JButton stars = new JButton("Brightest Stars");
+        stars.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        buttonAttributes.add(north);
+        buttonAttributes.add(south);
+        buttonAttributes.add(symbol);
+        buttonAttributes.add(stars);
+        return buttonAttributes;
     }
 
 
@@ -158,11 +185,16 @@ public class StellarObjectUI {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
 
+        JLabel label = new JLabel("Star Constellations:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
         JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+        buttonPane.add(label);
 
         for (StarConstellation sc: losc){
             JButton button = new JButton(sc.getName());
             buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
         }
 
         buttonPanel.add(buttonPane);
@@ -174,11 +206,16 @@ public class StellarObjectUI {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
 
+        JLabel label = new JLabel("Galaxies:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
         JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+        buttonPane.add(label);
 
         for (Galaxy g: log){
             JButton button = new JButton(g.getName());
             buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
         }
 
         buttonPanel.add(buttonPane);
@@ -186,57 +223,57 @@ public class StellarObjectUI {
         return buttonPanel;
     }
 
-    private static void selectStarConstellations(User user) {
-        ListOfStarConstellation losc = new ListOfStarConstellation("Used");
-        String answer = "";
-        userInput = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Let's explore Star Constellations");
-            losc.printList();
-            System.out.println("Would you like to explore individually or by attribute?");
-            System.out.println("To return to main display, input return.");
-
-            answer = userInput.next();
-            answer = answer.toLowerCase();
-
-            if (answer.equals("individually")){
-                whichStarConstellation(user, losc);
-            }
-            else if (answer.equals("by attribute") || answer.equals( "attribute")){
-                whichAttribute(user, losc);
-            }
-            else if (answer.equals("return")){
-                displayGUIOptions(user);
-            }
-        }
-    }
-
-    private static void whichStarConstellation(User user, ListOfStarConstellation losc) {
-        String position = "";
-        String answer = "";
-        userInput = new Scanner(System.in);
-
-        System.out.println("Great!");
-        System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
-
-        position = userInput.next();
-
-        System.out.println("Here is all associated data with " + nameOfStarCon(position, losc));
-        retrieveStarCon(position, losc).allInformation();
-        System.out.println("                             ");
-        System.out.println("Would you like to explore another? ");
-
-        answer = userInput.next();
-
-        if (answer.equals("yes")){
-            whichStarConstellation(user, losc);
-        }
-        else if (answer.equals("no")){
-            selectStarConstellations(user);
-            System.out.println(" ");
-        }
-    }
+//    private static void selectStarConstellations(User user) {
+//        ListOfStarConstellation losc = new ListOfStarConstellation("Used");
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        while (true) {
+//            System.out.println("Let's explore Star Constellations");
+//            losc.printList();
+//            System.out.println("Would you like to explore individually or by attribute?");
+//            System.out.println("To return to main display, input return.");
+//
+//            answer = userInput.next();
+//            answer = answer.toLowerCase();
+//
+//            if (answer.equals("individually")){
+//                whichStarConstellation(user, losc);
+//            }
+//            else if (answer.equals("by attribute") || answer.equals( "attribute")){
+//                whichAttribute(user, losc);
+//            }
+//            else if (answer.equals("return")){
+//                displayGUIOptions(user);
+//            }
+//        }
+//    }
+//
+//    private static void whichStarConstellation(User user, ListOfStarConstellation losc) {
+//        String position = "";
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        System.out.println("Great!");
+//        System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
+//
+//        position = userInput.next();
+//
+//        System.out.println("Here is all associated data with " + nameOfStarCon(position, losc));
+//        retrieveStarCon(position, losc).allInformation();
+//        System.out.println("                             ");
+//        System.out.println("Would you like to explore another? ");
+//
+//        answer = userInput.next();
+//
+//        if (answer.equals("yes")){
+//            whichStarConstellation(user, losc);
+//        }
+//        else if (answer.equals("no")){
+//            selectStarConstellations(user);
+//            System.out.println(" ");
+//        }
+//    }
 
     public static String nameOfStarCon(String i, ListOfStarConstellation losc) {
         int position = Integer.parseInt(i);
@@ -310,7 +347,7 @@ public class StellarObjectUI {
             whichAttribute(user, losc);
         }
         else if (answer.equals("no")){
-            selectStarConstellations(user);
+//            selectStarConstellations(user);
             System.out.println(" ");
         }
     }

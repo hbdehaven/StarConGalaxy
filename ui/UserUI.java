@@ -28,24 +28,28 @@ public class UserUI {
         users.add(user);
     }
 
-    public static void loggingInGUI() throws IOException {
-    SaveLoadUsers.load("users.txt");
+    private static void readyFrame() throws IOException {
+        SaveLoadUsers.load("users.txt");
 
-    File file = new File("C:\\Users\\Heather DeHaven\\Pictures\\Saved Pictures\\astronomyhubble.jpg");
-    BufferedImage image = ImageIO.read(file);
+        File file = new File("C:\\Users\\Heather DeHaven\\Pictures\\Saved Pictures\\astronomyhubble.jpg");
+        BufferedImage image = ImageIO.read(file);
 
-    JLabel pictureLabel = new JLabel((new ImageIcon(image)));
+        JLabel pictureLabel = new JLabel((new ImageIcon(image)));
 
-    JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         frame.setSize( 1050, 900 );
         frame.setVisible( true );
         frame.setContentPane(pictureLabel);
         fieldFrame = frame;
 
-    // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
-    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+    }
+
+    public static void loggingInGUI() throws IOException {
+    readyFrame();
 
     Object[] options = {"Logging In", "Creating Account"};
 
@@ -55,7 +59,7 @@ public class UserUI {
     UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,buttonFontSize)));
 
         JOptionPane login = new JOptionPane();
-    int n = login.showOptionDialog(frame,
+    int n = login.showOptionDialog(fieldFrame,
             telescopeLabel,
             "Astronomy Exploration",
             JOptionPane.YES_NO_CANCEL_OPTION,
@@ -75,7 +79,7 @@ public class UserUI {
         JOptionPane loggingIn = new JOptionPane();
         JLabel label = new JLabel("Enter your username");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-        String userName = loggingIn.showInputDialog(null, label);
+        String userName = loggingIn.showInputDialog(fieldFrame, label);
 
         StellarObjectUI.displayGUIOptions(findingUser(userName));
     }
@@ -87,8 +91,20 @@ public class UserUI {
             return users.get(users.indexOf(user));
         }
         else {
-            System.out.println("Username does not exist. Please try again or create a user.");
-            //userLogIn();
+            Object[] options = {"Okay"};
+            JOptionPane noUser = new JOptionPane();
+            int n = noUser.showOptionDialog(fieldFrame,
+                    new JLabel("Username Does Not Exist"),
+                    "Astronomy Exploration",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if (n == 0)
+                loggingInGUI();
+
             return null;}
     }
 
@@ -98,7 +114,7 @@ public class UserUI {
         JLabel label = new JLabel("What would you like your username to be?");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
 
-        String name = creatingUser.showInputDialog(null,label);
+        String name = creatingUser.showInputDialog(fieldFrame,label);
 
         User user = new User(name);
         alreadyExists(user);
@@ -108,7 +124,7 @@ public class UserUI {
         JLabel exploreLabel = new JLabel("Now that you are logged in, you can explore the app.");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
 
-        int n = creatingUser.showOptionDialog(null, exploreLabel
+        int n = creatingUser.showOptionDialog(fieldFrame, exploreLabel
         , "Astronomy Exploration",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -123,8 +139,19 @@ public class UserUI {
     //EFFECTS: checks if users already contains user, if not, add user
     private static void alreadyExists(User user) throws IOException {
         if (users.contains(user)){
-            System.out.println("That username already exists. Try another.");
-            creatingUser();
+            Object[] options = {"Okay"};
+            JOptionPane noUser = new JOptionPane();
+            int n = noUser.showOptionDialog(fieldFrame,
+                    new JLabel("Username Already Exists. Try Another."),
+                    "Astronomy Exploration",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if (n == 0)
+                creatingUser();
         }
         else addUser(user);
     }

@@ -3,6 +3,8 @@ package ui;
 import model.*;
 import model.exceptions.InvalidRatingValue;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,40 +14,70 @@ import java.util.Scanner;
 
 import static ui.StellarObjectUI.nameOfGalaxy;
 import static ui.StellarObjectUI.nameOfStarCon;
+import static ui.UserUI.fieldFrame;
 
 public class RatingUI {
     private static ArrayList<Rating> ratings = new ArrayList<>();
     private static Scanner userInput;
     private static boolean whileLoop;
     private static RatingDatabase ratingDatabase = new RatingDatabase();
+    private static int fontSize = 18;
 
-    public static void selectRating(User user) throws IOException {
+    public static void selectRatingGUI(User user) throws IOException {
         Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
         load(scanner1);
 
         ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
         ListOfGalaxy log = new ListOfGalaxy("LOG");
-        whileLoop = true;
 
-        String answer = "";
-        userInput = new Scanner(System.in);
+        Object[] options = {"Star Constellations", "Galaxies"};
 
-        while (whileLoop) {
-            System.out.println("For which Stellar Object would you like to upload a Rating?");
-            System.out.println("Galaxies or Star Constellations?");
+        JLabel label = new JLabel("Which Stellar Object would you like to Rate?");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
 
-            answer = userInput.next();
-            answer = answer.toLowerCase();
+        JOptionPane rating = new JOptionPane();
+        int n = rating.showOptionDialog(fieldFrame,
+                label,
+                "Ratings",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
-            if(answer.equals("galaxies")){
-                whichGalaxy(user, log);
-            }
-            // not working for "star constellations"
-            else if (answer.equals("starconstellations")|answer.equals("star constellations")){
-                whichStarConstellation(user, losc);
-            }
-        }
+        if (n == 0)
+            whichGalaxy(user, log);
+        else if (n == 1)
+            whichStarConstellation(user, losc);
     }
+
+//    public static void selectRating(User user) throws IOException {
+//        Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
+//        load(scanner1);
+//
+//        ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
+//        ListOfGalaxy log = new ListOfGalaxy("LOG");
+//        whileLoop = true;
+//
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        while (whileLoop) {
+//            System.out.println("For which Stellar Object would you like to upload a Rating?");
+//            System.out.println("Galaxies or Star Constellations?");
+//
+//            answer = userInput.next();
+//            answer = answer.toLowerCase();
+//
+//            if(answer.equals("galaxies")){
+//                whichGalaxy(user, log);
+//            }
+//            // not working for "star constellations"
+//            else if (answer.equals("starconstellations")|answer.equals("star constellations")){
+//                whichStarConstellation(user, losc);
+//            }
+//        }
+//    }
 
     private static void whichGalaxy(User user, ListOfGalaxy log){
         String position = "";
@@ -64,7 +96,7 @@ public class RatingUI {
         answer = userInput.next();
 
         if(answer.equals("yes")){
-            createRating(user, nameofGalaxy);
+            createRatingGUI(user, nameofGalaxy);
         }
         else if (answer.equals("no")){
             whichGalaxy(user, log);
@@ -88,24 +120,27 @@ public class RatingUI {
         answer = userInput.next();
 
         if(answer.equals("yes")){
-            createRating(user, nameOfStarCon);
+            createRatingGUI(user, nameOfStarCon);
         }
         else if (answer.equals("no")){
             whichStarConstellation(user, losc);
         }
     }
 
-    private static void createRating(User user, String ratingName){
-        String answer = "";
-        userInput = new Scanner(System.in);
+    private static void createRatingGUI(User user, String ratingName){
+        JOptionPane creatingRating = new JOptionPane();
 
-        System.out.println("What's the date in the form of MMDD?");
-        answer = userInput.next();
+        JLabel dateLabel = new JLabel("What's the date in the form of MMDD?");
+        dateLabel.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        String answer = creatingRating.showInputDialog(fieldFrame,dateLabel);
         int date = Integer.parseInt(answer);
 
-        System.out.println("How many stars out of 5 would you like to rate " + ratingName + "?");
-        answer = userInput.next();
-        int num = Integer.parseInt(answer);
+        JLabel rateLabel = new JLabel("How many stars out of 5 would you like to rate " + ratingName + "?");
+        rateLabel.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        String rateAnswer = creatingRating.showInputDialog(fieldFrame,rateLabel);
+        int num = Integer.parseInt(rateAnswer);
 
         Rating rating = new Rating(ratingName, num, date);
 
@@ -113,6 +148,25 @@ public class RatingUI {
 
         uploadAnotherQuestion(user);
     }
+
+//    private static void createRating(User user, String ratingName){
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        System.out.println("What's the date in the form of MMDD?");
+//        answer = userInput.next();
+//        int date = Integer.parseInt(answer);
+//
+//        System.out.println("How many stars out of 5 would you like to rate " + ratingName + "?");
+//        answer = userInput.next();
+//        int num = Integer.parseInt(answer);
+//
+//        Rating rating = new Rating(ratingName, num, date);
+//
+//        checkValidity(user, rating);
+//
+//        uploadAnotherQuestion(user);
+//    }
 
     private static void checkValidity(User user, Rating rating){
         String answer = "";
@@ -150,7 +204,7 @@ public class RatingUI {
 
             if (answer.equals("yes")) {
                 try {
-                    selectRating(user);
+                    selectRatingGUI(user);
                 } catch (IOException e) {
                     System.out.println("IOException caught.");
                 }
@@ -179,7 +233,9 @@ public class RatingUI {
         }
     }
 
-    private static int averageRatingStellarObject(String SOname){
+    public static void averageRatingStellarObject(String SOname) throws IOException {
+        Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
+        load(scanner1);
         int sumOfRatings = 0;
         int amountOfRatings = 0;
         for(Rating r: ratings){
@@ -188,7 +244,13 @@ public class RatingUI {
                 amountOfRatings++;
             }
         }
-        return sumOfRatings / amountOfRatings;
+        try {
+            int average = sumOfRatings / amountOfRatings;
+            System.out.println(average);
+        }
+        catch (ArithmeticException ae){
+            System.out.println("No ratings uploaded for that Stellar Object");
+        }
     }
 
 
