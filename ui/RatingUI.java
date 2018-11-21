@@ -49,9 +49,9 @@ public class RatingUI {
                 options[0]);
 
         if (n == 0)
-            selectGalaxiesGUI(user, log);
-        else if (n == 1)
             selectStarConstellationsGUI(user, losc);
+        else if (n == 1)
+            selectGalaxiesGUI(user, log);
     }
 
 //    public static void selectRating(User user) throws IOException {
