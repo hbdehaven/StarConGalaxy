@@ -38,7 +38,7 @@ public class UserUI {
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        frame.setSize( 1050, 900 );
+        frame.setSize( 1200, 1000 );
         frame.setVisible( true );
         frame.setContentPane(pictureLabel);
         fieldFrame = frame;
