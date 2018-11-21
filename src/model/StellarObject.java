@@ -33,7 +33,7 @@ public abstract class StellarObject {
         return (location == StellarObject.Location.SOUTH);
     }
 
-    public abstract void allInformation();
+    public abstract StringBuilder allInformation();
 
     //EFFECTS: get name of StellarObject
     public String getName() {return name;}

@@ -16,10 +16,12 @@ public class Galaxy extends StellarObject {
     public Type getType(){return type;}
 
     @Override
-    public void allInformation(){
-        System.out.println("Name: " + getName());
-        System.out.println("Galaxy Type: " + getType());
-        System.out.println("Seen from " + readableLocation());
+    public StringBuilder allInformation(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Name: " + getName() + "! ");
+        sb.append("Galaxy Type: " + getType() + "! ");
+        sb.append("Seen from " + readableLocation() + "! ");
+        return sb;
     }
 
 

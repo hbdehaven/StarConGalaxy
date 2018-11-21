@@ -11,8 +11,7 @@ public class main {
     }
 
     private void runApp() throws IOException {
-        //UserUI.loggingInGUI();
-        RatingUI.averageRatingStellarObject("");
+        UserUI.loggingInGUI();
     }
 }
 

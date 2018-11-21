@@ -7,12 +7,14 @@ import model.ListOfStarConstellation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Scanner;
 
 import static ui.UserUI.fieldFrame;
 
-public class StellarObjectUI {
+public class StellarObjectUI{
     private static Scanner userInput;
     private static int fontSize=18;
 
@@ -143,9 +145,14 @@ public class StellarObjectUI {
         JPanel buttonAttributesPanel = new JPanel(new GridBagLayout());
         buttonAttributesPanel.setBorder(new EmptyBorder(7,7,7,7));
 
-        JPanel buttonAttributes = getButtonAttributes();
-
-        buttonAttributesPanel.add(buttonAttributes);
+        if (name.equals("Star Constellations")) {
+            JPanel buttonAttributes = getButtonAttributesLOSC();
+            buttonAttributesPanel.add(buttonAttributes);
+        }
+        else if (name.equals("Galaxies")){
+            JPanel buttonAttributes = getButtonAttributesLOG();
+            buttonAttributesPanel.add(buttonAttributes);
+        }
 
         panel.add(buttonAttributesPanel, BorderLayout.EAST);
 
@@ -156,7 +163,7 @@ public class StellarObjectUI {
         frame.setVisible(true);
     }
 
-    private static JPanel getButtonAttributes() {
+    private static JPanel getButtonAttributesLOSC() {
         JPanel buttonAttributes = new JPanel(new GridLayout(0,1,5,5));
 
         JLabel label = new JLabel("Attributes:");
@@ -180,6 +187,27 @@ public class StellarObjectUI {
         return buttonAttributes;
     }
 
+    private static JPanel getButtonAttributesLOG() {
+        JPanel buttonAttributes = new JPanel(new GridLayout(0,1,5,5));
+
+        JLabel label = new JLabel("Attributes:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        buttonAttributes.add(label);
+
+        JButton north = new JButton("Northern Sky");
+        north.setFont(new Font("Arial", Font.BOLD, fontSize));
+        JButton south = new JButton("Southern Sky");
+        south.setFont(new Font("Arial", Font.BOLD, fontSize));
+        JButton type = new JButton("Type");
+        type.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        buttonAttributes.add(north);
+        buttonAttributes.add(south);
+        buttonAttributes.add(type);
+        return buttonAttributes;
+    }
+
 
     private static JPanel listToButtonsLOSC(ListOfStarConstellation losc){
         JPanel buttonPanel = new JPanel(new GridBagLayout());
@@ -191,12 +219,32 @@ public class StellarObjectUI {
         JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
         buttonPane.add(label);
 
-        for (StarConstellation sc: losc){
+        for (StarConstellation sc: losc) {
             JButton button = new JButton(sc.getName());
             buttonPane.add(button);
             button.setFont(new Font("Arial", Font.BOLD, fontSize));
-        }
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Object[] options = {"Okay"};
+                    JOptionPane info = new JOptionPane();
+                    JLabel allInfo = new JLabel(String.valueOf(sc.allInformation()));
+                    allInfo.setFont(new Font("Arial", Font.BOLD, fontSize));
 
+
+                    int n = info.showOptionDialog(fieldFrame,
+                            allInfo,
+                            "Astronomy Exploration",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                    if (n == 0)
+                        listToButtonsLOSC(losc);
+                }
+            });
+        }
         buttonPanel.add(buttonPane);
 
         return buttonPanel;
@@ -216,64 +264,32 @@ public class StellarObjectUI {
             JButton button = new JButton(g.getName());
             buttonPane.add(button);
             button.setFont(new Font("Arial", Font.BOLD, fontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Object[] options = {"Okay"};
+                    JOptionPane info = new JOptionPane();
+                    JLabel allInfo = new JLabel(String.valueOf(g.allInformation()));
+                    allInfo.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+                    int n = info.showOptionDialog(fieldFrame,
+                            allInfo,
+                            "Astronomy Exploration",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                    if (n == 0)
+                        listToButtonsLOG(log);
+                }
+            });
         }
 
         buttonPanel.add(buttonPane);
 
         return buttonPanel;
     }
-
-//    private static void selectStarConstellations(User user) {
-//        ListOfStarConstellation losc = new ListOfStarConstellation("Used");
-//        String answer = "";
-//        userInput = new Scanner(System.in);
-//
-//        while (true) {
-//            System.out.println("Let's explore Star Constellations");
-//            losc.printList();
-//            System.out.println("Would you like to explore individually or by attribute?");
-//            System.out.println("To return to main display, input return.");
-//
-//            answer = userInput.next();
-//            answer = answer.toLowerCase();
-//
-//            if (answer.equals("individually")){
-//                whichStarConstellation(user, losc);
-//            }
-//            else if (answer.equals("by attribute") || answer.equals( "attribute")){
-//                whichAttribute(user, losc);
-//            }
-//            else if (answer.equals("return")){
-//                displayGUIOptions(user);
-//            }
-//        }
-//    }
-//
-//    private static void whichStarConstellation(User user, ListOfStarConstellation losc) {
-//        String position = "";
-//        String answer = "";
-//        userInput = new Scanner(System.in);
-//
-//        System.out.println("Great!");
-//        System.out.println("Which Star Constellation? Indicate by inputted the location in the list.");
-//
-//        position = userInput.next();
-//
-//        System.out.println("Here is all associated data with " + nameOfStarCon(position, losc));
-//        retrieveStarCon(position, losc).allInformation();
-//        System.out.println("                             ");
-//        System.out.println("Would you like to explore another? ");
-//
-//        answer = userInput.next();
-//
-//        if (answer.equals("yes")){
-//            whichStarConstellation(user, losc);
-//        }
-//        else if (answer.equals("no")){
-//            selectStarConstellations(user);
-//            System.out.println(" ");
-//        }
-//    }
 
     public static String nameOfStarCon(String i, ListOfStarConstellation losc) {
         int position = Integer.parseInt(i);
@@ -352,57 +368,57 @@ public class StellarObjectUI {
         }
     }
 
-    private static void selectGalaxies(User user) {
-        ListOfGalaxy log = new ListOfGalaxy("Used");
-        String answer = "";
-        userInput = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Let's explore Galaxies");
-            log.printList();
-            System.out.println("Would you like to explore individually or by attribute?");
-            System.out.println("To return to main display, input return.");
-
-            answer = userInput.next();
-            answer = answer.toLowerCase();
-
-            if (answer.equals("individually")){
-                whichGalaxy(user, log);
-            }
-            else if (answer.equals("by attribute") || answer.equals( "attribute")){
-                whichGalacticAttribute(log);
-            }
-            else if (answer.equals("return")){
-                displayGUIOptions(user);
-            }
-        }
-    }
-
-    private static void whichGalaxy(User user, ListOfGalaxy log) {
-        String position = "";
-        String answer = "";
-        userInput = new Scanner(System.in);
-
-        System.out.println("Great!");
-        System.out.println("Which Galaxy? Indicate by inputted the location in the list.");
-
-        position = userInput.next();
-
-        System.out.println("Here is all associated data with " + nameOfGalaxy(position, log));
-        retrieveGalaxy(position, log).allInformation();
-        System.out.println("                             ");
-        System.out.println("Would you like to explore another? ");
-
-        answer = userInput.next();
-
-        if (answer.equals("yes")){
-            whichGalaxy(user, log);
-        }
-        else if (answer.equals("no")){
-            selectGalaxies(user);
-            System.out.println(" ");
-        }
-    }
+//    private static void selectGalaxies(User user) {
+//        ListOfGalaxy log = new ListOfGalaxy("Used");
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        while (true) {
+//            System.out.println("Let's explore Galaxies");
+//            log.printList();
+//            System.out.println("Would you like to explore individually or by attribute?");
+//            System.out.println("To return to main display, input return.");
+//
+//            answer = userInput.next();
+//            answer = answer.toLowerCase();
+//
+//            if (answer.equals("individually")){
+//                whichGalaxy(user, log);
+//            }
+//            else if (answer.equals("by attribute") || answer.equals( "attribute")){
+//                whichGalacticAttribute(log);
+//            }
+//            else if (answer.equals("return")){
+//                displayGUIOptions(user);
+//            }
+//        }
+//    }
+//
+//    private static void whichGalaxy(User user, ListOfGalaxy log) {
+//        String position = "";
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        System.out.println("Great!");
+//        System.out.println("Which Galaxy? Indicate by inputted the location in the list.");
+//
+//        position = userInput.next();
+//
+//        System.out.println("Here is all associated data with " + nameOfGalaxy(position, log));
+//        retrieveGalaxy(position, log).allInformation();
+//        System.out.println("                             ");
+//        System.out.println("Would you like to explore another? ");
+//
+//        answer = userInput.next();
+//
+//        if (answer.equals("yes")){
+//            whichGalaxy(user, log);
+//        }
+//        else if (answer.equals("no")){
+//            selectGalaxies(user);
+//            System.out.println(" ");
+//        }
+//    }
 
     public static String nameOfGalaxy(String i, ListOfGalaxy log) {
         int position = Integer.parseInt(i);
@@ -414,42 +430,42 @@ public class StellarObjectUI {
         return log.position(position - 1);
     }
 
-    private static void whichGalacticAttribute(ListOfGalaxy log) {
-        String answer = "";
-        userInput = new Scanner(System.in);
+//    private static void whichGalacticAttribute(ListOfGalaxy log) {
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        while (true){
+//            System.out.println("Great!");
+//            System.out.println("Would you like to explore by location or type?");
+//
+//            answer = userInput.next();
+//            answer = answer.toLowerCase();
+//
+//            galacticExploreBy(answer, log);
+//        }
+//    }
 
-        while (true){
-            System.out.println("Great!");
-            System.out.println("Would you like to explore by location or type?");
-
-            answer = userInput.next();
-            answer = answer.toLowerCase();
-
-            galacticExploreBy(answer, log);
-        }
-    }
-
-    private static void galacticExploreBy(String answer, ListOfGalaxy log) {
-        userInput = new Scanner(System.in);
-
-        if (answer.equals("location")) {
-            System.out.println("Which part of the sky? Northern or Southern?");
-
-            try {
-                answer = userInput.next();
-                answer = answer.toLowerCase();
-                log.sort(answer);
-            } catch (InvalidStringInput invalidStringInput) {
-                System.out.println("Invalid input, try again.");
-            }
-            System.out.println(" ");
-
-        } else if (answer.equals("type")) {
-            System.out.println("Here are the type of all our Galaxies.");
-            log.printListType();
-            System.out.println(" ");
-        }
-
-    }
+//    private static void galacticExploreBy(String answer, ListOfGalaxy log) {
+//        userInput = new Scanner(System.in);
+//
+//        if (answer.equals("location")) {
+//            System.out.println("Which part of the sky? Northern or Southern?");
+//
+//            try {
+//                answer = userInput.next();
+//                answer = answer.toLowerCase();
+//                log.sort(answer);
+//            } catch (InvalidStringInput invalidStringInput) {
+//                System.out.println("Invalid input, try again.");
+//            }
+//            System.out.println(" ");
+//
+//        } else if (answer.equals("type")) {
+//            System.out.println("Here are the type of all our Galaxies.");
+//            log.printListType();
+//            System.out.println(" ");
+//        }
+//
+//    }
 
 }

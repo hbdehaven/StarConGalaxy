@@ -233,7 +233,7 @@ public class RatingUI {
         }
     }
 
-    public static void averageRatingStellarObject(String SOname) throws IOException {
+    private static void averageRatingStellarObject(String SOname) throws IOException {
         Scanner scanner1 = new Scanner(new BufferedReader(new FileReader(new File("ratings.txt"))));
         load(scanner1);
         int sumOfRatings = 0;
