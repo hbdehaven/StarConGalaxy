@@ -4,7 +4,10 @@ import model.*;
 import model.exceptions.InvalidRatingValue;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -46,9 +49,9 @@ public class RatingUI {
                 options[0]);
 
         if (n == 0)
-            whichGalaxy(user, log);
+            selectGalaxiesGUI(user, log);
         else if (n == 1)
-            whichStarConstellation(user, losc);
+            selectStarConstellationsGUI(user, losc);
     }
 
 //    public static void selectRating(User user) throws IOException {
@@ -79,53 +82,129 @@ public class RatingUI {
 //        }
 //    }
 
-    private static void whichGalaxy(User user, ListOfGalaxy log){
-        String position = "";
-        String answer = "";
-        userInput = new Scanner(System.in);
+//    private static void whichGalaxy(User user, ListOfGalaxy log) {
+//        String position = "";
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        log.printList();
+//        System.out.println("For which Galaxy would you like to upload a Rating?");
+//        System.out.println("Please input the position of the Galaxy in the list.");
+//
+//        position = userInput.next();
+//
+//        String nameofGalaxy = nameOfGalaxy(position, log);
+//        System.out.println("You would like to rate " + nameofGalaxy + "?");
+//
+//        answer = userInput.next();
+//
+//        if (answer.equals("yes")) {
+//            createRatingGUI(user, nameofGalaxy);
+//        } else if (answer.equals("no")) {
+//            whichGalaxy(user, log);
+//        }
+//    }
 
-        log.printList();
-        System.out.println("For which Galaxy would you like to upload a Rating?");
-        System.out.println("Please input the position of the Galaxy in the list.");
+//    private static void whichStarConstellation(User user, ListOfStarConstellation losc) {
+//        String position = "";
+//        String answer = "";
+//        userInput = new Scanner(System.in);
+//
+//        losc.printList();
+//        System.out.println("For which Star Constellation would you like to upload a Rating?");
+//        System.out.println("Please input the position of the Star Constellation in the list.");
+//
+//        position = userInput.next();
+//
+//        String nameOfStarCon = nameOfStarCon(position, losc);
+//        System.out.println("You would like to rate " + nameOfStarCon + "?");
+//
+//        answer = userInput.next();
+//
+//        if (answer.equals("yes")) {
+//            createRatingGUI(user, nameOfStarCon);
+//        } else if (answer.equals("no")) {
+//            whichStarConstellation(user, losc);
+//        }
+//    }
 
-        position = userInput.next();
+    private static void selectStarConstellationsGUI(User user, ListOfStarConstellation losc){
+        JPanel buttonPanel = whichSCGUI(user, losc);
 
-        String nameofGalaxy = nameOfGalaxy(position, log);
-        System.out.println("You would like to rate " + nameofGalaxy + "?");
-
-        answer = userInput.next();
-
-        if(answer.equals("yes")){
-            createRatingGUI(user, nameofGalaxy);
-        }
-        else if (answer.equals("no")){
-            whichGalaxy(user, log);
-        }
+        selectGUI("Star Constellations", buttonPanel);
     }
 
-    private static void whichStarConstellation(User user, ListOfStarConstellation losc) {
-        String position = "";
-        String answer = "";
-        userInput = new Scanner(System.in);
+    private static void selectGalaxiesGUI(User user, ListOfGalaxy log){
+        JPanel buttonPanel = whichGGUI(user, log);
 
-        losc.printList();
-        System.out.println("For which Star Constellation would you like to upload a Rating?");
-        System.out.println("Please input the position of the Star Constellation in the list.");
-
-        position = userInput.next();
-
-        String nameOfStarCon = nameOfStarCon(position, losc);
-        System.out.println("You would like to rate " + nameOfStarCon + "?");
-
-        answer = userInput.next();
-
-        if(answer.equals("yes")){
-            createRatingGUI(user, nameOfStarCon);
-        }
-        else if (answer.equals("no")){
-            whichStarConstellation(user, losc);
-        }
+        selectGUI("Galaxies", buttonPanel);
     }
+
+    private static void selectGUI(String name, JPanel buttonPanel){
+        JFrame frame = new JFrame(name);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buttonPanel, BorderLayout.CENTER);
+
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(UserUI.fieldFrame);
+        frame.setVisible(true);
+    }
+
+    private static JPanel whichSCGUI(User user, ListOfStarConstellation losc){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
+
+        JLabel label = new JLabel("Star Constellations:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
+        buttonPane.add(label);
+
+        for (StarConstellation sc : losc) {
+            JButton button = new JButton(sc.getName());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    createRatingGUI(user, sc.getName());
+                }
+            });
+        }
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+    private static JPanel whichGGUI(User user, ListOfGalaxy log){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
+
+        JLabel label = new JLabel("Galaxies:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
+        buttonPane.add(label);
+
+        for (Galaxy g: log) {
+            JButton button = new JButton(g.getName());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    createRatingGUI(user, g.getName());
+                }
+            });
+        }
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
 
     private static void createRatingGUI(User user, String ratingName){
         JOptionPane creatingRating = new JOptionPane();
