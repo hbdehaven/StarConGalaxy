@@ -16,10 +16,7 @@ import java.util.Scanner;
 public class UserUI {
     private static List<User> users = new ArrayList<>();
     private static Scanner userInput;
-//    public static boolean userLogInBoolean;
-//    public static boolean whileCreateUser;
     public static Frame fieldFrame;
-    private static int buttonFontSize = 16;
     private static int labelFontSize = 18;
 
     // MODIFIES: this
@@ -56,7 +53,7 @@ public class UserUI {
     JLabel telescopeLabel = new JLabel("Welcome to Telescope");
     telescopeLabel.setFont(new Font("Arial", Font.BOLD, labelFontSize));
 
-    UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,buttonFontSize)));
+    UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,16)));
 
         JOptionPane login = new JOptionPane();
     int n = login.showOptionDialog(fieldFrame,
@@ -155,6 +152,7 @@ public class UserUI {
         }
         else addUser(user);
     }
+
 
     //MODIFIES: this
     //EFFECTS: asks if user wants to add to haveSeen or wantToSee

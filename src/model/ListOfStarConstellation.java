@@ -24,7 +24,7 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
     // inspired by https://www.baeldung.com/java-concurrentmodificationexception
     //     MODIFIES: this
     //     EFFECTS: orders listofstarcons from north hemisphere
-    private void sortNorth(){
+    public void sortNorth(){
         List<StellarObject> toRemove = new ArrayList<>();
         for (StarConstellation sc: listofstarcons){
             if (locationSouth(sc.getLocation())){
@@ -36,7 +36,7 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from the south hemisphere
-    private void sortSouth() {
+    public void sortSouth() {
         List<StellarObject> toRemove = new ArrayList<>();
         for (StarConstellation sc : listofstarcons) {
             if (locationNorth(sc.getLocation())) {
@@ -77,6 +77,11 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
     public void getSouth (){
         sortSouth();
         printList();
+    }
+
+    public String nameOfStarCon(String i) {
+        int position = Integer.parseInt(i);
+        return position(position - 1).getName();
     }
 
     // MODIFIES: this

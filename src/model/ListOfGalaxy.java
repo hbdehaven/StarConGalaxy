@@ -37,7 +37,7 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
     // inspired by https://www.baeldung.com/java-concurrentmodificationexception
     //     MODIFIES: this
     //     EFFECTS: orders listofstarcons from north hemisphere
-    private void sortNorth(){
+    public void sortNorth(){
         List<StellarObject> toRemove = new ArrayList<>();
         for (Galaxy g: listofgalaxies){
             if (locationSouth(g.getLocation())){
@@ -49,7 +49,7 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
 
     // MODIFIES: this
     // EFFECTS: orders listofstarcons from the south hemisphere
-    private void sortSouth(){
+    public void sortSouth(){
         List<StellarObject> toRemove = new ArrayList<>();
         for (Galaxy g: listofgalaxies){
             if (locationNorth(g.getLocation())){
@@ -70,6 +70,12 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
         sortSouth();
         printList();
     }
+
+    public String nameOfGalaxy(String i) {
+        int position = Integer.parseInt(i);
+        return position(position - 1).getName();
+    }
+
     public void sort(String ans) throws InvalidStringInput {
         if (ans.equals("northern")){
             System.out.println("Here you are");
