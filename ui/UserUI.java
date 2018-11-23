@@ -48,30 +48,34 @@ public class UserUI {
     }
 
     public static void loggingInGUI() throws IOException {
-    readyFrame();
+        readyFrame();
 
-    Object[] options = {"Logging In", "Creating Account"};
+        logInOrCreate();
+    }
 
-    JLabel telescopeLabel = new JLabel("Welcome to Telescope");
-    telescopeLabel.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+    private static void logInOrCreate() throws IOException {
+        Object[] options = {"Logging In", "Creating Account"};
 
-    UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,16)));
+        JLabel telescopeLabel = new JLabel("Welcome to Telescope");
+        telescopeLabel.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,16)));
 
         JOptionPane login = new JOptionPane();
-    int n = login.showOptionDialog(fieldFrame,
-            telescopeLabel,
-            "Astronomy Exploration",
-            JOptionPane.YES_NO_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            options,
-            options[0]);
+        int n = login.showOptionDialog(fieldFrame,
+                telescopeLabel,
+                "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
         if (n == 0)
             loggingIn();
         else if (n == 1)
             creatingUser();
-}
+    }
 
 
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
@@ -79,9 +83,13 @@ public class UserUI {
         JOptionPane loggingIn = new JOptionPane();
         JLabel label = new JLabel("Enter your username");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-        String userName = loggingIn.showInputDialog(fieldFrame, label);
+        String userName = loggingIn.showInputDialog(fieldFrame, label, "");
 
-        StellarObjectUI.displayGUIOptions(findingUser(userName));
+        if ((userName != null) && (userName.length()>0)) {
+            User user = findingUser(userName);
+            StellarObjectUI.displayGUIOptions(user);
+        }
+        else logInOrCreate();
     }
 
     //EFFECTS: returns found user; if user doesnt exist sends person back to beginning
@@ -96,7 +104,7 @@ public class UserUI {
             JLabel label = new JLabel("Username Does Not Exist");
             label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
 
-            int n = noUser.showOptionDialog(fieldFrame,
+            int n = noUser.showOptionDialog(null,
                     label,
                     "Astronomy Exploration",
                     JOptionPane.YES_NO_CANCEL_OPTION,
@@ -106,8 +114,7 @@ public class UserUI {
                     options[0]);
 
             if (n == 0)
-                loggingIn();
-
+                logInOrCreate();
             return null;}
     }
 
@@ -119,23 +126,26 @@ public class UserUI {
 
         String name = creatingUser.showInputDialog(fieldFrame,label);
 
-        User user = new User(name);
-        alreadyExists(user);
-        SaveLoadUsers.save("users.txt");
+        if ((name != null) && (name.length()>0)) {
+            User user = new User(name);
+            alreadyExists(user);
+            SaveLoadUsers.save("users.txt");
 
-        Object[] options ={"Explore!"};
-        JLabel exploreLabel = new JLabel("Now that you are logged in, you can explore the app.");
-        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+            Object[] options ={"Explore!"};
+            JLabel exploreLabel = new JLabel("Now that you are logged in, you can explore the app.");
+            label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
 
-        int n = creatingUser.showOptionDialog(fieldFrame, exploreLabel
-        , "Astronomy Exploration",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-        if (n == 0)
-            StellarObjectUI.displayGUIOptions(user);
+            int n = creatingUser.showOptionDialog(fieldFrame, exploreLabel
+                    , "Astronomy Exploration",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+            if (n == 0)
+                StellarObjectUI.displayGUIOptions(user);
+        }
+        else logInOrCreate();
     }
 
     //MODIFIES: this
