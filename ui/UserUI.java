@@ -71,10 +71,13 @@ public class UserUI {
                 options,
                 options[0]);
 
-        if (n == 0)
+        if (n == 0) {
             loggingIn();
-        else if (n == 1)
+            login.setVisible(false);
+        }
+        else if (n == 1) {
             creatingUser();
+            login.setVisible(false);}
     }
 
 
@@ -87,6 +90,8 @@ public class UserUI {
 
         if ((userName != null) && (userName.length()>0)) {
             User user = findingUser(userName);
+            if (user == null)
+                return;
             StellarObjectUI.displayGUIOptions(user);
         }
         else logInOrCreate();
@@ -115,6 +120,7 @@ public class UserUI {
 
             if (n == 0)
                 logInOrCreate();
+                noUser.setVisible(false);
             return null;}
     }
 
@@ -128,7 +134,10 @@ public class UserUI {
 
         if ((name != null) && (name.length()>0)) {
             User user = new User(name);
-            alreadyExists(user);
+            if (alreadyExists(user)){
+                creatingUser();
+                return;
+            }
             SaveLoadUsers.save("users.txt");
 
             Object[] options ={"Explore!"};
@@ -150,7 +159,7 @@ public class UserUI {
 
     //MODIFIES: this
     //EFFECTS: checks if users already contains user, if not, add user
-    private static void alreadyExists(User user) throws IOException {
+    private static boolean alreadyExists(User user) throws IOException {
         if (users.contains(user)){
             Object[] options = {"Okay"};
             JOptionPane noUser = new JOptionPane();
@@ -162,11 +171,10 @@ public class UserUI {
                     null,
                     options,
                     options[0]);
-
-            if (n == 0)
-                creatingUser();
+        return true;
         }
         else addUser(user);
+        return false;
     }
 
 

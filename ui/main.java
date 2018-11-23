@@ -1,7 +1,5 @@
 package ui;
 
-import model.*;
-
 import java.io.IOException;
 
 public class main {

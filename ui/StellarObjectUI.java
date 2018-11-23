@@ -19,10 +19,12 @@ public class StellarObjectUI{
         Object[] options = {"Star Constellations!", "Galaxies!",
                 "Ratings!", "User!", "NASA: Picture of the Day!"};
 
+        JOptionPane explore = new JOptionPane();
+
         JLabel exploreAppLabel = new JLabel("Which would you like to explore?");
         exploreAppLabel.setFont(new Font("Arial", Font.BOLD, fontSize));
 
-        int n = JOptionPane.showOptionDialog(fieldFrame,
+        int n = explore.showOptionDialog(fieldFrame,
                 exploreAppLabel,
                 "Astronomy Exploration",
                 JOptionPane.YES_NO_CANCEL_OPTION,
@@ -31,8 +33,9 @@ public class StellarObjectUI{
                 options,
                 options[0]);
 
-        if (n == 0)
+        if (n == 0) {
             selectStarConstellationsGUI(user);
+        }
         else if (n == 1)
             selectGalaxiesGUI(user);
         else if (n == 2)
