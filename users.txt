@@ -1,4 +1,3 @@
 hbdehaven,Large Magellanic Cloud-SPIRAL-SOUTH~,
 brooke,Small Magellanic Cloud-SPIRAL-SOUTH~,
 jake,,
-andrew,,

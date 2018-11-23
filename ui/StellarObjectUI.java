@@ -9,12 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Scanner;
 
 import static ui.UserUI.fieldFrame;
 
 public class StellarObjectUI{
-    private static Scanner userInput;
     private static int fontSize=18;
 
     public static void displayGUIOptions(User user){
@@ -185,9 +183,23 @@ public class StellarObjectUI{
 
         JButton symbol = new JButton("Symbolism");
         symbol.setFont(new Font("Arial", Font.BOLD, fontSize));
+        symbol.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionSymbolism(user);
+                frame.dispose();
+            }
+        });
 
         JButton stars = new JButton("Brightest Stars");
         stars.setFont(new Font("Arial", Font.BOLD, fontSize));
+        stars.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionStar(user);
+                frame.dispose();
+            }
+        });
 
         buttonAttributes.add(north);
         buttonAttributes.add(south);
@@ -226,11 +238,89 @@ public class StellarObjectUI{
 
         JButton type = new JButton("Type");
         type.setFont(new Font("Arial", Font.BOLD, fontSize));
+        type.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionType(user);
+                frame.dispose();
+            }
+        });
 
         buttonAttributes.add(north);
         buttonAttributes.add(south);
         buttonAttributes.add(type);
         return buttonAttributes;
+    }
+
+    private static void actionType(User user){
+        JOptionPane actionType = new JOptionPane("Type of Galaxies");
+
+        Object[] options = {"Elliptical", "Spiral", "Irregular"};
+
+        JLabel exploreTypeLabel = new JLabel("Which galactic type would you like to explore?");
+        exploreTypeLabel.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        int n = actionType.showOptionDialog(fieldFrame,
+                exploreTypeLabel,
+                "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        selectTypeOfGalaxies(n, user);
+
+    }
+
+    private static void actionSymbolism(User user){
+        ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
+        JPanel actionSymbol = listToSymbolButtonsLOSC(losc);
+
+        symbolismStarPanel("Star Constellations", actionSymbol, user);
+    }
+
+    private static void actionStar(User user){
+        ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
+        JPanel actionSymbol = listToStarButtonsLOSC(losc);
+
+        symbolismStarPanel("Star Constellations", actionSymbol, user);
+    }
+
+    private static void symbolismStarPanel(String name, JPanel actionSymbol, User user){
+        JFrame frame = new JFrame(name);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(actionSymbol, BorderLayout.CENTER);
+
+        JButton back = getBackButton(frame, user);
+
+        panel.add(back, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(fieldFrame);
+        frame.setVisible(true);
+    }
+
+    private static void selectTypeOfGalaxies(int n, User user){
+        ListOfGalaxy type = new ListOfGalaxy("Type");
+        if (n == 0){
+            type.sortType(Galaxy.Type.ELLIPTICAL);
+            JPanel buttonPanel = listToButtonsLOG(type);
+            selectGUI("Galaxies", buttonPanel, user);
+        }
+        else if (n == 1){
+            type.sortType(Galaxy.Type.SPIRAL);
+            JPanel buttonPanel = listToButtonsLOG(type);
+            selectGUI("Galaxies", buttonPanel, user);
+        }
+        else if (n ==2) {
+            type.sortType(Galaxy.Type.IRREGULAR);
+            JPanel buttonPanel = listToButtonsLOG(type);
+            selectGUI("Galaxies", buttonPanel, user);
+        }
     }
 
 
@@ -310,6 +400,87 @@ public class StellarObjectUI{
             });
         }
 
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+
+    private static JPanel listToSymbolButtonsLOSC(ListOfStarConstellation losc){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
+
+        JLabel label = new JLabel("Symbols of the Star Constellations:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+        buttonPane.add(label);
+
+        for (StarConstellation sc: losc) {
+            JButton button = new JButton(sc.getSymbolism());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Object[] options = {"Okay"};
+                    JOptionPane info = new JOptionPane();
+                    JLabel infoName = new JLabel(String.valueOf(sc.infoNameForSymbolismAndStarAction()));
+                    infoName.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+                    int n = info.showOptionDialog(fieldFrame,
+                            infoName,
+                            "Astronomy Exploration",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                    if (n == 0)
+                        listToButtonsLOSC(losc);
+                }
+            });
+        }
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+    private static JPanel listToStarButtonsLOSC(ListOfStarConstellation losc){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7,7,7,7));
+
+        JLabel label = new JLabel("Brightest Stars of the Star Constellations:");
+        label.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0,1,5,5));
+        buttonPane.add(label);
+
+        for (StarConstellation sc: losc) {
+            JButton button = new JButton(sc.getStar().getStarName());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, fontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Object[] options = {"Okay"};
+                    JOptionPane info = new JOptionPane();
+                    JLabel infoName = new JLabel(String.valueOf(sc.infoNameForSymbolismAndStarAction()));
+                    infoName.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+                    int n = info.showOptionDialog(fieldFrame,
+                            infoName,
+                            "Astronomy Exploration",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+                    if (n == 0)
+                        listToButtonsLOSC(losc);
+                }
+            });
+        }
         buttonPanel.add(buttonPane);
 
         return buttonPanel;

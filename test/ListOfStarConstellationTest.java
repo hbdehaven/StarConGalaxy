@@ -21,8 +21,8 @@ public class ListOfStarConstellationTest {
     @BeforeEach
     public void setUp(){
         test = new ListOfStarConstellation("test");
-        starcon1 = new StarConstellation("", StarConstellation.Location.NORTH,"",null);
-        starcon2 = new StarConstellation("",StarConstellation.Location.SOUTH,"",null);
+        starcon1 = new StarConstellation("Starcon1", StarConstellation.Location.NORTH,"",null);
+        starcon2 = new StarConstellation("Starcon2",StarConstellation.Location.SOUTH,"",null);
     }
 
     @Test

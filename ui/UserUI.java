@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -71,6 +73,7 @@ public class UserUI {
             creatingUser();
 }
 
+
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
         JOptionPane loggingIn = new JOptionPane();
@@ -90,8 +93,11 @@ public class UserUI {
         else {
             Object[] options = {"Okay"};
             JOptionPane noUser = new JOptionPane();
+            JLabel label = new JLabel("Username Does Not Exist");
+            label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
             int n = noUser.showOptionDialog(fieldFrame,
-                    new JLabel("Username Does Not Exist"),
+                    label,
                     "Astronomy Exploration",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -100,7 +106,7 @@ public class UserUI {
                     options[0]);
 
             if (n == 0)
-                loggingInGUI();
+                loggingIn();
 
             return null;}
     }

@@ -97,7 +97,7 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
 
         Star regulus = new Star("Regulus", 8.13, 79.3);
 
-        Star rigel = new Star("Regulus", .13, 860);
+        Star rigel = new Star("Rigel", .13, 860);
 
         Star persei = new Star("Persei", 1.81, 510);
 

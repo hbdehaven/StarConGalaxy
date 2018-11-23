@@ -20,7 +20,6 @@ import static ui.UserUI.fieldFrame;
 public class RatingUI {
     private static ArrayList<Rating> ratings = new ArrayList<>();
     private static Scanner userInput;
-    private static boolean whileLoop;
     private static RatingDatabase ratingDatabase = new RatingDatabase();
     private static int fontSize = 18;
 
@@ -57,13 +56,13 @@ public class RatingUI {
     private static void selectStarConstellationsGUI(User user, ListOfStarConstellation losc){
         JPanel buttonPanel = whichSCGUI(user, losc);
 
-        selectGUI("Star Constellations", buttonPanel, user);
+        selectGUIOnePanel("Star Constellations", buttonPanel, user);
     }
 
     private static void selectGalaxiesGUI(User user, ListOfGalaxy log){
         JPanel buttonPanel = whichGGUI(user, log);
 
-        selectGUI("Galaxies", buttonPanel, user);
+        selectGUIOnePanel("Galaxies", buttonPanel, user);
     }
 
     private static JButton getBackButton(JFrame frame, User user) {
@@ -83,7 +82,7 @@ public class RatingUI {
         return back;
     }
 
-    private static void selectGUI(String name, JPanel buttonPanel, User user){
+    public static void selectGUIOnePanel(String name, JPanel buttonPanel, User user){
         JFrame frame = new JFrame(name);
 
         JPanel panel = new JPanel(new BorderLayout());

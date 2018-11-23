@@ -41,12 +41,12 @@ public class RatingTest {
         while (scanner.hasNextLine()) {
             String line1;
             while((line1=br.readLine())!=null) {
-                assertEquals(line1, "Andromeda,5,Heather,1002");
+                assertEquals(line1, "Andromeda,5,1002");
             }
             String line2 = scanner.nextLine();
-            assertEquals(line2, "Aquila,3,Jake,1202");
+            assertEquals(line2, "Aquila,3,1202");
             String line3 = scanner.nextLine();
-            assertEquals(line3, "Columba,2,Carole,0126");
+            assertEquals(line3, "Columba,2,0126");
         }
     }
 }

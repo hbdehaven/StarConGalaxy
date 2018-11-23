@@ -59,6 +59,15 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
         listofgalaxies.removeAll(toRemove);
     }
 
+    public void sortType(Galaxy.Type type){
+        List<Galaxy> toRemove = new ArrayList<>();
+        for (Galaxy g: listofgalaxies){
+            if (!(g.getType().equals(type)))
+                toRemove.add(g);
+        }
+        listofgalaxies.removeAll(toRemove);
+    }
+
     // EFFECTS: prints out list of starcons that are visible from North
     public void getNorth(){
         sortNorth();

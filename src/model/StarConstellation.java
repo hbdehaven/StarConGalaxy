@@ -16,13 +16,6 @@ public class StarConstellation extends StellarObject{
     // EFFECTS: get the Star of the StarConstellation
     public Star getStar() {return star;}
 
-//    @Override
-//    public void allInformation(){
-//        System.out.println("Name: " + getName());
-//        System.out.println("Seen from " + readableLocation());
-//        System.out.println("Known symbolism: " + getSymbolism());
-//        System.out.println("Brightest Star: " + getStar().getStarName());
-//    }
 
     @Override
     public StringBuilder allInformation(){
@@ -33,4 +26,9 @@ public class StarConstellation extends StellarObject{
         sb.append("Brightest Star: " + getStar().getStarName() + "! ");
         return sb;
     }
+
+    public String infoNameForSymbolismAndStarAction(){
+        return "Name: " + getName()+ "! ";
+    }
+
 }

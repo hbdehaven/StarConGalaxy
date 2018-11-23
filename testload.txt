@@ -1,3 +1,3 @@
-Andromeda,5,Heather,1002
-Aquila,3,Jake,1202
-Columba,2,Carole,0126
+Andromeda,5,1002
+Aquila,3,1202
+Columba,2,0126
