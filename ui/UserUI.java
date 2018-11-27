@@ -19,7 +19,7 @@ public class UserUI {
     private static List<User> users = new ArrayList<>();
     private static Scanner userInput;
     public static Frame fieldFrame;
-    private static int labelFontSize = 18;
+    private static int labelFontSize = 20;
 
     // MODIFIES: this
     // EFFECTS: adds user to field users

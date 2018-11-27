@@ -13,7 +13,7 @@ import java.io.IOException;
 import static ui.UserUI.fieldFrame;
 
 public class StellarObjectUI{
-    private static int fontSize=18;
+    private static int fontSize=20;
 
     public static void displayGUIOptions(User user){
         Object[] options = {"Star Constellations!", "Galaxies!",

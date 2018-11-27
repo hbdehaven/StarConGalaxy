@@ -16,6 +16,7 @@ public class NASAPictureOfTheDay{
     // inspired by P10 API given example
 
     private static String photoURL;
+    private static int fontSize=20;
 
     public NASAPictureOfTheDay(){
         super();
@@ -66,11 +67,11 @@ public class NASAPictureOfTheDay{
 
         JLabel labelTitle = new JLabel();
         labelTitle.setText("Click!");
-        labelTitle.setFont(new Font("Arial", Font.BOLD, 18));
+        labelTitle.setFont(new Font("Arial", Font.BOLD, fontSize));
         labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton button = new JButton("NASA Picture of the Day");
-        button.setFont(new Font("Arial", Font.BOLD, 18));
+        button.setFont(new Font("Arial", Font.BOLD, fontSize));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.addActionListener(new ActionListener() {
             @Override
@@ -84,7 +85,6 @@ public class NASAPictureOfTheDay{
 
         frame.add(panel);
 
-        //frame.pack();
         frame.setSize(450,125);
         frame.setLocationRelativeTo(fieldFrame);
         frame.setVisible(true);
