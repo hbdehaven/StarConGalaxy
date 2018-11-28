@@ -45,11 +45,6 @@ public class StellarObjectUI{
                 System.out.println("IOException Caught.");
             }
         else if (n == 3)
-//            try {
-//                UserUI.addingToLists(user);
-//            } catch (IOException e) {
-//                System.out.println("IOException Caught.");
-//            }
             UserUI.pickList(user);
         else if (n == 4)
             try {
