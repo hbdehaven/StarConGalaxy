@@ -50,6 +50,7 @@ public class StellarObjectUI{
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
             }
+//            UserUI.pickLists(user);
         else if (n == 4)
             try {
                 NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();

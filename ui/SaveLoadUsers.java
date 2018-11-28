@@ -41,9 +41,7 @@ public class SaveLoadUsers {
             ArrayList<String> stellarObjProperties = splitOnRegex(s, "-");
             if (stellarObjProperties.size() == (3)) {
                 galaxyInstantiation(stellarObjProperties, list);
-            } else if (stellarObjProperties.size() == 4) {
-                starConInstantiation(stellarObjProperties, list);
-            }
+            } else starConInstantiation(stellarObjProperties, list);
         }
         return list;
     }
@@ -108,7 +106,9 @@ public class SaveLoadUsers {
                 sb.append(galaxy);
             } else if (so instanceof StarConstellation) {
                 String starCon = (so.getName() + "-" + so.getLocation() + "-" + ((StarConstellation) so).getSymbolism()
-                        + "-" + so.getLocation() + "~");
+                        + "-" + ((StarConstellation) so).getStar().getStarName() + "-" +
+                        ((StarConstellation) so).getStar().getBrightness()+ "-" +
+                        ((StarConstellation) so).getStar().getDistance() + "~");
                 sb.append(starCon);
             }
         }
