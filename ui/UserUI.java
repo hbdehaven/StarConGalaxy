@@ -277,183 +277,183 @@ public class UserUI {
     public static List<User> getUsers() {
         return users;
     }
-//
-//    public static void pickList(User user){
-//        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,18)));
-//
-//        JLabel lists = new JLabel("Which list would you like to add to?");
-//        lists.setFont(new Font("Arial", Font.BOLD, 20));
-//
-//        Object[] options = {"Have Seen", "Want to See"};
-//        JOptionPane list = new JOptionPane();
-//        int n = list.showOptionDialog(fieldFrame, lists,
-//                "Astronomy Exploration",
-//                JOptionPane.YES_NO_CANCEL_OPTION,
-//                JOptionPane.QUESTION_MESSAGE,
-//                null,
-//                options,
-//                options[0]);
-//
-//        addingToUserListGUI(user, n);
-//    }
-//
-//    private static void addingToUserListGUI(User user, int answer){
-//        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,18)));
-//
-//        JLabel stellarObject = new JLabel("Would you like to add a Galaxy or Star Constellation?");
-//        stellarObject.setFont(new Font("Arial", Font.BOLD, 20));
-//
-//        Object[] options = {"Galaxy", "Star Constellation"};
-//        JOptionPane list = new JOptionPane();
-//        int n = list.showOptionDialog(fieldFrame,
-//                stellarObject,
-//                "Astronomy Exploration",
-//                JOptionPane.YES_NO_CANCEL_OPTION,
-//                JOptionPane.QUESTION_MESSAGE,
-//                null,
-//                options,
-//                options[0]);
-//
-//        if (n == 0){
-//            addingGalaxyListGUI(user, answer);
-//        }
-//        else addingStarConListGUI(user, answer);
-//    }
-//
-//    private static void addingGalaxyListGUI(User user, int answer){
-//        ListOfGalaxy log = new ListOfGalaxy("LOG");
-//        JPanel buttonPanel = whichGGUI(user, log, answer);
-//
-//        selectGUIPanel("Which Galaxy?", buttonPanel, user);
-//    }
-//
-//    private static void addingStarConListGUI(User user, int answer){
-//        ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
-//        JPanel buttonPanel = whichSCGUI(user, losc, answer);
-//
-//        selectGUIPanel("Which Star Constellation?", buttonPanel, user);
-//    }
-//
-//    private static JPanel whichGGUI(User user, ListOfGalaxy log, int answer){
-//        JPanel buttonPanel = new JPanel(new GridBagLayout());
-//        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
-//
-//        JLabel label = new JLabel("Galaxies:");
-//        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-//
-//        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
-//        buttonPane.add(label);
-//
-//        for (Galaxy g: log) {
-//            JButton button = new JButton(g.getName());
-//            buttonPane.add(button);
-//            button.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-//            button.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    if (answer == 0){
-//                        user.addStellarObjectHaveSeen(g);
-////                        try {
-////                            SaveLoadUsers.save("users.txt");
-////                        } catch (IOException e1) {
-////                            System.out.println("Caught IOEX from save users");
-////                        }
-//                        System.out.println("All Set!");
-//                }
-//                    else {
-//                        user.addStellarObjectWantToSee(g);
-////                        try {
-////                            SaveLoadUsers.save("users.txt");
-////                        } catch (IOException e1) {
-////                            System.out.println("Caught IOEX from save users");
-////                        }
-//                        System.out.println("All set!");
-//                    }
-//                }
-//            });
-//        }
-//        buttonPanel.add(buttonPane);
-//
-//        return buttonPanel;
-//    }
-//
-//    private static JPanel whichSCGUI(User user, ListOfStarConstellation losc, int answer){
-//        JPanel buttonPanel = new JPanel(new GridBagLayout());
-//        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
-//
-//        JLabel label = new JLabel("Star Constellations:");
-//        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-//
-//        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
-//        buttonPane.add(label);
-//
-//        for (StarConstellation sc : losc) {
-//            JButton button = new JButton(sc.getName());
-//            buttonPane.add(button);
-//            button.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-//            button.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    if (answer == 0){
-//                        user.addStellarObjectHaveSeen(sc);
-////                        try {
-////                            SaveLoadUsers.save("users.txt");
-////                        } catch (IOException e1) {
-////                            System.out.println("Caught IOEX from save users");
-////                        }
-//                        System.out.println("All Set!");
-//                    }
-//                    else {
-//                        user.addStellarObjectWantToSee(sc);
-////                        try {
-////                            SaveLoadUsers.save("users.txt");
-////                        } catch (IOException e1) {
-////                            System.out.println("Caught IOEX from save users");
-////                        }
-//                        System.out.println("All set!");
-//                    }
-//                }
-//            });
-//        }
-//        buttonPanel.add(buttonPane);
-//
-//        return buttonPanel;
-//    }
-//
-//    public static void selectGUIPanel(String name, JPanel buttonPanel, User user){
-//        JFrame frame = new JFrame(name);
-//
-//        JPanel panel = new JPanel(new BorderLayout());
-//        panel.add(buttonPanel, BorderLayout.CENTER);
-//
-//        JButton back = getBackButton(frame, user);
-//
-//        panel.add(back, BorderLayout.SOUTH);
-//
-//        frame.add(panel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setLocationRelativeTo(fieldFrame);
-//        frame.setVisible(true);
-//    }
-//
-//    private static JButton getBackButton(JFrame frame, User user) {
-//        JButton back = new JButton("Back");
-//        back.setFont(new Font("Arial", Font.BOLD, labelFontSize));
-//        back.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                try {
-//                    SaveLoadUsers.save("users.txt");
-//                } catch (IOException e1) {
-//                    // do nothing
-//                }
-//                frame.dispose();
-//                StellarObjectUI.displayGUIOptions(user);
-//            }
-//        });
-//        return back;
-//    }
+
+    public static void pickList(User user){
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,18)));
+
+        JLabel lists = new JLabel("Which list would you like to add to?");
+        lists.setFont(new Font("Arial", Font.BOLD, 20));
+
+        Object[] options = {"Have Seen", "Want to See"};
+        JOptionPane list = new JOptionPane();
+        int n = list.showOptionDialog(fieldFrame, lists,
+                "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        addingToUserListGUI(user, n);
+    }
+
+    private static void addingToUserListGUI(User user, int answer){
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,18)));
+
+        JLabel stellarObject = new JLabel("Would you like to add a Galaxy or Star Constellation?");
+        stellarObject.setFont(new Font("Arial", Font.BOLD, 20));
+
+        Object[] options = {"Galaxy", "Star Constellation"};
+        JOptionPane list = new JOptionPane();
+        int n = list.showOptionDialog(fieldFrame,
+                stellarObject,
+                "Astronomy Exploration",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (n == 0){
+            addingGalaxyListGUI(user, answer);
+        }
+        else addingStarConListGUI(user, answer);
+    }
+
+    private static void addingGalaxyListGUI(User user, int answer){
+        ListOfGalaxy log = new ListOfGalaxy("LOG");
+        JPanel buttonPanel = whichGGUI(user, log, answer);
+
+        selectGUIPanel("Which Galaxy?", buttonPanel, user);
+    }
+
+    private static void addingStarConListGUI(User user, int answer){
+        ListOfStarConstellation losc = new ListOfStarConstellation("LOSC");
+        JPanel buttonPanel = whichSCGUI(user, losc, answer);
+
+        selectGUIPanel("Which Star Constellation?", buttonPanel, user);
+    }
+
+    private static JPanel whichGGUI(User user, ListOfGalaxy log, int answer){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
+
+        JLabel label = new JLabel("Galaxies:");
+        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
+        buttonPane.add(label);
+
+        for (Galaxy g: log) {
+            JButton button = new JButton(g.getName());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (answer == 0){
+                        user.addStellarObjectHaveSeen(g);
+//                        try {
+//                            SaveLoadUsers.save("users.txt");
+//                        } catch (IOException e1) {
+//                            System.out.println("Caught IOEX from save users");
+//                        }
+                        System.out.println("All Set!");
+                }
+                    else {
+                        user.addStellarObjectWantToSee(g);
+//                        try {
+//                            SaveLoadUsers.save("users.txt");
+//                        } catch (IOException e1) {
+//                            System.out.println("Caught IOEX from save users");
+//                        }
+                        System.out.println("All set!");
+                    }
+                }
+            });
+        }
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+    private static JPanel whichSCGUI(User user, ListOfStarConstellation losc, int answer){
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(new EmptyBorder(7, 7, 7, 7));
+
+        JLabel label = new JLabel("Star Constellations:");
+        label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
+        JPanel buttonPane = new JPanel(new GridLayout(0, 1, 5, 5));
+        buttonPane.add(label);
+
+        for (StarConstellation sc : losc) {
+            JButton button = new JButton(sc.getName());
+            buttonPane.add(button);
+            button.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (answer == 0){
+                        user.addStellarObjectHaveSeen(sc);
+//                        try {
+//                            SaveLoadUsers.save("users.txt");
+//                        } catch (IOException e1) {
+//                            System.out.println("Caught IOEX from save users");
+//                        }
+                        System.out.println("All Set!");
+                    }
+                    else {
+                        user.addStellarObjectWantToSee(sc);
+//                        try {
+//                            SaveLoadUsers.save("users.txt");
+//                        } catch (IOException e1) {
+//                            System.out.println("Caught IOEX from save users");
+//                        }
+                        System.out.println("All set!");
+                    }
+                }
+            });
+        }
+        buttonPanel.add(buttonPane);
+
+        return buttonPanel;
+    }
+
+    public static void selectGUIPanel(String name, JPanel buttonPanel, User user){
+        JFrame frame = new JFrame(name);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(buttonPanel, BorderLayout.CENTER);
+
+        JButton back = getBackButton(frame, user);
+
+        panel.add(back, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(fieldFrame);
+        frame.setVisible(true);
+    }
+
+    private static JButton getBackButton(JFrame frame, User user) {
+        JButton back = new JButton("Back");
+        back.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    SaveLoadUsers.save("users.txt");
+                } catch (IOException e1) {
+                    // do nothing
+                }
+                frame.dispose();
+                StellarObjectUI.displayGUIOptions(user);
+            }
+        });
+        return back;
+    }
 
 
 

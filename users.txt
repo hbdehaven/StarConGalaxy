@@ -1,4 +1,4 @@
-hbdehaven,Columba-SOUTH-The Dove-Phact-2.645-261.0~Andromeda-NORTH-The Chained Lady-Alpha Andromedae-2.06-97.0~,
+hbdehaven,Columba-SOUTH-The Dove-Phact-2.645-261.0,
 brooke,Small Magellanic Cloud-SPIRAL-SOUTH~,
 jake,,
 andrew,,
