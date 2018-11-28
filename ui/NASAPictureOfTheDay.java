@@ -1,5 +1,7 @@
 package ui;
 
+import model.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +12,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static ui.StellarObjectUI.displayGUIOptions;
 import static ui.UserUI.fieldFrame;
 
 public class NASAPictureOfTheDay{
@@ -21,7 +25,7 @@ public class NASAPictureOfTheDay{
     public NASAPictureOfTheDay(){
         super();
     }
-    public static void PictureOfTheDay() throws IOException {
+    public static void PictureOfTheDay(User user) throws IOException {
 
         BufferedReader br = null;
 
@@ -44,7 +48,7 @@ public class NASAPictureOfTheDay{
             ArrayList list = splitOnRegex(sb.toString(), "\"");
             String thePhotoURL = (String) list.get(list.size()-2);
             photoURL = thePhotoURL;
-            pictureGUI(thePhotoURL);
+            pictureGUI(thePhotoURL, user);
         } finally {
 
             if (br != null) {
@@ -58,8 +62,8 @@ public class NASAPictureOfTheDay{
         String[] splits = line.split(regex);
         return new ArrayList<String>(Arrays.asList(splits));
     }
-
-    private static void pictureGUI(String url){
+    
+    private static void pictureGUI(String url, User user){
         JFrame frame = new JFrame("NASA Picture of the Day");
 
         JPanel panel = new JPanel();
@@ -80,12 +84,15 @@ public class NASAPictureOfTheDay{
             }
         });
 
+        JButton back = getBackButton(frame, user);
+
         panel.add(labelTitle);
         panel.add(button);
+        panel.add(back);
 
         frame.add(panel);
 
-        frame.setSize(450,125);
+        frame.setSize(450,175);
         frame.setLocationRelativeTo(fieldFrame);
         frame.setVisible(true);
     }
@@ -99,4 +106,17 @@ public class NASAPictureOfTheDay{
         }
     }
 
+    private static JButton getBackButton(JFrame frame, User user) {
+        JButton back = new JButton("Back");
+        back.setFont(new Font("Arial", Font.BOLD, fontSize));
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                displayGUIOptions(user);
+            }
+        });
+        return back;
+    }
 }

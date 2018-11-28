@@ -53,7 +53,7 @@ public class StellarObjectUI{
         else if (n == 4)
             try {
                 NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
-                nasaPictureOfTheDay.PictureOfTheDay();
+                nasaPictureOfTheDay.PictureOfTheDay(user);
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
         }
