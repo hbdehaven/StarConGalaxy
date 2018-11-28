@@ -1,0 +1,23 @@
+Triangulum Galaxy,4,1031.0
+NGC 4696,3,1031.0
+Andromeda Galaxy,5,1031.0
+Small Magellanic Cloud,4,1031.0
+Milky Way,5,1031.0
+Triangulum Galaxy,2,1031.0
+Milky Way,3,1031.0
+Orion,4,1031.0
+Milky Way,4,1031.0
+Leo,4,1031.0
+Andromeda Galaxy,4,1031.0
+Andromeda Galaxy,5,1120.0
+Small Magellanic Cloud,4,1121.0
+Andromeda Galaxy,3,1121.0
+Draco,3,1121.0
+Andromeda Galaxy,4,1121.0
+Leo,5,1121.0
+Andromeda Galaxy,4,1122.0
+Andromeda Galaxy,5,1122.0
+Triangulum Galaxy,4,1122.0
+NGC 4696,3,1122.0
+Orion,4,1122.0
+Large Magellanic Cloud,5,1122.0

@@ -80,7 +80,7 @@ public class NASAPictureOfTheDay{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openWebpage(photoURL);
+                openWebPage(photoURL);
             }
         });
 
@@ -98,7 +98,7 @@ public class NASAPictureOfTheDay{
     }
 
     // inspired by https://stackoverflow.com/questions/10967451/open-a-link-in-browser-with-java-button
-    public static void openWebpage(String urlString) {
+    private static void openWebPage(String urlString) {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
         } catch (Exception e) {
