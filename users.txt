@@ -1,4 +1,5 @@
-hbdehaven,Columba-SOUTH-The Dove-Phact-2.645-261.0~,Perseus-NORTH-Perseus-Persei-1.81-510.0~
+hbdehaven,Columba-SOUTH-The Dove-Phact-2.645-261.0~Milky Way-SPIRAL-BOTH~,Perseus-NORTH-Perseus-Persei-1.81-510.0~Large Magellanic Cloud-SPIRAL-SOUTH~
 brooke,Small Magellanic Cloud-SPIRAL-SOUTH~,
 jake,,Orion-BOTH-The Hunter-Rigel-0.13-860.0~
 andrew,,Perseus-NORTH-Perseus-Persei-1.81-510.0~
+larry,,

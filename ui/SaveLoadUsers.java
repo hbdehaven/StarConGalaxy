@@ -13,8 +13,11 @@ import java.util.List;
 public class SaveLoadUsers {
 
     public static void load(String filename) throws IOException {
+        // list of all users, makes list by file lines (each line is a user)
         List<String> usersFromFile = Files.readAllLines(Paths.get(filename));
+        // for each user
         for (String userLog : usersFromFile) {
+            // list of user fields
             ArrayList<String> partsOfLine = splitOnRegex(userLog, ",");
             String userName = partsOfLine.get(0);
             User user = new User(userName);
@@ -36,8 +39,10 @@ public class SaveLoadUsers {
 
     private static List<StellarObject> parseListsOfStellarObjects(String stellarObjects) {
         List<StellarObject> list = new ArrayList<StellarObject>();
+        // parts is list of all the stellar objects
         ArrayList<String> parts = splitOnRegex(stellarObjects, "~");
         for (String s : parts) {
+            // stellarObjProperties is list of the stellar objects fields
             ArrayList<String> stellarObjProperties = splitOnRegex(s, "-");
             if (stellarObjProperties.size() == (3)) {
                 galaxyInstantiation(stellarObjProperties, list);
@@ -94,6 +99,7 @@ public class SaveLoadUsers {
             saveTrackerLists(sb, u.getHaveSeen());
             sb.append(",");
             saveTrackerLists(sb, u.getWantToSee());
+            // makes each line a user in users.txt
             writer.println(sb.toString());
         }
         writer.close();

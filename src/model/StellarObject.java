@@ -50,7 +50,6 @@ public abstract class StellarObject {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(name);
     }
 }

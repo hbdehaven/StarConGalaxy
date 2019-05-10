@@ -321,7 +321,6 @@ public class StellarObjectUI{
         }
     }
 
-
     private static JPanel listToButtonsLOSC(ListOfStarConstellation losc){
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBorder(new EmptyBorder(7,7,7,7));

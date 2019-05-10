@@ -18,7 +18,6 @@ import java.util.Scanner;
 
 public class UserUI {
     private static List<User> users = new ArrayList<>();
-    private static Scanner userInput;
     public static Frame fieldFrame;
     private static int labelFontSize = 20;
 
@@ -85,7 +84,7 @@ public class UserUI {
     //EFFECTS: start logging in interaction; calls exploreApp if findingUser is successful
     private static void loggingIn() throws IOException {
         JOptionPane loggingIn = new JOptionPane();
-        JLabel label = new JLabel("Enter your username");
+        JLabel label = new JLabel("Enter your Username");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
         String userName = loggingIn.showInputDialog(fieldFrame, label, "");
 
@@ -164,8 +163,10 @@ public class UserUI {
         if (users.contains(user)){
             Object[] options = {"Okay"};
             JOptionPane noUser = new JOptionPane();
+            JLabel alreadyExists = new JLabel("Username Already Exists. Try Another.");
+            alreadyExists.setFont(new Font("Arial", Font.BOLD, labelFontSize));
             int n = noUser.showOptionDialog(fieldFrame,
-                    new JLabel("Username Already Exists. Try Another."),
+                    alreadyExists,
                     "Astronomy Exploration",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -305,7 +306,7 @@ public class UserUI {
         return buttonPanel;
     }
 
-    public static void selectGUIPanel(String name, JPanel buttonPanel, User user){
+    private static void selectGUIPanel(String name, JPanel buttonPanel, User user){
         JFrame frame = new JFrame(name);
 
         JPanel panel = new JPanel(new BorderLayout());

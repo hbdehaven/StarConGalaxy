@@ -21,3 +21,4 @@ Triangulum Galaxy,4,1122.0
 NGC 4696,3,1122.0
 Orion,4,1122.0
 Large Magellanic Cloud,5,1122.0
+Milky Way,4,1222.0
