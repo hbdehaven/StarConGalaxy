@@ -86,6 +86,7 @@ public class UserUI {
         JOptionPane loggingIn = new JOptionPane();
         JLabel label = new JLabel("Enter your Username");
         label.setFont(new Font("Arial", Font.BOLD, labelFontSize));
+
         String userName = loggingIn.showInputDialog(fieldFrame, label, "");
 
         if ((userName != null) && (userName.length()>0)) {

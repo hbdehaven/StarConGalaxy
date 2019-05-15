@@ -38,20 +38,22 @@ public class StellarObjectUI{
         }
         else if (n == 1)
             selectGalaxiesGUI(user);
-        else if (n == 2)
+        else if (n == 2) {
             try {
                 RatingUI.selectRatingGUI(user);
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
             }
+        }
         else if (n == 3)
             UserUI.pickList(user);
-        else if (n == 4)
+        else if (n == 4) {
             try {
                 NASAPictureOfTheDay nasaPictureOfTheDay = new NASAPictureOfTheDay();
                 nasaPictureOfTheDay.PictureOfTheDay(user);
             } catch (IOException e) {
                 System.out.println("IOException Caught.");
+            }
         }
     }
 
@@ -132,7 +134,6 @@ public class StellarObjectUI{
         panel.add(buttonAttributesPanel, BorderLayout.EAST);
 
         frame.add(panel);
-       // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(UserUI.fieldFrame);
         frame.setVisible(true);
@@ -434,7 +435,7 @@ public class StellarObjectUI{
                             options,
                             options[0]);
                     if (n == 0)
-                        listToButtonsLOSC(losc);
+                        return;
                 }
             });
         }
@@ -473,24 +474,15 @@ public class StellarObjectUI{
                             null,
                             options,
                             options[0]);
-                    if (n == 0)
-                        listToButtonsLOSC(losc);
+                    if (n == 0){
+                        return;
+                    }
                 }
             });
         }
         buttonPanel.add(buttonPane);
 
         return buttonPanel;
-    }
-
-    public static StarConstellation retrieveStarCon(String i, ListOfStarConstellation losc) {
-        int position = Integer.parseInt(i);
-        return losc.position(position - 1);
-    }
-
-    public static Galaxy retrieveGalaxy(String i, ListOfGalaxy log) {
-        int position = Integer.parseInt(i);
-        return log.position(position - 1);
     }
 
 }

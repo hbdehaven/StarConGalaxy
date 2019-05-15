@@ -119,7 +119,7 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
         listofgalaxies = restored;
     }
 
-    //EFFECTS: returns that StarConstellation at pos x
+    //EFFECTS: returns that Galaxy at pos x
     public Galaxy position(int x){
         return listofgalaxies.get(x);
     }
