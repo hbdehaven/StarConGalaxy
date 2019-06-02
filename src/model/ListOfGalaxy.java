@@ -27,13 +27,6 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
         }
     }
 
-    //EFFECTS: prints out every galaxy in the list
-    public void printListType(){
-        for (Galaxy g: listofgalaxies){
-            System.out.println(g.getName() + ": " + g.getType());
-        }
-    }
-
     // inspired by https://www.baeldung.com/java-concurrentmodificationexception
     //     MODIFIES: this
     //     EFFECTS: orders listofstarcons from north hemisphere
@@ -68,36 +61,9 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
         listofgalaxies.removeAll(toRemove);
     }
 
-    // EFFECTS: prints out list of starcons that are visible from North
-    public void getNorth(){
-        sortNorth();
-        printList();
-    }
-
-    // EFFECTS: prints out list of starcons that are visible from North
-    public void getSouth (){
-        sortSouth();
-        printList();
-    }
-
     public String nameOfGalaxy(String i) {
         int position = Integer.parseInt(i);
         return position(position - 1).getName();
-    }
-
-    public void sort(String ans) throws InvalidStringInput {
-        if (ans.equals("northern")){
-            System.out.println("Here you are");
-            getNorth();
-        }
-        if (ans.equals("southern")){
-            System.out.println("Here you are");
-            getSouth();
-        }
-        else if (!(ans.equals("northern") || ans.equals("southern"))){
-            throw new InvalidStringInput("Invalid input." +
-                    " Please input either Northern or Southern");
-        }
     }
 
     public void restoreLOG(){
@@ -127,6 +93,16 @@ public class ListOfGalaxy implements Iterable<Galaxy>{
     // EFFECTS: returns size of ListOfStarCONstellation
     public int size(){
         return listofgalaxies.size();
+    }
+
+    // EFFECTS: adds galaxy to list; for testing purposes
+    public void add(Galaxy g){
+        listofgalaxies.add(g);
+    }
+
+    // EFFECTS: returns true if contains g, for testing purposes
+    public boolean contains(Galaxy g){
+        return listofgalaxies.contains(g);
     }
 
     @Override

@@ -133,19 +133,12 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
         listofstarcons = restored;
     }
 
-    // MODIFIES: this
-    // EFFECTS: removes sc to a ListofStellarObject
-    public void remove (StarConstellation sc){
-        listofstarcons.remove(sc);
-    }
-
-
-    // EFFECTS: checks if listofstarcons contains sc
+    // EFFECTS: checks if listofstarcons contains sc, testing purposes
     public boolean contains(StarConstellation sc){
         return listofstarcons.contains(sc);
     }
 
-    // EFFECTS: returns size of ListOfStarCONstellation
+    // EFFECTS: returns size of ListOfStarConstellation
     public int size(){
         return listofstarcons.size();
     }
@@ -155,14 +148,11 @@ public class ListOfStarConstellation implements Iterable<StarConstellation>{
         return listofstarcons.get(x);
     }
 
-
     // MODIFIES: this
-    // EFFECTS: adds sc to a ListOfStarConstellations
+    // EFFECTS: adds sc to a ListOfStarConstellations; for testing purposes
     public void add(StarConstellation sc){
         listofstarcons.add(sc);
     }
-
-
 
     public void sort(String ans) throws InvalidStringInput {
         if (ans.equals("northern")){
